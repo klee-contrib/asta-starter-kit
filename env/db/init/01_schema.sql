@@ -1,0 +1,3 @@
+DROP SCHEMA public;
+
+CREATE SCHEMA asta;

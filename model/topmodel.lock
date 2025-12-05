@@ -1,0 +1,70 @@
+﻿#
+# ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
+#
+
+version: 3.7.0
+modules:
+  csharp:
+    version: 3.5.1
+    hash: b7bca7a5fc0f767117f912a338006e37
+  javascript:
+    version: 3.5.0
+    hash: 722393f55791d8a3625296a2098a3cc6
+  translation:
+    version: 3.2.2
+    hash: b6fb8a53fe077a206c1b321096e0675c
+  jpa:
+    version: 3.4.5
+    hash: 00b69e50a97f67ed8ece2af64ae693df
+  sql:
+    version: 3.5.1
+    hash: bd046e8048462878c7ef117d952fb31a
+generatedFiles:
+  - ../env/db/init/02_create_tables.sql
+  - ../env/db/init/03_create_fk.sql
+  - ../env/db/init/04_create_uk.sql
+  - ../env/db/init/05_init_data.sql
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/profil/ProfilController.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/utilisateur/UtilisateurController.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilCommand.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilItem.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilRead.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilWrite.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/SecuriteProfilDTOMappers.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/utilisateur/SecuriteUtilisateurDTOMappers.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/utilisateur/UtilisateurCommand.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/utilisateur/UtilisateurItem.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/utilisateur/UtilisateurRead.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/utilisateur/UtilisateurWrite.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/common/Traduction_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/common/Traduction.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/Droit_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/Droit.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/profil/DroitProfil_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/profil/DroitProfil.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/profil/Profil_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/profil/Profil.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/profil/SecuriteProfilMappers.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/TypeDroit_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/TypeDroit.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/TypeUtilisateur_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/TypeUtilisateur.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/utilisateur/SecuriteUtilisateurMappers.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/utilisateur/Utilisateur_.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/entities/securite/utilisateur/Utilisateur.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/DroitCode.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/TypeDroitCode.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/TypeUtilisateurCode.java
+  - ../sources/backend/src/main/resources/locale/common.properties
+  - ../sources/backend/src/main/resources/locale/securite.properties
+  - ../sources/frontend/src/locale/common.ts
+  - ../sources/frontend/src/locale/securite.ts
+  - ../sources/frontend/src/model/securite/profil/profil-item.ts
+  - ../sources/frontend/src/model/securite/profil/profil-read.ts
+  - ../sources/frontend/src/model/securite/profil/profil-write.ts
+  - ../sources/frontend/src/model/securite/references.ts
+  - ../sources/frontend/src/model/securite/utilisateur/utilisateur-item.ts
+  - ../sources/frontend/src/model/securite/utilisateur/utilisateur-read.ts
+  - ../sources/frontend/src/model/securite/utilisateur/utilisateur-write.ts
+  - ../sources/frontend/src/services/securite/profil.ts
+  - ../sources/frontend/src/services/securite/utilisateur.ts

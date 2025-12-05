@@ -1,0 +1,12 @@
+name: asta-starter-kit
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=asta
+      - POSTGRES_USER=asta
+      - POSTGRES_DB=asta
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d

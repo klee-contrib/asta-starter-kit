@@ -1,0 +1,37 @@
+spring:
+  sql:
+    init:
+      platform: postgresql
+  datasource:
+    hikari:
+      maxLifetime: "300000"
+      maximumPoolSize: "25"
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/asta
+    username: asta
+    password: asta
+  jpa:
+    properties:
+      hibernate:
+        default_schema: asta
+        use_jdbc_metadata_defaults: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: "true"
+        show_sql: "true"
+        order_updates: "true"
+        jdbc:
+          batch_size: "30"
+        batch_versioned_data: "true"
+        enable_lazy_load_no_trans: "true"
+        order_inserts: "true"
+        cache:
+          use_second_level_cache: false
+          region:
+            factory_class: infinispan
+        temp:
+          use_jdbc_metadata_defaults: "false"
+    open-in-view: "false"
+
+server:
+  servlet:
+    contextPath: /asta/api

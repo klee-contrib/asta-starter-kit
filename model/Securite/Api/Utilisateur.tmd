@@ -1,0 +1,127 @@
+---
+module: Securite.Utilisateur
+tags:
+  - back
+  - front
+uses:
+  - Securite/Api/Commands/Utilisateur
+  - Securite/Data/Utilisateur
+  - Securite/Queries/Utilisateur
+
+---
+endpoint:
+  name: AddUtilisateur
+  method: POST
+  route: api/utilisateurs
+  description: Ajoute un utilisateur
+  params:
+    - composition: UtilisateurWrite
+      comment: Utilisateur à sauvegarder
+      name: utilisateur
+  returns:
+    composition: UtilisateurRead
+    name: utilisateurList # Le nom est obligatoire car c'est une propriété mais il n'est pas utilisé.
+    comment: Utilisateur sauvegardé
+---
+endpoint:
+  name: AddUtilisateurPhoto
+  method: PUT
+  route: api/utilisateurs/{utiId}/photo
+  description: Ajoute une nouvelle photo pour un utilisateur.
+  params:
+    - alias:
+        class: Utilisateur
+        property: Id
+    - name: Photo
+      domain: DO_FILE_UPLOAD
+      required: true
+      comment: Photo.
+---
+endpoint:
+  name: DeleteUtilisateur
+  method: DELETE
+  route: api/utilisateurs/{utiId}
+  description: Supprime un utilisateur
+  params:
+    - alias:
+        class: Utilisateur
+        property: Id
+---
+endpoint:
+  name: DeleteUtilisateurPhoto
+  method: DELETE
+  route: api/utilisateurs/{utiId}/photo
+  description: Supprime la photo d'un utilisateur
+  params:
+    - alias:
+        class: Utilisateur
+        property: Id
+---
+endpoint:
+  name: GetUtilisateur
+  method: GET
+  route: api/utilisateurs/{utiId}
+  description: Charge le détail d'un utilisateur
+  # Liste des paramètres du endpoint. Ce sont des propriétés de modèle comme pour les classes. Il peut ne pas y en avoir.
+  params:
+    - alias:
+        class: Utilisateur
+        property: Id
+  # Type de retour du endpoint. La aussi, c'est une propriété du modèle et il peut ne pas y en avoir.
+  returns:
+    composition: UtilisateurRead
+    name: detail # Le nom est obligatoire car c'est une propriété mais il n'est pas utilisé.
+    comment: Le détail de l'utilisateur
+---
+endpoint:
+  name: GetUtilisateurPhoto
+  method: GET
+  route: api/utilisateurs/{utiId}/photo
+  description: Charge la photo d'un utilisateur (si elle existe).
+  params:
+    - alias:
+        class: Utilisateur
+        property: Id
+  returns:
+    name: Photo
+    domain: DO_FILE_DOWNLOAD
+    comment: Photo.
+---
+endpoint:
+  name: SearchUtilisateur
+  method: GET
+  route: api/utilisateurs
+  description: Recherche des utilisateurs
+  params:
+    - alias:
+        class: Utilisateur
+        exclude:
+          - Id
+          - DateCreation
+          - DateModification
+          - NomFichierPhoto
+          - Adresse
+      defaultValue: null
+      required: false
+  returns:
+    composition: UtilisateurItem
+    name: utilisateurList
+    domain: DO_LISTE
+    comment: Utilisateurs matchant les critères
+---
+endpoint:
+  name: UpdateUtilisateur
+  method: PUT
+  route: api/utilisateurs/{utiId}
+  description: Sauvegarde un utilisateur
+  params:
+    - alias:
+        class: Utilisateur
+        property: Id
+    - composition: UtilisateurWrite
+      comment: Utilisateur à sauvegarder
+      name: utilisateur
+  returns:
+    composition: UtilisateurRead
+    name: utilisateurList # Le nom est obligatoire car c'est une propriété mais il n'est pas utilisé.
+    comment: Utilisateur sauvegardé

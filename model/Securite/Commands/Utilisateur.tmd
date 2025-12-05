@@ -1,0 +1,23 @@
+---
+module: Securite.Utilisateur
+tags:
+  - commands
+uses:
+  - Securite/Data/Utilisateur
+
+---
+class:
+  name: UtilisateurCommand
+  comment: Détail d'un utilisateur en écriture.
+  properties:
+    - alias:
+        class: Utilisateur
+        exclude:
+          - Id
+          - DateCreation
+          - DateModification
+          - NomFichierPhoto
+
+  mappers:
+    to:
+      - class: Utilisateur
