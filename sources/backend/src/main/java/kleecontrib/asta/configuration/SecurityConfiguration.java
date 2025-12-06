@@ -52,8 +52,7 @@ public class SecurityConfiguration {
                 .httpBasic(AbstractHttpConfigurer::disable)//
                 .oauth2ResourceServer(t -> t.jwt(Customizer.withDefaults())) //
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/actuator/**").permitAll()) //
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()) //
-                //  .authorizeHttpRequests(auth -> auth.anyRequest().authenticated()) //
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated()) //
                 .headers(headers -> headers //
                         .xssProtection(h -> h.headerValue(XXssProtectionHeaderWriter.HeaderValue.DISABLED)).httpStrictTransportSecurity(Customizer.withDefaults()).contentTypeOptions(Customizer.withDefaults()).crossOriginResourcePolicy(p -> p.policy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.SAME_ORIGIN)).referrerPolicy(p -> p.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)).crossOriginEmbedderPolicy(p -> p.policy(CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.REQUIRE_CORP)).contentSecurityPolicy(p -> p.policyDirectives(csp))
 
