@@ -73,7 +73,7 @@ public class Utilisateur {
 	 * Si l'utilisateur est actif.
 	 */
 	@Column(name = "UTI_ACTIF", nullable = false, columnDefinition = "boolean")
-	private boolean actif = true;
+	private Boolean actif = true;
 
 	/**
 	 * Profil de l'utilisateur.
@@ -166,7 +166,7 @@ public class Utilisateur {
 	 *
 	 * @return value of {@link #actif actif}.
 	 */
-	public boolean isActif() {
+	public Boolean getActif() {
 		return this.actif;
 	}
 
@@ -267,7 +267,7 @@ public class Utilisateur {
 	 * Set the value of {@link #actif actif}.
 	 * @param actif value to set.
 	 */
-	public void setActif(boolean actif) {
+	public void setActif(Boolean actif) {
 		this.actif = actif;
 	}
 

@@ -16,12 +16,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>asta</name>
-    <description>Demo project for TopModel</description>
+    <description>Angular Spring TopModel AWS Starter Kit</description>
     <properties>
         <java.version>25</java.version>
     </properties>
     <dependencies>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -50,6 +50,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
         <!-- Dependance POSTGRESQL ... -->
         <dependency>

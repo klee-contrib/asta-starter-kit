@@ -95,7 +95,7 @@ public interface UtilisateurController {
 	 * @return Utilisateurs matchant les critères.
 	 */
 	@GetMapping(path = "api/utilisateurs")
-	Collection<UtilisateurItem> searchUtilisateur(@RequestParam(value = "nom", required = false) String nom, @RequestParam(value = "prenom", required = false) String prenom, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "dateNaissance", required = false) LocalDate dateNaissance, @RequestParam(value = "actif", required = false) boolean actif, @RequestParam(value = "profilId", required = false) Long profilId, @RequestParam(value = "typeUtilisateurCode", required = false) TypeUtilisateurCode typeUtilisateurCode);
+	Collection<UtilisateurItem> searchUtilisateur(@RequestParam(value = "nom", required = false) String nom, @RequestParam(value = "prenom", required = false) String prenom, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "dateNaissance", required = false) LocalDate dateNaissance, @RequestParam(value = "actif", required = false) Boolean actif, @RequestParam(value = "profilId", required = false) Long profilId, @RequestParam(value = "typeUtilisateurCode", required = false) TypeUtilisateurCode typeUtilisateurCode);
 
 	/**
 	 * Sauvegarde un utilisateur.

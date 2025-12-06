@@ -9,7 +9,7 @@ domain:
   ts:
     type: boolean
   java:
-    type: boolean
+    type: Boolean
   sql:
     type: boolean
 ---

@@ -44,7 +44,7 @@ public class SecuriteUtilisateurDTOMappers {
 		target.setEmail(source.getEmail());
 		target.setDateNaissance(source.getDateNaissance());
 		target.setAdresse(source.getAdresse());
-		target.setActif(source.isActif());
+		target.setActif(source.getActif());
 		target.setProfilId(source.getProfilId());
 		target.setTypeUtilisateurCode(source.getTypeUtilisateurCode());
 		return target;

@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableJpaAuditing
-@EntityScan(basePackages = {"topmodel.toh.entities"})
+@EntityScan(basePackages = {"kleecontrib.asta.entities"})
 //Gestion des transaction au niveau des composants avec l'annotation @Transactionnal (ou @TransctionnalWithRollback)
 @EnableTransactionManagement
 //Liste des package comportant des repositories qui acc�s aux sources de donn�es JPA (BDD).
-@EnableJpaRepositories(basePackages = {"topmodel.toh.daos"})
+@EnableJpaRepositories(basePackages = {"kleecontrib.asta.daos"})
 public class JpaConfiguration {
     /**
      * Initialise le gestionnaire de transactions

@@ -64,10 +64,10 @@ public class UtilisateurWrite implements Serializable {
 
 	/**
 	 * Si l'utilisateur est actif.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#isActif() Utilisateur#isActif()}
+	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getActif() Utilisateur#getActif()}
 	 */
 	@NotNull
-	private boolean actif = true;
+	private Boolean actif = true;
 
 	/**
 	 * Profil de l'utilisateur.
@@ -133,7 +133,7 @@ public class UtilisateurWrite implements Serializable {
 	 *
 	 * @return value of {@link #actif actif}.
 	 */
-	public boolean isActif() {
+	public Boolean getActif() {
 		return this.actif;
 	}
 
@@ -199,7 +199,7 @@ public class UtilisateurWrite implements Serializable {
 	 * Set the value of {@link #actif actif}.
 	 * @param actif value to set.
 	 */
-	public void setActif(boolean actif) {
+	public void setActif(Boolean actif) {
 		this.actif = actif;
 	}
 

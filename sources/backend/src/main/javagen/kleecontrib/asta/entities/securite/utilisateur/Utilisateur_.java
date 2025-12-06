@@ -30,7 +30,7 @@ public class Utilisateur_ {
 
 	public static volatile SingularAttribute<Utilisateur, String> adresse;
 
-	public static volatile SingularAttribute<Utilisateur, boolean> actif;
+	public static volatile SingularAttribute<Utilisateur, Boolean> actif;
 
 	public static volatile SingularAttribute<Utilisateur, Profil> profil;
 

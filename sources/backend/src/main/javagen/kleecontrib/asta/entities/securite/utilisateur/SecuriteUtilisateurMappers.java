@@ -89,7 +89,7 @@ public class SecuriteUtilisateurMappers {
 		target.setEmail(utilisateur.getEmail());
 		target.setDateNaissance(utilisateur.getDateNaissance());
 		target.setAdresse(utilisateur.getAdresse());
-		target.setActif(utilisateur.isActif());
+		target.setActif(utilisateur.getActif());
 		if (utilisateur.getProfil() != null) {
 			target.setProfilId(utilisateur.getProfil().getId());
 		} else {
@@ -138,7 +138,7 @@ public class SecuriteUtilisateurMappers {
 		target.setEmail(source.getEmail());
 		target.setDateNaissance(source.getDateNaissance());
 		target.setAdresse(source.getAdresse());
-		target.setActif(source.isActif());
+		target.setActif(source.getActif());
 		if (source.getTypeUtilisateurCode() != null) {
 			target.setTypeUtilisateur(new TypeUtilisateur(source.getTypeUtilisateurCode()));
 		} else {

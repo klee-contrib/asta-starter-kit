@@ -10,6 +10,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/asta
     username: asta
     password: asta
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${auth.issuer}
   jpa:
     properties:
       hibernate:
@@ -31,7 +36,9 @@ spring:
         temp:
           use_jdbc_metadata_defaults: "false"
     open-in-view: "false"
-
+auth:
+  issuer: http://localhost:8090/realms/asta
+  clientId: asta
 server:
   servlet:
-    contextPath: /asta/api
+    contextPath: /asta
