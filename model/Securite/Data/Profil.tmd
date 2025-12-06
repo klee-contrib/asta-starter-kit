@@ -60,3 +60,20 @@ class:
     DroitProfil2: { DroitCode: "READ", ProfilId: "2" }
     DroitProfil3: { DroitCode: "UPDATE", ProfilId: "3" }
     DroitProfil4: { DroitCode: "DELETE", ProfilId: "4" }
+---
+class:
+  name: ProfilItemRead
+  comment: Détail d'un profil en liste.
+  abstract: true
+  properties:
+    - alias:
+        class: Profil
+        include:
+          - Id
+          - Libelle
+
+    - name: NombreUtilisateurs
+      label: Nombre d'utilisateurs affectés
+      domain: DO_ENTIER
+      required: true
+      comment: Nombre d'utilisateurs affectés au profil.

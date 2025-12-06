@@ -16,6 +16,6 @@ export const ProfilItemEntity = entity({
         .label("securite.profil.profil.libelle")
     ),
     nombreUtilisateurs: e.field(DO_ENTIER, f => f
-        .label("securite.profil.profilItem.nombreUtilisateurs")
+        .label("securite.profil.profilItemRead.nombreUtilisateurs")
     )
 });

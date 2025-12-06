@@ -32,6 +32,7 @@ generatedFiles:
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/utilisateur/UtilisateurController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilCommand.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilItem.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilItemRead.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilRead.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilWrite.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/SecuriteProfilDTOMappers.java

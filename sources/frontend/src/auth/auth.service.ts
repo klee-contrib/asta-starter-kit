@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(protected readonly oauthService: OAuthService) {}
-
+  isLoggedIn() {
+    return this.oauthService.hasValidAccessToken();
+  }
   async login() {
     this.oauthService.configure(authCodeFlowConfig);
     await this.oauthService.loadDiscoveryDocumentAndTryLogin();

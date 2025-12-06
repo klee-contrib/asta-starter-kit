@@ -12,19 +12,13 @@ uses:
 class:
   name: ProfilItem
   comment: Détail d'un profil en liste.
-
   properties:
     - alias:
-        class: Profil
-        include:
-          - Id
-          - Libelle
-
-    - name: NombreUtilisateurs
-      label: Nombre d'utilisateurs affectés
-      domain: DO_ENTIER
-      required: true
-      comment: Nombre d'utilisateurs affectés au profil.
+        class: ProfilItemRead
+  mappers:
+    from:
+      - params:
+          - class: ProfilItemRead
 ---
 class:
   name: ProfilRead

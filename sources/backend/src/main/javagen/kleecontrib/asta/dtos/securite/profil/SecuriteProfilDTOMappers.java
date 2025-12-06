@@ -14,6 +14,38 @@ public class SecuriteProfilDTOMappers {
 	}
 
 	/**
+	 * Crée une nouvelle instance de la classe 'ProfilItem' en mappant les champs sources.
+	 * @param profilItemRead Instance de 'ProfilItemRead' source.
+	 *
+	 * @return Une nouvelle instance de 'ProfilItem' sur laquelle les champs sources ont été mappés.
+	 */
+	public static ProfilItem createProfilItem(ProfilItemRead profilItemRead) {
+		return mapProfilItem(profilItemRead, new ProfilItem());
+	}
+
+	/**
+	 * Mappe les champs sources sur l'instance de la classe 'ProfilItem' passée en paramètre.
+	 * @param profilItemRead Instance de 'ProfilItemRead' source.
+	 * @param target Instance de 'ProfilItem' cible.
+	 *
+	 * @return L'instance de 'ProfilItem' passée en paramètres sur lesquels les champs sources ont été mappés.
+	 */
+	public static ProfilItem mapProfilItem(ProfilItemRead profilItemRead, ProfilItem target) {
+		if (target == null) {
+			throw new IllegalArgumentException("target cannot be null");
+		}
+
+		if (profilItemRead == null) {
+			throw new IllegalArgumentException("profilItemRead cannot be null");
+		}
+
+		target.setId(profilItemRead.getId());
+		target.setLibelle(profilItemRead.getLibelle());
+		target.setNombreUtilisateurs(profilItemRead.getNombreUtilisateurs());
+		return target;
+	}
+
+	/**
 	 * Mappe 'ProfilCommand' vers une nouvelle instance de 'ProfilWrite'.
 	 * @param source Instance de 'ProfilWrite' à mapper.
 	 *

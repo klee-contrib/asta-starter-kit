@@ -40,9 +40,27 @@ public class ProfilItem implements Serializable {
 
 	/**
 	 * Nombre d'utilisateurs affectés au profil.
+	 * Alias of {@link kleecontrib.asta.dtos.securite.profil.ProfilItemRead#getNombreUtilisateurs() ProfilItemRead#getNombreUtilisateurs()}
 	 */
 	@NotNull
 	private Long nombreUtilisateurs;
+
+	/**
+	 * No arg constructor.
+	 */
+	public ProfilItem() {
+		// No arg constructor
+	}
+
+	/**
+	 * Crée une nouvelle instance de 'ProfilItem'.
+	 * @param profilItemRead Instance de 'ProfilItemRead'.
+	 *
+	 * @return Une nouvelle instance de 'ProfilItem'.
+	 */
+	public ProfilItem(ProfilItemRead profilItemRead) {
+		SecuriteProfilDTOMappers.mapProfilItem(profilItemRead, this);
+	}
 
 	/**
 	 * Getter for id.
