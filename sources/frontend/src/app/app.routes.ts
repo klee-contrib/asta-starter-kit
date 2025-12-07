@@ -3,6 +3,6 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'profils',
-    loadChildren: () => import('./profil/profil.routes').then((m) => m.routes),
+    loadChildren: () => import('./views/profils/profils.routes').then((m) => m.routes),
   },
 ];

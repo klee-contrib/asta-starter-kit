@@ -1,0 +1,21 @@
+.profil-informations {
+  background-color: white;
+  border-radius: 0.7rem;
+  padding-top: 0.1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.profil-informations-title {
+  display: flex;
+  align-items: center;
+}
+
+.profil-informations-title-text {
+  margin-left: 0.5rem;
+}
+
+.profil-informations-content {
+  margin-top: 1rem;
+}

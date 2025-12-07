@@ -12,18 +12,18 @@ export type UtilisateurItemEntityType = typeof UtilisateurItemEntity;
 
 export const UtilisateurItemEntity = entity({
     id: e.field(DO_ID, f => f.optional()
-        .label("securite.utilisateur.utilisateur.id")
+        .label("Id technique")
     ),
     nom: e.field(DO_LIBELLE, f => f
-        .label("securite.utilisateur.utilisateur.nom")
+        .label("Nom")
     ),
     prenom: e.field(DO_LIBELLE, f => f
-        .label("securite.utilisateur.utilisateur.prenom")
+        .label("Prénom")
     ),
     email: e.field(DO_EMAIL, f => f
-        .label("securite.utilisateur.utilisateur.email")
+        .label("Adresse email")
     ),
     typeUtilisateurCode: e.field(DO_CODE, f => f.type<TypeUtilisateurCode>().defaultValue("GEST")
-        .label("securite.utilisateur.utilisateur.typeUtilisateurCode")
+        .label("Type d'utilisateur")
     )
 });

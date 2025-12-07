@@ -1,0 +1,53 @@
+/* utilisateurs.component.css */
+
+/* Conteneur principal */
+.utilisateurs {
+  padding: 0 1rem;
+}
+
+/* Conteneur de chaque utilisateur */
+.utilisateur-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.utilisateur-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Icône utilisateur */
+.utilisateur-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+  background-color: #e8eaf6; /* Couleur de fond pour l'icône */
+  border-radius: 50%;
+  color: #3f51b5; /* Couleur de l'icône */
+}
+
+.utilisateur-item-infos-nom {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.utilisateur-item-infos-email {
+  font-size: 0.875rem;
+  color: #666666;
+}
+
+.utilisateur-item-infos-type {
+  font-size: 0.75rem;
+  color: #999999;
+  font-style: italic;
+}

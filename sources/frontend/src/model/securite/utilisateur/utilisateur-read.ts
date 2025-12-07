@@ -12,36 +12,36 @@ export type UtilisateurReadEntityType = typeof UtilisateurReadEntity;
 
 export const UtilisateurReadEntity = entity({
     id: e.field(DO_ID, f => f.optional()
-        .label("securite.utilisateur.utilisateur.id")
+        .label("Id technique")
     ),
     nom: e.field(DO_LIBELLE, f => f
-        .label("securite.utilisateur.utilisateur.nom")
+        .label("Nom")
     ),
     prenom: e.field(DO_LIBELLE, f => f
-        .label("securite.utilisateur.utilisateur.prenom")
+        .label("Prénom")
     ),
     email: e.field(DO_EMAIL, f => f
-        .label("securite.utilisateur.utilisateur.email")
+        .label("Adresse email")
     ),
     dateNaissance: e.field(DO_DATE, f => f.optional()
-        .label("securite.utilisateur.utilisateur.dateNaissance")
+        .label("Date de naissance")
     ),
     adresse: e.field(DO_LIBELLE, f => f.optional()
-        .label("securite.utilisateur.utilisateur.adresse")
+        .label("Adresse")
     ),
     actif: e.field(DO_BOOLEEN, f => f.defaultValue(true)
-        .label("securite.utilisateur.utilisateur.actif")
+        .label("Actif")
     ),
     profilId: e.field(DO_ID, f => f
-        .label("securite.utilisateur.utilisateur.profilId")
+        .label("Profil")
     ),
     typeUtilisateurCode: e.field(DO_CODE, f => f.type<TypeUtilisateurCode>().defaultValue("GEST")
-        .label("securite.utilisateur.utilisateur.typeUtilisateurCode")
+        .label("Type d'utilisateur")
     ),
     dateCreation: e.field(DO_DATE_HEURE, f => f
-        .label("common.entityListeners.dateCreation")
+        .label("Date de création")
     ),
     dateModification: e.field(DO_DATE_HEURE, f => f.optional()
-        .label("common.entityListeners.dateModification")
+        .label("Date de modification")
     )
 });

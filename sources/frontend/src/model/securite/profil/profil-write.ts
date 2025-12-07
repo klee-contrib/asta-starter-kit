@@ -12,9 +12,9 @@ export type ProfilWriteEntityType = typeof ProfilWriteEntity;
 
 export const ProfilWriteEntity = entity({
     libelle: e.field(DO_LIBELLE, f => f
-        .label("securite.profil.profil.libelle")
+        .label("Libellé du profil")
     ),
     droitCodes: e.field(DO_CODE_LISTE, f => f.type<DroitCode[]>()
-        .label("securite.droit.code")
+        .label("Droit")
     )
 });

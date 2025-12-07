@@ -1,0 +1,6 @@
+@if(profil.hasValue()){
+<app-profil-informations [profil]="profil.value()"></app-profil-informations>
+<app-profil-utilisateurs
+  [utilisateurs]="profil.value().utilisateurs ?? []"
+></app-profil-utilisateurs>
+}

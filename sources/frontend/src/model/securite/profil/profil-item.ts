@@ -10,12 +10,12 @@ export type ProfilItemEntityType = typeof ProfilItemEntity;
 
 export const ProfilItemEntity = entity({
     id: e.field(DO_ID, f => f.optional()
-        .label("securite.profil.profil.id")
+        .label("Id technique du profil")
     ),
     libelle: e.field(DO_LIBELLE, f => f
-        .label("securite.profil.profil.libelle")
+        .label("Libellé du profil")
     ),
     nombreUtilisateurs: e.field(DO_ENTIER, f => f
-        .label("securite.profil.profilItemRead.nombreUtilisateurs")
+        .label("Nombre d'utilisateurs affectés")
     )
 });

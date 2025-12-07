@@ -1,0 +1,30 @@
+<section class="profil-informations">
+  <h2 class="profil-informations-title">
+    <mat-icon aria-hidden="true" aria-label="Icon params" fontIcon="settings"></mat-icon>
+    <span class="profil-informations-title-text"> Informations </span>
+  </h2>
+  <mat-divider></mat-divider>
+  <div class="profil-informations-content">
+    <div class="profil-informations-libelle">
+      <app-display-field fieldName="libelle" [entity]="ProfilReadEntity" [value]="profil()" />
+    </div>
+    <div class="profil-informations-droits">
+      <span> Droits </span>
+      <span>
+        {{ profil().droitCodes?.join(', ') }}
+      </span>
+    </div>
+    <div class="profil-informations-date-creation">
+      <span> Date de création </span>
+      <span>
+        {{ profil().dateCreation | date }}
+      </span>
+    </div>
+    <div class="profil-informations-date-modification">
+      <span> Date de modification </span>
+      <span>
+        {{ profil().dateModification | date }}
+      </span>
+    </div>
+  </div>
+</section>

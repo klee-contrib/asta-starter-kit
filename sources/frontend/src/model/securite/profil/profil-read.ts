@@ -13,21 +13,21 @@ export type ProfilReadEntityType = typeof ProfilReadEntity;
 
 export const ProfilReadEntity = entity({
     id: e.field(DO_ID, f => f.optional()
-        .label("securite.profil.profil.id")
+        .label("Id technique du profil")
     ),
     libelle: e.field(DO_LIBELLE, f => f
-        .label("securite.profil.profil.libelle")
+        .label("Libellé du profil")
     ),
     dateCreation: e.field(DO_DATE_HEURE, f => f
-        .label("common.entityListeners.dateCreation")
+        .label("Date de création")
     ),
     dateModification: e.field(DO_DATE_HEURE, f => f.optional()
-        .label("common.entityListeners.dateModification")
+        .label("Date de modification")
     ),
     droitCodes: e.field(DO_CODE_LISTE, f => f.type<DroitCode[]>()
-        .label("securite.droit.code")
+        .label("Droit")
     ),
     utilisateurs: e.list(UtilisateurItemEntity, f => f
-        .label("securite.profil.profilRead.utilisateurs")
+        .label("Utilisateurs")
     )
 });
