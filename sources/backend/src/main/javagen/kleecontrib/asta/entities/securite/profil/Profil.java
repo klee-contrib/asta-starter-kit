@@ -6,9 +6,14 @@ package kleecontrib.asta.entities.securite.profil;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +24,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "PROFILS")
+@EntityListeners(AuditingEntityListener.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class Profil {
 
@@ -39,14 +45,16 @@ public class Profil {
 	/**
 	 * Date de création de l'utilisateur.
 	 */
+	@CreatedDate
 	@Column(name = "PRO_DATE_CREATION", nullable = false, columnDefinition = "date")
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
+	@LastModifiedDate
 	@Column(name = "PRO_DATE_MODIFICATION", columnDefinition = "date")
-	private LocalDateTime dateModification;
+	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**
 	 * Getter for id.

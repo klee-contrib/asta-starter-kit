@@ -7,9 +7,14 @@ package kleecontrib.asta.entities.securite.utilisateur;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +32,7 @@ import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
  * Utilisateur de l'application.
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 @Table(name = "UTILISATEURS", uniqueConstraints = {@UniqueConstraint(columnNames = {"UTI_EMAIL"})})
 public class Utilisateur {
@@ -98,14 +104,16 @@ public class Utilisateur {
 	/**
 	 * Date de création de l'utilisateur.
 	 */
+	@CreatedDate
 	@Column(name = "UTI_DATE_CREATION", nullable = false, columnDefinition = "date")
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
+	@LastModifiedDate
 	@Column(name = "UTI_DATE_MODIFICATION", columnDefinition = "date")
-	private LocalDateTime dateModification;
+	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**
 	 * Getter for id.

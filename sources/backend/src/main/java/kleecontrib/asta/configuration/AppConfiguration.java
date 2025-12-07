@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Import;
         JpaConfiguration.class,
         SecurityConfiguration.class,
         WebConfiguration.class,
-        QueriesConfiguration.class})
+        QueriesConfiguration.class,
+        CommandsConfiguration.class,
+        MutationsConfiguration.class
+})
 public class AppConfiguration {
 }

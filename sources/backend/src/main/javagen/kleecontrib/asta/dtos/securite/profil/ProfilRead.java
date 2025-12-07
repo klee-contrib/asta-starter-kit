@@ -15,6 +15,8 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.Valid;
 
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurItem;
+import kleecontrib.asta.entities.securite.profil.Profil;
+import kleecontrib.asta.entities.securite.profil.SecuriteProfilMappers;
 import kleecontrib.asta.enums.securite.DroitCode;
 
 /**
@@ -71,6 +73,25 @@ public class ProfilRead implements Serializable {
 	@Valid
 	@NotNull
 	private Collection<UtilisateurItem> utilisateurs;
+
+	/**
+	 * No arg constructor.
+	 */
+	public ProfilRead() {
+		// No arg constructor
+	}
+
+	/**
+	 * Crée une nouvelle instance de 'ProfilRead'.
+	 * @param profil Instance de 'Profil'.
+	 * @param droitCodes Code du droit.
+	 * @param utilisateurs Utilisateurs ayant ce profil.
+	 *
+	 * @return Une nouvelle instance de 'ProfilRead'.
+	 */
+	public ProfilRead(Profil profil, Collection<DroitCode> droitCodes, Collection<UtilisateurItem> utilisateurs) {
+		SecuriteProfilMappers.mapProfilRead(profil, droitCodes, utilisateurs, this);
+	}
 
 	/**
 	 * Getter for id.
