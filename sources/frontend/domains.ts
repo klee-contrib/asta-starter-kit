@@ -11,7 +11,7 @@ export const DO_ENTIER = domain({
   schema: z.number(),
 });
 export const DO_CODE_LISTE = domain({
-  schema: z.array(z.string().max(3)),
+  schema: z.array(z.string().max(10)),
 });
 export const DO_DATE = domain({
   schema: z.string(),

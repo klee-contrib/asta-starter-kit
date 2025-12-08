@@ -2,29 +2,46 @@
   <h2 class="profil-informations-title">
     <mat-icon aria-hidden="true" aria-label="Icon params" fontIcon="settings"></mat-icon>
     <span class="profil-informations-title-text"> Informations </span>
+    @if(!isEdit()){
+    <button matButton (click)="edit()">
+      <mat-icon>edit</mat-icon>
+      Modifier
+    </button>
+    } @else {
+
+    <button matButton (click)="save()">
+      <mat-icon>save</mat-icon>
+      Sauvegarder
+    </button>
+    <button matButton (click)="cancel()">
+      <mat-icon>cancel</mat-icon>
+      Annuler
+    </button>
+    }
   </h2>
   <mat-divider></mat-divider>
+  @if(!isEdit()){
   <div class="profil-informations-content">
     <div class="profil-informations-libelle">
-      <app-display-field fieldName="libelle" [entity]="ProfilReadEntity" [value]="profil()" />
+      <app-display-field [label]="ProfilReadEntity.libelle.label" [value]="profil().libelle" />
     </div>
     <div class="profil-informations-droits">
-      <span> Droits </span>
-      <span>
-        {{ profil().droitCodes?.join(', ') }}
-      </span>
+      <app-display-field [label]="ProfilReadEntity.droitCodes.label" [value]="droits()" />
     </div>
     <div class="profil-informations-date-creation">
-      <span> Date de création </span>
-      <span>
-        {{ profil().dateCreation | date }}
-      </span>
+      <app-display-field
+        [label]="ProfilReadEntity.dateCreation.label"
+        value="{{ profil().dateCreation | date }}"
+      />
     </div>
     <div class="profil-informations-date-modification">
-      <span> Date de modification </span>
-      <span>
-        {{ profil().dateModification | date }}
-      </span>
+      <app-display-field
+        [label]="ProfilReadEntity.dateModification.label"
+        value="{{ profil().dateModification | date }}"
+      />
     </div>
   </div>
+  } @else {
+  <app-profil-informations-form [profilForm]="profilForm!"></app-profil-informations-form>
+  }
 </section>

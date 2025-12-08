@@ -12,8 +12,7 @@ public interface ProfilMutations {
      * @return Id du Profil sauvegardé.
      */
     void updateProfil(Long proId, @Valid ProfilCommand profil);
-
-
+    
     /**
      * Ajoute un Profil.
      *

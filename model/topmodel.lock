@@ -28,6 +28,7 @@ generatedFiles:
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/DroitProfilDAO.java
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/ProfilDAO.java
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/utilisateur/UtilisateurDAO.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/api/common/ReferenceController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/profil/ProfilController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/utilisateur/UtilisateurController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilCommand.java
@@ -67,5 +68,6 @@ generatedFiles:
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-item.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-read.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-write.ts
+  - ../sources/frontend/src/services/common/reference.ts
   - ../sources/frontend/src/services/securite/profil.ts
   - ../sources/frontend/src/services/securite/utilisateur.ts

@@ -3,6 +3,7 @@ import { lastValueFrom } from 'rxjs';
 import { ProfilService } from '../../../../../services/securite/profil';
 import { ProfilInformations } from '../profil-informations/profil-informations';
 import { ProfilUtilisateurs } from '../profil-utilisateurs/profil-utilisateurs';
+import { ProfilRead } from '../../../../../model/securite/profil/profil-read';
 
 @Component({
   selector: 'app-profil-detail',
@@ -21,5 +22,7 @@ export class ProfilDetail {
       return lastValueFrom(this.profilService.getProfil(params.id));
     },
   });
-  toto() {}
+  saved(profilRead: ProfilRead) {
+    this.profil.set(profilRead);
+  }
 }

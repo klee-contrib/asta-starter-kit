@@ -1,4 +1,8 @@
-<h2>{{ utilisateurs().length }} utilisateurs</h2>
+<h2 class="profil-utilisateurs-title">
+  <mat-icon aria-hidden="true" aria-label="Icon User" fontIcon="person"></mat-icon> Utilisateurs ({{
+    utilisateurs().length
+  }})
+</h2>
 <div class="utilisateurs">
   @for (utilisateur of utilisateurs(); track $index) {
   <div class="utilisateur-item">

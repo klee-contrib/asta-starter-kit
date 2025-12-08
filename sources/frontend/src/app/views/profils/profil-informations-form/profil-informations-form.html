@@ -1,0 +1,10 @@
+<form class="profil-informations-form" ngForm [formGroup]="profilForm()">
+  <mat-form-field class="profil-informations-form">
+    <mat-label>{{ ProfilWriteEntity.libelle.label }}</mat-label>
+    <input
+      matInput
+      [placeholder]="ProfilWriteEntity.libelle.comment ?? ''"
+      formControlName="libelle"
+    />
+  </mat-form-field>
+</form>

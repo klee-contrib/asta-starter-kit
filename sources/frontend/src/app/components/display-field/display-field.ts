@@ -1,5 +1,7 @@
-import { Component, computed, input } from '@angular/core';
-import { Entity, EntityToType } from '@focus4/entities';
+import { Component, computed, inject, input } from '@angular/core';
+import { Entity } from '@focus4/entities';
+import { EntityStore } from '../../services/entity/types';
+import { ReferenceLoaderService, ReferenceName } from '../../services/reference/references.service';
 
 @Component({
   selector: 'app-display-field',
@@ -7,17 +9,7 @@ import { Entity, EntityToType } from '@focus4/entities';
   templateUrl: './display-field.html',
   styleUrl: './display-field.css',
 })
-export class DisplayField<E extends Entity> {
-  fieldName = input.required<keyof E>();
-  entity = input.required<E>();
-  value = input<EntityToType<E>>();
-
-  field = computed(() => this.entity()[this.fieldName()]);
-  fieldValue = computed(() => {
-    const value = this.value();
-    if (value) {
-      return value[this.fieldName()];
-    }
-    return undefined;
-  });
+export class DisplayField {
+  label = input.required<string>();
+  value = input.required<string | undefined>();
 }

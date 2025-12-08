@@ -1,5 +1,7 @@
-/* utilisateurs.component.css */
-
+.profil-utilisateurs-title {
+  display: flex;
+  align-items: center;
+}
 /* Conteneur principal */
 .utilisateurs {
   padding: 0 1rem;

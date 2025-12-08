@@ -1,0 +1,17 @@
+.field {
+  display: flex;
+  width: 100%;
+}
+
+.field-label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.field-value {
+  width: 60%;
+  display: flex;
+}

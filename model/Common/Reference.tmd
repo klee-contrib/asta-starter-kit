@@ -1,0 +1,19 @@
+---
+module: Common
+tags:
+  - back
+  - front
+---
+endpoint:
+  name: GetReference
+  method: GET
+  route: api/reference/{referenceName}
+  description: Récupère une liste de référence
+  params:
+    - name: referenceName
+      comment: Nom de la liste de référence
+      domain: DO_REFERENCE
+  returns:
+    name: References
+    domain: DO_OBJECT_LIST
+    comment: Liste de référence

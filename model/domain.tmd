@@ -160,3 +160,23 @@ domain:
     genericType: "{T}[]"
   sql:
     type: varchar
+---
+domain:
+  name: DO_OBJECT_LIST
+  label: Objet générique
+  java:
+    type: Collection<Object>
+    imports:
+      - java.util.Collection
+  ts:
+    type: Object[]
+---
+domain:
+  name: DO_REFERENCE
+  label: Liste de référence
+  java:
+    type: Reference
+    imports:
+      - kleecontrib.asta.queries.Reference
+  ts:
+    type: '"typeUtilisateur" | "typeDroit" | "droit"'
