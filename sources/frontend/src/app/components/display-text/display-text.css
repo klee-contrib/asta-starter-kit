@@ -1,12 +1,12 @@
-.field {
+.display-field {
   display: flex;
-  width: 100%;
   flex-direction: column;
+  width: 100%;
 }
 
 .field-label {
   font-weight: bold;
-  margin-right: 1rem;
+  margin-bottom: 0.5rem;
   font-size: large;
   display: flex;
 }
@@ -14,4 +14,6 @@
 .field-value {
   font-size: medium;
   display: flex;
+  white-space: pre-wrap;
+  word-break: break-word;
 }

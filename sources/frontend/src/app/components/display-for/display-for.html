@@ -1,0 +1,5 @@
+@if(inputComponent.hasValue()){
+<ng-container
+  *ngComponentOutlet="inputComponent.value(); inputs: { label: label(), value: value() }"
+/>
+}

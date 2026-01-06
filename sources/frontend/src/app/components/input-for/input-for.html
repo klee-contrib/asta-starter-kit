@@ -1,0 +1,8 @@
+@if(inputComponent.hasValue()){
+<ng-container
+  *ngComponentOutlet="
+    inputComponent.value();
+    inputs: { control: control(), fieldEntry: fieldEntry() }
+  "
+/>
+}

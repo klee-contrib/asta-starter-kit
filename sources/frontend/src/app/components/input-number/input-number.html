@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    matInput
+    type="number"
+    [formControl]="control()"
+    [required]="fieldEntry().isRequired"
+    [value]="_internalValue"
+    (keypress)="keypress($event)"
+    (paste)="paste($event)"
+  />
+</mat-form-field>
+<app-input-errors [control]="control()" />

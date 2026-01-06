@@ -1,7 +1,5 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { Entity } from '@focus4/entities';
-import { EntityStore } from '../../services/entity/types';
-import { ReferenceLoaderService, ReferenceName } from '../../services/reference/references.service';
+import { Component, computed, input } from '@angular/core';
+import { output } from 'zod';
 
 @Component({
   selector: 'app-display-field',
@@ -9,7 +7,22 @@ import { ReferenceLoaderService, ReferenceName } from '../../services/reference/
   templateUrl: './display-field.html',
   styleUrl: './display-field.css',
 })
-export class DisplayField {
+export class DisplayField<T extends output<Domain['schema']> = output<Domain['schema']>> {
+  /** Label du champ affiché */
   label = input.required<string>();
-  value = input.required<string | undefined>();
+
+  /** Valeur du champ à afficher */
+  value = input.required<T | undefined>();
+
+  _value = computed(() => {
+    const value = this.value();
+    if (value === undefined) {
+      return '-';
+    }
+    if (value === true || value === false) {
+      return value ? 'Oui' : 'Non';
+    }
+
+    return value;
+  });
 }
