@@ -3,12 +3,16 @@ import z from 'zod';
 
 export const DO_BOOLEEN = domain({
   schema: z.boolean(),
+  loadInputComponent: () =>
+    import('./src/app/components/input-boolean/input-boolean').then((m) => m.InputBoolean),
 });
 export const DO_CODE = domain({
   schema: z.string().max(3),
 });
 export const DO_ENTIER = domain({
   schema: z.number(),
+  loadInputComponent: () =>
+    import('./src/app/components/input-number/input-number').then((m) => m.InputNumber),
 });
 export const DO_CODE_LISTE = domain({
   schema: z.array(z.string().max(10)),
