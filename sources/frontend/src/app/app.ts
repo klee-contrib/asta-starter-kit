@@ -14,9 +14,8 @@ export class App implements OnInit {
   protected readonly title = signal('asta-starter-kit');
   protected readonly authService = inject(AuthService);
   protected readonly profilService = inject(ProfilService);
-  isLoggedIn() {
-    return this.authService.isLoggedIn();
-  }
+  isLoggedIn = this.authService.isLoggedIn;
+
   ngOnInit() {
     this.authService.login();
   }
