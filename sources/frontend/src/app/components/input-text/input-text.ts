@@ -17,6 +17,6 @@ export class InputText<
   D extends Domain<ZodString> = Domain<ZodString>,
   T extends output<D['schema']> = output<D['schema']>
 > extends AbstractInput<D, T> {
-  readonly control = input.required<FormControl>();
+  readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
 }

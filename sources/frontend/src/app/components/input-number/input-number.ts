@@ -17,12 +17,12 @@ export class InputNumber<
   D extends Domain<ZodNumber> = Domain<ZodNumber>,
   T extends output<D['schema']> = output<D['schema']>
 > extends AbstractInput<D, T> {
-  readonly control = input.required<FormControl>();
+  readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
   _internalValue = signal(undefined as T | undefined);
 
   keypress(event: KeyboardEvent) {
-    if (!['1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(event.key)) {
+    if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(event.key)) {
       event.preventDefault();
     }
   }

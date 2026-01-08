@@ -14,7 +14,7 @@ export class InputFor<
   D extends Domain<ZodTypeSingle> = Domain<ZodTypeSingle>,
   T extends output<D['schema']> = output<D['schema']>
 > {
-  readonly control = input.required<FormControl>();
+  readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
   protected readonly label = computed(() => this.fieldEntry().label);
   protected readonly inputComponent = resource({

@@ -14,7 +14,7 @@ export class FieldFor<
   D extends Domain<ZodTypeSingle> = Domain<ZodTypeSingle>,
   T extends output<D['schema']> = output<D['schema']>
 > {
-  readonly control = input.required<FormControl<T>>();
+  readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
   readonly isEdit = input.required<boolean>();
 }
