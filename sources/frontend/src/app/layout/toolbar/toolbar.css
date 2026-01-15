@@ -1,0 +1,11 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.toolbar {
+    position: sticky;
+    top: 0;
+    background-color: var(--mat-sys-on-primary-container);
+    color: #fff;
+    --mat-icon-button-icon-color: #fff;
+}

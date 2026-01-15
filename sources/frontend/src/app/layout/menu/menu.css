@@ -1,0 +1,33 @@
+.menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--mat-toolbar-standard-height, 64px);
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 80px;
+    cursor: pointer;
+    user-select: none;
+
+    &.active {
+        background-color: var(--mat-sys-primary);
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--mat-sys-primary) 80%, transparent);
+        color: #fff;
+    }
+}

@@ -1,9 +1,17 @@
 @if(isLoggedIn()) {
-<app-menu />
-<main>
-  <router-outlet name="header" />
-  <router-outlet />
-</main>
+  <mat-sidenav-container class="app-full-container">
+      <mat-sidenav mode="side" class="menu-container" opened>
+          <app-menu />
+      </mat-sidenav>
+      <mat-sidenav-content>
+          <app-toolbar />
+          <main>
+              <div class="main-content">
+                  <router-outlet />
+              </div>
+          </main>
+      </mat-sidenav-content>
+  </mat-sidenav-container>
 } @else {
-<div>Chargement en cours...</div>
+  <div>Chargement en cours...</div>
 }

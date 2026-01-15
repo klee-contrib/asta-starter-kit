@@ -1,3 +1,13 @@
+:host {
+  --mat-sidenav-container-width: 100px;
+}
+
 main {
   margin: 1rem;
+}
+
+.menu-container {
+  border-radius: 0;
+  border-right-width: 0;
+  position: fixed;
 }
