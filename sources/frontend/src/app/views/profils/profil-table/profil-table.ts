@@ -1,7 +1,7 @@
 import { Component, inject, resource } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { lastValueFrom } from 'rxjs';
-import { ProfilService } from '../../../../services/securite/profil';
+import { ProfilService } from '../../../../services/securite/profil/profil.service';
 import { RouterLink } from '@angular/router';
 
 @Component({

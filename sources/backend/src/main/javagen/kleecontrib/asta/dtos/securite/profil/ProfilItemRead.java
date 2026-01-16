@@ -4,7 +4,7 @@
 
 package kleecontrib.asta.dtos.securite.profil;
 
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
 /**
  * Détail d'un profil en liste.

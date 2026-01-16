@@ -6,9 +6,9 @@
 import { HttpClient, HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ProfilItem } from "../../model/securite/profil/profil-item";
-import { ProfilRead } from "../../model/securite/profil/profil-read";
-import { ProfilWrite } from "../../model/securite/profil/profil-write";
+import { ProfilItem } from "../../../model/securite/profil/profil-item";
+import { ProfilRead } from "../../../model/securite/profil/profil-read";
+import { ProfilWrite } from "../../../model/securite/profil/profil-write";
 @Injectable({
     providedIn: 'root'
 })

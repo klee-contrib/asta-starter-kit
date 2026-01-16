@@ -4,7 +4,7 @@
 
 package kleecontrib.asta.entities.securite.utilisateur;
 
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand;
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurItem;

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { ProfilService } from '../services/securite/profil';
 import { Menu } from './layout/menu/menu';
 import { Toolbar } from './layout/toolbar/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ProfilService } from '../services/securite/profil/profil.service';
 
 @Component({
   selector: 'app-root',

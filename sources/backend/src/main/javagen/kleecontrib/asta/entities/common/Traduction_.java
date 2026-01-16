@@ -4,9 +4,10 @@
 
 package kleecontrib.asta.entities.common;
 
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
+import javax.persistence.metamodel.StaticMetamodel;
+
 import jakarta.persistence.metamodel.SingularAttribute;
-import jakarta.persistence.metamodel.StaticMetamodel;
 
 @StaticMetamodel(Traduction.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")

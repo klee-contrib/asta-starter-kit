@@ -1,6 +1,6 @@
 import { Component, inject, input, resource } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { ProfilService } from '../../../../../services/securite/profil';
+import { ProfilService } from '../../../../../services/securite/profil/profil.service';
 import { ProfilInformations } from '../profil-informations/profil-informations';
 import { ProfilUtilisateurs } from '../profil-utilisateurs/profil-utilisateurs';
 import { ProfilRead } from '../../../../../model/securite/profil/profil-read';

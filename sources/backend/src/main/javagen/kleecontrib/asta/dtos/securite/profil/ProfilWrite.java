@@ -8,9 +8,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 
-import jakarta.annotation.Generated;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import kleecontrib.asta.enums.securite.DroitCode;
 

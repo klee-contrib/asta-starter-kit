@@ -4,7 +4,7 @@
 
 package kleecontrib.asta.dtos.securite.profil;
 
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class SecuriteProfilDTOMappers {

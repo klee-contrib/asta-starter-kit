@@ -1,8 +1,8 @@
 import { inject, Injectable, resource } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { droit, typeDroit, typeUtilisateur } from '../../../model/securite/references';
-import { ReferenceService } from '../../../services/common/reference';
 import { ReferenceDefinition, ReferenceStore } from './types';
+import { ReferenceService } from '../../../services/common/reference.service';
 
 const regularReferences = {
   typeDroit,

@@ -2,7 +2,7 @@
 # ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
 #
 
-version: 3.7.0
+version: 3.8.5
 modules:
   csharp:
     version: 3.5.1
@@ -25,9 +25,9 @@ generatedFiles:
   - ../env/db/init/04_create_uk.sql
   - ../env/db/init/05_init_data.sql
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/common/TraductionDAO.java
-  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/DroitProfilDAO.java
-  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/ProfilDAO.java
-  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/utilisateur/UtilisateurDAO.java
+  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite.profil/DroitProfilDAO.java
+  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite.profil/ProfilDAO.java
+  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite.utilisateur/UtilisateurDAO.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/common/ReferenceController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/profil/ProfilController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/utilisateur/UtilisateurController.java
@@ -68,6 +68,6 @@ generatedFiles:
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-item.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-read.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-write.ts
-  - ../sources/frontend/src/services/common/reference.ts
-  - ../sources/frontend/src/services/securite/profil.ts
-  - ../sources/frontend/src/services/securite/utilisateur.ts
+  - ../sources/frontend/src/services/common/reference.service.ts
+  - ../sources/frontend/src/services/securite/profil/profil.service.ts
+  - ../sources/frontend/src/services/securite/utilisateur/utilisateur.service.ts

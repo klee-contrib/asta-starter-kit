@@ -4,9 +4,10 @@
 
 package kleecontrib.asta.entities.securite;
 
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
+import javax.persistence.metamodel.StaticMetamodel;
+
 import jakarta.persistence.metamodel.SingularAttribute;
-import jakarta.persistence.metamodel.StaticMetamodel;
 
 import kleecontrib.asta.enums.securite.DroitCode;
 

@@ -9,7 +9,7 @@ import {
   ProfilWriteEntity,
   ProfilWriteEntityType,
 } from '../../../../../model/securite/profil/profil-write';
-import { ProfilService } from '../../../../../services/securite/profil';
+import { ProfilService } from '../../../../../services/securite/profil/profil.service';
 import { DisplayField } from '../../../../components/display-field/display-field';
 import { ReferenceLoaderService } from '../../../../services/reference/references.service';
 import { ProfilInformationsForm } from '../../profil-informations-form/profil-informations-form';
