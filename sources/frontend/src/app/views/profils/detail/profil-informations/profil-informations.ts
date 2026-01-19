@@ -8,21 +8,12 @@ import { ProfilRead, ProfilReadEntity } from '../../../../../model/securite/prof
 import { ProfilWriteEntity } from '../../../../../model/securite/profil/profil-write';
 import { ProfilService } from '../../../../../services/securite/profil/profil.service';
 import { DisplayField } from '../../../../components/display-field/display-field';
-import { FieldFor } from '../../../../components/field-for/field-for';
 import { ReferenceLoaderService } from '../../../../services/reference/references.service';
 import { ProfilInformationsForm } from '../../profil-informations-form/profil-informations-form';
 
 @Component({
   selector: 'app-profil-informations',
-  imports: [
-    DatePipe,
-    MatIcon,
-    MatDivider,
-    DisplayField,
-    MatButton,
-    ProfilInformationsForm,
-    FieldFor,
-  ],
+  imports: [DatePipe, MatIcon, MatDivider, DisplayField, MatButton, ProfilInformationsForm],
   templateUrl: './profil-informations.html',
   styleUrl: './profil-informations.css',
 })

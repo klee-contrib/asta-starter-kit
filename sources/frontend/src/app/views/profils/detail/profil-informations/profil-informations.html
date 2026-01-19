@@ -19,15 +19,12 @@
     }
   </h2>
   <mat-divider></mat-divider>
-  @if (!isEdit()) {
-    <div class="profil-informations-content">
-      <div class="profil-informations-libelle">
-        <app-field-for
-          [control]="profilForm().controls.libelle"
-          [fieldEntry]="ProfilWriteEntity.libelle"
-          [isEdit]="isEdit()"
-        />
-      </div>
+  <div class="profil-informations-content">
+    <app-profil-informations-form
+      [profilForm]="profilForm()"
+      [isEdit]="isEdit()"
+    ></app-profil-informations-form>
+    @if (!isEdit()) {
       <div class="profil-informations-droits">
         <app-display-field [label]="ProfilReadEntity.droitCodes.label" [value]="droits()" />
       </div>
@@ -43,8 +40,6 @@
           value="{{ profil().dateModification | date }}"
         />
       </div>
-    </div>
-  } @else {
-    <app-profil-informations-form [profilForm]="profilForm()"></app-profil-informations-form>
-  }
+    }
+  </div>
 </section>
