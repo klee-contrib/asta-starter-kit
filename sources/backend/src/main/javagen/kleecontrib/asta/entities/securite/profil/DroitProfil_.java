@@ -4,10 +4,9 @@
 
 package kleecontrib.asta.entities.securite.profil;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.StaticMetamodel;
-
+import jakarta.annotation.Generated;
 import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 
 import kleecontrib.asta.entities.securite.Droit;
 

@@ -6,10 +6,9 @@ package kleecontrib.asta.entities.securite.profil;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.StaticMetamodel;
-
+import jakarta.annotation.Generated;
 import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 
 @StaticMetamodel(Profil.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")

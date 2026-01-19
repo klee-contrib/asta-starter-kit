@@ -6,7 +6,7 @@ package kleecontrib.asta.entities.securite.profil;
 
 import java.util.Collection;
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 import kleecontrib.asta.dtos.securite.profil.ProfilCommand;
 import kleecontrib.asta.dtos.securite.profil.ProfilRead;

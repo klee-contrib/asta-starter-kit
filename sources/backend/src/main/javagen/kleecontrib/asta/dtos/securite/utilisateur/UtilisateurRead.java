@@ -9,9 +9,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.annotation.Generated;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import kleecontrib.asta.entities.securite.utilisateur.SecuriteUtilisateurMappers;
 import kleecontrib.asta.entities.securite.utilisateur.Utilisateur;

@@ -2,46 +2,49 @@
   <h2 class="profil-informations-title">
     <mat-icon aria-hidden="true" aria-label="Icon params" fontIcon="settings"></mat-icon>
     <span class="profil-informations-title-text"> Informations </span>
-    @if(!isEdit()){
-    <button matButton (click)="edit()">
-      <mat-icon>edit</mat-icon>
-      Modifier
-    </button>
+    @if (!isEdit()) {
+      <button matButton (click)="edit()">
+        <mat-icon>edit</mat-icon>
+        Modifier
+      </button>
     } @else {
-
-    <button matButton (click)="save()">
-      <mat-icon>save</mat-icon>
-      Sauvegarder
-    </button>
-    <button matButton (click)="cancel()">
-      <mat-icon>cancel</mat-icon>
-      Annuler
-    </button>
+      <button matButton (click)="save()">
+        <mat-icon>save</mat-icon>
+        Sauvegarder
+      </button>
+      <button matButton (click)="cancel()">
+        <mat-icon>cancel</mat-icon>
+        Annuler
+      </button>
     }
   </h2>
   <mat-divider></mat-divider>
-  @if(!isEdit()){
-  <div class="profil-informations-content">
-    <div class="profil-informations-libelle">
-      <app-display-field [label]="ProfilReadEntity.libelle.label" [value]="profil().libelle" />
+  @if (!isEdit()) {
+    <div class="profil-informations-content">
+      <div class="profil-informations-libelle">
+        <app-field-for
+          [control]="profilForm().controls.libelle"
+          [fieldEntry]="ProfilWriteEntity.libelle"
+          [isEdit]="isEdit()"
+        />
+      </div>
+      <div class="profil-informations-droits">
+        <app-display-field [label]="ProfilReadEntity.droitCodes.label" [value]="droits()" />
+      </div>
+      <div class="profil-informations-date-creation">
+        <app-display-field
+          [label]="ProfilReadEntity.dateCreation.label"
+          value="{{ profil().dateCreation | date }}"
+        />
+      </div>
+      <div class="profil-informations-date-modification">
+        <app-display-field
+          [label]="ProfilReadEntity.dateModification.label"
+          value="{{ profil().dateModification | date }}"
+        />
+      </div>
     </div>
-    <div class="profil-informations-droits">
-      <app-display-field [label]="ProfilReadEntity.droitCodes.label" [value]="droits()" />
-    </div>
-    <div class="profil-informations-date-creation">
-      <app-display-field
-        [label]="ProfilReadEntity.dateCreation.label"
-        value="{{ profil().dateCreation | date }}"
-      />
-    </div>
-    <div class="profil-informations-date-modification">
-      <app-display-field
-        [label]="ProfilReadEntity.dateModification.label"
-        value="{{ profil().dateModification | date }}"
-      />
-    </div>
-  </div>
   } @else {
-  <app-profil-informations-form [profilForm]="profilForm!"></app-profil-informations-form>
+    <app-profil-informations-form [profilForm]="profilForm()"></app-profil-informations-form>
   }
 </section>

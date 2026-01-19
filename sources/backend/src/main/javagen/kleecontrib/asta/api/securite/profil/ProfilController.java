@@ -6,14 +6,14 @@ package kleecontrib.asta.api.securite.profil;
 
 import java.util.Collection;
 
-import javax.annotation.Generated;
-import javax.validation.Valid;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
 
 import kleecontrib.asta.dtos.securite.profil.ProfilItem;
 import kleecontrib.asta.dtos.securite.profil.ProfilRead;

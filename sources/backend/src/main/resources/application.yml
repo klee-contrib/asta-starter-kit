@@ -44,14 +44,3 @@ auth:
 server:
   servlet:
     contextPath: /asta
-logging:
-  structured:
-    format:
-      console: ecs
-    json:
-      exclude: log.level
-      add:
-        lvl: "${event:level}"
-      rename:
-        log.level: level0
-        log.logger: java.logger_category

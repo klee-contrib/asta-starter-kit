@@ -13,10 +13,19 @@ import { ProfilService } from '../../../../../services/securite/profil/profil.se
 import { DisplayField } from '../../../../components/display-field/display-field';
 import { ReferenceLoaderService } from '../../../../services/reference/references.service';
 import { ProfilInformationsForm } from '../../profil-informations-form/profil-informations-form';
+import { FieldFor } from '../../../../components/field-for/field-for';
 
 @Component({
   selector: 'app-profil-informations',
-  imports: [DatePipe, MatIcon, MatDivider, DisplayField, MatButton, ProfilInformationsForm],
+  imports: [
+    DatePipe,
+    MatIcon,
+    MatDivider,
+    DisplayField,
+    MatButton,
+    ProfilInformationsForm,
+    FieldFor,
+  ],
   templateUrl: './profil-informations.html',
   styleUrl: './profil-informations.css',
 })
@@ -31,20 +40,18 @@ export class ProfilInformations {
       ?.map((droitCode) => this.referenceService.getLabel(droitCode, 'droit'))
       .join(', ');
   });
+  profilForm = computed(() => buildForm(ProfilWriteEntity, this.profil()));
   private readonly profilService = inject(ProfilService);
-  protected readonly entityStore = {
-    entity: ProfilReadEntity,
-    signal: this.profil,
-  };
+  protected readonly ProfilWriteEntity = ProfilWriteEntity;
+
   edit() {
-    this.profilForm = buildForm(ProfilWriteEntity, this.profil());
     this.isEdit.set(true);
   }
   saved = output<ProfilRead>();
   save() {
-    if (this.profilForm?.valid) {
+    if (this.profilForm()?.valid) {
       this.profilService
-        .updateProfil(this.profil().id!, this.profilForm.value)
+        .updateProfil(this.profil().id!, this.profilForm().value)
         .subscribe((value) => {
           this.isEdit.set(false);
           this.saved.emit(value);
@@ -54,6 +61,4 @@ export class ProfilInformations {
   cancel() {
     this.isEdit.set(false);
   }
-
-  profilForm?: EntityToForm<ProfilWriteEntityType>;
 }

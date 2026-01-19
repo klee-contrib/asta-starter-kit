@@ -7,9 +7,6 @@ package kleecontrib.asta.api.securite.utilisateur;
 import java.time.LocalDate;
 import java.util.Collection;
 
-import javax.annotation.Generated;
-import javax.validation.Valid;
-
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
 
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurItem;
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurRead;

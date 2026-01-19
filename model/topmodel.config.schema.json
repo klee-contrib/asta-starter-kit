@@ -185,7 +185,7 @@
               "type": "string",
               "enum": [
                 "JavaDtoGen",
-                "JpaEnumDtoGen",
+                "JavaEnumDtoGen",
                 "JdbcEntityGen",
                 "JpaDaoGen",
                 "JpaEntityGen",
@@ -408,14 +408,6 @@
           "fieldsEnumInterface": {
             "type": "string",
             "description": "Précise l'interface des fields enum générés."
-          },
-          "persistenceMode": {
-            "type": "string",
-            "description": "Mode de génération de la persistence ('Javax' ou 'Jakarta')",
-            "enum": [
-              "javax",
-              "jakarta"
-            ]
           },
           "identity": {
             "type": "object",

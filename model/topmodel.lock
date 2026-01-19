@@ -4,30 +4,24 @@
 
 version: 3.8.5
 modules:
-  csharp:
-    version: 3.5.1
-    hash: b7bca7a5fc0f767117f912a338006e37
-  javascript:
-    version: 3.5.0
-    hash: 722393f55791d8a3625296a2098a3cc6
-  translation:
-    version: 3.2.2
-    hash: b6fb8a53fe077a206c1b321096e0675c
   jpa:
-    version: 3.4.5
-    hash: 00b69e50a97f67ed8ece2af64ae693df
+    version: 3.5.2
+    hash: 6b445907cb69bf2f4f56afdfad30826d
+  javascript:
+    version: 3.6.1
+    hash: 821902636c343def4026124769a2e22b
   sql:
-    version: 3.5.1
-    hash: bd046e8048462878c7ef117d952fb31a
+    version: 3.6.1
+    hash: 4fb7d2cdbfca0dd3dc5fba1af696d82a
 generatedFiles:
   - ../env/db/init/02_create_tables.sql
   - ../env/db/init/03_create_fk.sql
   - ../env/db/init/04_create_uk.sql
   - ../env/db/init/05_init_data.sql
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/common/TraductionDAO.java
-  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite.profil/DroitProfilDAO.java
-  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite.profil/ProfilDAO.java
-  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite.utilisateur/UtilisateurDAO.java
+  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/DroitProfilDAO.java
+  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/ProfilDAO.java
+  - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/utilisateur/UtilisateurDAO.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/common/ReferenceController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/profil/ProfilController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/utilisateur/UtilisateurController.java

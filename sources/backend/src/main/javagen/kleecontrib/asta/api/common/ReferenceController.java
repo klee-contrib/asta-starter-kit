@@ -6,10 +6,10 @@ package kleecontrib.asta.api.common;
 
 import java.util.Collection;
 
-import javax.annotation.Generated;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import jakarta.annotation.Generated;
 
 import kleecontrib.asta.queries.Reference;
 

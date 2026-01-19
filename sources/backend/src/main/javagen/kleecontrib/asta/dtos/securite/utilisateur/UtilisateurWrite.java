@@ -8,9 +8,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.annotation.Generated;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 
@@ -28,7 +28,7 @@ public class UtilisateurWrite implements Serializable {
 
 	/**
 	 * Nom de l'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getNom() Utilisateur#getNom()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getNom() UtilisateurCommand#getNom()}
 	 */
 	@NotNull
 	@Size(max = 100)
@@ -36,7 +36,7 @@ public class UtilisateurWrite implements Serializable {
 
 	/**
 	 * Nom de l'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getPrenom() Utilisateur#getPrenom()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getPrenom() UtilisateurCommand#getPrenom()}
 	 */
 	@NotNull
 	@Size(max = 100)
@@ -44,41 +44,41 @@ public class UtilisateurWrite implements Serializable {
 
 	/**
 	 * Email de l'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getEmail() Utilisateur#getEmail()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getEmail() UtilisateurCommand#getEmail()}
 	 */
 	@NotNull
 	private String email;
 
 	/**
 	 * Age de l'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getDateNaissance() Utilisateur#getDateNaissance()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getDateNaissance() UtilisateurCommand#getDateNaissance()}
 	 */
 	private LocalDate dateNaissance;
 
 	/**
 	 * Adresse de l'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getAdresse() Utilisateur#getAdresse()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getAdresse() UtilisateurCommand#getAdresse()}
 	 */
 	@Size(max = 100)
 	private String adresse;
 
 	/**
 	 * Si l'utilisateur est actif.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getActif() Utilisateur#getActif()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getActif() UtilisateurCommand#getActif()}
 	 */
 	@NotNull
 	private Boolean actif = true;
 
 	/**
 	 * Profil de l'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getProfil() Utilisateur#getProfil()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getProfilId() UtilisateurCommand#getProfilId()}
 	 */
 	@NotNull
 	private Long profilId;
 
 	/**
 	 * Type d'utilisateur.
-	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getTypeUtilisateur() Utilisateur#getTypeUtilisateur()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.utilisateur.UtilisateurCommand#getTypeUtilisateurCode() UtilisateurCommand#getTypeUtilisateurCode()}
 	 */
 	@NotNull
 	private TypeUtilisateurCode typeUtilisateurCode = TypeUtilisateurCode.GEST;

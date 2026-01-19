@@ -8,9 +8,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.annotation.Generated;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import kleecontrib.asta.enums.securite.DroitCode;
 
@@ -28,7 +28,7 @@ public class ProfilWrite implements Serializable {
 
 	/**
 	 * Libellé du profil.
-	 * Alias of {@link kleecontrib.asta.entities.securite.profil.Profil#getLibelle() Profil#getLibelle()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.profil.ProfilCommand#getLibelle() ProfilCommand#getLibelle()}
 	 */
 	@NotNull
 	@Size(max = 100)
@@ -36,7 +36,7 @@ public class ProfilWrite implements Serializable {
 
 	/**
 	 * Code du droit.
-	 * Alias of {@link kleecontrib.asta.entities.securite.Droit#getCode() Droit#getCode()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.profil.ProfilCommand#getDroitCodes() ProfilCommand#getDroitCodes()}
 	 */
 	@NotNull
 	@Size(max = 10)

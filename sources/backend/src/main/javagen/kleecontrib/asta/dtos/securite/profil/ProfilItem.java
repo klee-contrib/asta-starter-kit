@@ -7,9 +7,9 @@ package kleecontrib.asta.dtos.securite.profil;
 import java.io.Serial;
 import java.io.Serializable;
 
-import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.annotation.Generated;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Détail d'un profil en liste.
@@ -25,14 +25,14 @@ public class ProfilItem implements Serializable {
 
 	/**
 	 * Id technique.
-	 * Alias of {@link kleecontrib.asta.entities.securite.profil.Profil#getId() Profil#getId()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.profil.ProfilItemRead#getId() ProfilItemRead#getId()}
 	 */
 	@NotNull
 	private Long id;
 
 	/**
 	 * Libellé du profil.
-	 * Alias of {@link kleecontrib.asta.entities.securite.profil.Profil#getLibelle() Profil#getLibelle()}
+	 * Alias of {@link kleecontrib.asta.dtos.securite.profil.ProfilItemRead#getLibelle() ProfilItemRead#getLibelle()}
 	 */
 	@NotNull
 	@Size(max = 100)
