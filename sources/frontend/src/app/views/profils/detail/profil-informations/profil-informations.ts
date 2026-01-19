@@ -3,17 +3,14 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
-import { buildForm, EntityToForm } from 'ngx-focus-entities';
+import { buildForm } from 'ngx-focus-entities';
 import { ProfilRead, ProfilReadEntity } from '../../../../../model/securite/profil/profil-read';
-import {
-  ProfilWriteEntity,
-  ProfilWriteEntityType,
-} from '../../../../../model/securite/profil/profil-write';
+import { ProfilWriteEntity } from '../../../../../model/securite/profil/profil-write';
 import { ProfilService } from '../../../../../services/securite/profil/profil.service';
 import { DisplayField } from '../../../../components/display-field/display-field';
+import { FieldFor } from '../../../../components/field-for/field-for';
 import { ReferenceLoaderService } from '../../../../services/reference/references.service';
 import { ProfilInformationsForm } from '../../profil-informations-form/profil-informations-form';
-import { FieldFor } from '../../../../components/field-for/field-for';
 
 @Component({
   selector: 'app-profil-informations',
@@ -30,10 +27,16 @@ import { FieldFor } from '../../../../components/field-for/field-for';
   styleUrl: './profil-informations.css',
 })
 export class ProfilInformations {
-  ProfilReadEntity = ProfilReadEntity;
   profil = input.required<ProfilRead>();
+
   referenceService = inject(ReferenceLoaderService);
+
+  private readonly profilService = inject(ProfilService);
+  protected readonly ProfilReadEntity = ProfilReadEntity;
+  protected readonly ProfilWriteEntity = ProfilWriteEntity;
+
   isEdit = signal<boolean>(false);
+
   droits = computed(() => {
     const profil = this.profil();
     return profil.droitCodes
@@ -41,8 +44,6 @@ export class ProfilInformations {
       .join(', ');
   });
   profilForm = computed(() => buildForm(ProfilWriteEntity, this.profil()));
-  private readonly profilService = inject(ProfilService);
-  protected readonly ProfilWriteEntity = ProfilWriteEntity;
 
   edit() {
     this.isEdit.set(true);
