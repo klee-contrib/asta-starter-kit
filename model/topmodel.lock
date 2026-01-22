@@ -23,8 +23,10 @@ generatedFiles:
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/ProfilDAO.java
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/utilisateur/UtilisateurDAO.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/common/ReferenceController.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/auth/AuthController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/profil/ProfilController.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/api/securite/utilisateur/UtilisateurController.java
+  - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/auth/AuthProperties.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilCommand.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilItem.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/dtos/securite/profil/ProfilItemRead.java
@@ -55,6 +57,7 @@ generatedFiles:
   - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/DroitCode.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/TypeDroitCode.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/TypeUtilisateurCode.java
+  - ../sources/frontend/src/model/securite/auth/auth-properties.ts
   - ../sources/frontend/src/model/securite/profil/profil-item.ts
   - ../sources/frontend/src/model/securite/profil/profil-read.ts
   - ../sources/frontend/src/model/securite/profil/profil-write.ts
@@ -63,5 +66,6 @@ generatedFiles:
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-read.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-write.ts
   - ../sources/frontend/src/services/common/reference.service.ts
+  - ../sources/frontend/src/services/securite/auth/auth.service.ts
   - ../sources/frontend/src/services/securite/profil/profil.service.ts
   - ../sources/frontend/src/services/securite/utilisateur/utilisateur.service.ts

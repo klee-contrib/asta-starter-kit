@@ -1,0 +1,19 @@
+---
+module: Securite.Auth
+tags:
+  - back
+  - front
+---
+class:
+  name: AuthProperties
+  comment: Informations relatives à l'authentification
+  properties:
+    - name: Authority
+      comment: Nom de l'autorité
+      domain: DO_LIBELLE
+    - name: ClientId
+      comment: Nom de l'autorité
+      domain: DO_LIBELLE
+    - name: requireHttps
+      comment: Indique si le protocole HTTPS est requis
+      domain: DO_BOOLEEN

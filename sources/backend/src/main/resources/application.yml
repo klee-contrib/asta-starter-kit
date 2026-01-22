@@ -41,6 +41,7 @@ spring:
 auth:
   issuer: http://localhost:8090/realms/asta
   clientId: asta
+  requireHttps: false
 server:
   servlet:
     contextPath: /asta

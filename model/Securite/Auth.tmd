@@ -1,0 +1,20 @@
+---
+uses:
+  - Securite/Queries/Auth
+module: Securite.Auth
+tags:
+  - back
+  - front
+options:
+  endpoints:
+    prefix: api/auth
+---
+endpoint:
+  name: AuthenticationProperties
+  method: GET
+  route: authentication-properties
+  description: Récupère l'ensemble des propriétés nécessaires à la connexion
+  returns:
+    composition: AuthProperties
+    comment: Informations relatives à la connexion
+    name: AuthProperties

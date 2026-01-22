@@ -1,14 +1,22 @@
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authCodeFlowConfig } from '.';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { AuthService } from '../services/securite/auth/auth.service';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class UserService {
   constructor(protected readonly oauthService: OAuthService) {}
+  private readonly authService = inject(AuthService);
   private readonly _isLoggedIn = signal(false);
   isLoggedIn = this._isLoggedIn.asReadonly();
 
   async login() {
+    const authProperties = await lastValueFrom(this.authService.authenticationProperties());
+    authCodeFlowConfig.issuer = authProperties?.authority;
+    authCodeFlowConfig.clientId = authProperties?.clientId;
+    authCodeFlowConfig.requireHttps = authProperties.requireHttps;
+    this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.configure(authCodeFlowConfig);
     await this.oauthService.loadDiscoveryDocumentAndTryLogin();
     this.oauthService.setupAutomaticSilentRefresh();

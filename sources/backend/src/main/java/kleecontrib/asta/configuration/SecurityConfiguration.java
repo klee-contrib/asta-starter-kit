@@ -40,7 +40,7 @@ public class SecurityConfiguration {
      *                     nos règles spécifiques
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity, CorsConfigurationSource corsConfigurationSource) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity, CorsConfigurationSource corsConfigurationSource) {
         String[] csps = new String[]{"default-src 'self' ", "connect-src 'self' " + authenticationProperties.issuer().getAuthority(), "script-src 'self'", "style-src 'self' 'unsafe-inline'", "worker-src 'none'", "frame-src 'none'", "manifest-src 'none'", "media-src 'self'", "object-src 'none'", "require-trusted-types-for 'script'"};
         String csp = String.join("; ", csps);
 
@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                 .httpBasic(AbstractHttpConfigurer::disable)//
                 .oauth2ResourceServer(t -> t.jwt(Customizer.withDefaults())) //
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/actuator/**").permitAll()) //
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/authentication-properties").permitAll()) //
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated()) //
                 .headers(headers -> headers //
                         .xssProtection(h -> h.headerValue(XXssProtectionHeaderWriter.HeaderValue.DISABLED)).httpStrictTransportSecurity(Customizer.withDefaults()).contentTypeOptions(Customizer.withDefaults()).crossOriginResourcePolicy(p -> p.policy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.SAME_ORIGIN)).referrerPolicy(p -> p.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)).crossOriginEmbedderPolicy(p -> p.policy(CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.REQUIRE_CORP)).contentSecurityPolicy(p -> p.policyDirectives(csp))

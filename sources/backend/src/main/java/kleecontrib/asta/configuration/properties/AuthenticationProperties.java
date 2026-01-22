@@ -6,7 +6,7 @@ import java.net.URI;
 
 @ConfigurationProperties("auth")
 public record AuthenticationProperties(
-        URI issuer,
-        String clientId
-) {
+                URI issuer,
+                String clientId,
+                boolean requireHttps) {
 }
