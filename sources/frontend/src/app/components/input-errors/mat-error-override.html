@@ -1,5 +1,0 @@
-@if (control().hasError('required')) {
-  Ce champ est obligatoire
-} @else if (control().hasError('formatError')) {
-  {{ control().getError('formatError')?.issues[0].message }}
-}

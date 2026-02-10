@@ -2,4 +2,4 @@
   <mat-label>{{ label() }}</mat-label>
   <textarea matInput [formControl]="control()" rows="50" required></textarea>
 </mat-form-field>
-<mat-error [control]="control()" />
+<app-input-errors [control]="control()" />

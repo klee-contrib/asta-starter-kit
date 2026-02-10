@@ -52,6 +52,5 @@ export class ProfilInformations {
   }
   cancel() {
     this.isEdit.set(false);
-    this.profilForm().reset(this.profil());
   }
 }

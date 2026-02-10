@@ -3,9 +3,11 @@ import { FormControl } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 
 @Component({
-  selector: 'mat-error',
-  templateUrl: './mat-error-override.html',
+  selector: 'app-input-errors',
+  imports: [MatError],
+  templateUrl: './input-errors.html',
+  styleUrl: './input-errors.css',
 })
-export class MatErrorOverride extends MatError {
+export class InputErrors {
   readonly control = input.required<FormControl>();
 }

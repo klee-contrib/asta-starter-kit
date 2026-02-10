@@ -1,0 +1,7 @@
+@if (control().hasError('required')) {
+<mat-error>Ce champ est obligatoire</mat-error>
+} @else if (control().hasError('formatError') ) {
+<mat-error>
+  {{ control().getError('formatError')?.issues[0].message }}
+</mat-error>
+}
