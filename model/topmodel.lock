@@ -2,11 +2,11 @@
 # ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
 #
 
-version: 3.8.5
+version: 3.8.7
 modules:
   jpa:
-    version: 3.5.2
-    hash: 6b445907cb69bf2f4f56afdfad30826d
+    version: 3.5.5
+    hash: 107716a5c626ef7b5e07ca681530368a
   javascript:
     version: 3.6.1
     hash: 821902636c343def4026124769a2e22b
