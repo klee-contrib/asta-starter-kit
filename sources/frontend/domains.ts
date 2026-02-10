@@ -19,6 +19,8 @@ export const DO_CODE_LISTE = domain({
 });
 export const DO_DATE = domain({
   schema: z.iso.date(),
+  loadInputComponent: () =>
+    import('./src/app/components/input-date/input-date').then((m) => m.InputDate),
 });
 export const DO_DATE_HEURE = domain({
   schema: z.iso.datetime(),

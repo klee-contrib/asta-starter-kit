@@ -1,0 +1,17 @@
+@if (control()) {
+  <mat-form-field appearance="outline">
+    <mat-label>{{ label() }}</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [formControl]="internalControl()"
+      [required]="fieldEntry().isRequired"
+      [max]="maxDate()"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error>
+      <app-input-errors [control]="control()" />
+    </mat-error>
+  </mat-form-field>
+}

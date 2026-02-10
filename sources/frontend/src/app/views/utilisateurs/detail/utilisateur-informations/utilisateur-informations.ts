@@ -54,6 +54,8 @@ export class UtilisateurInformations {
           this.isEdit.set(false);
           this.saved.emit(value);
         });
+    } else {
+      console.error("Le formulaire n'est pas valide", this.utilisateurForm());
     }
   }
   cancel() {

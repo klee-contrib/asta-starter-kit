@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, input, Type } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DateTime } from 'luxon';
 import { EntityToForm } from 'ngx-focus-entities';
 import { UtilisateurReadEntity } from '../../../../model/securite/utilisateur/utilisateur-read';
 import {
@@ -22,4 +23,7 @@ export class UtilisateurInformationsForm {
   utilisateurForm = input.required<EntityToForm<UtilisateurWriteEntityType>>();
   UtilisateurWriteEntity = UtilisateurWriteEntity;
   UtilisateurReadEntity = UtilisateurReadEntity;
+  dateNaissanceInputProps = {
+    maxDate: DateTime.now(),
+  };
 }

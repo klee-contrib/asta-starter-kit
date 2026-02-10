@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { FieldEntry, ZodTypeSingle } from '@focus4/entities';
 import { output } from 'zod/v4/mini';
 import { InputText } from '../input-text/input-text';
+import { InputPropsOf, InputSignalsOf } from '../abstract-input';
 
 @Component({
   selector: 'app-input-for',
@@ -11,12 +12,15 @@ import { InputText } from '../input-text/input-text';
   templateUrl: './input-for.html',
 })
 export class InputFor<
-  D extends Domain<ZodTypeSingle> = Domain<ZodTypeSingle>,
-  T extends output<D['schema']> = output<D['schema']>
+  InputProps,
+  IC extends InputSignalsOf<InputProps>,
+  D extends Domain<ZodTypeSingle, IC> = Domain<ZodTypeSingle>,
+  T extends output<D['schema']> = output<D['schema']>,
 > {
   readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
   protected readonly label = computed(() => this.fieldEntry().label);
+  readonly inputProps = input<InputProps>();
   protected readonly inputComponent = resource({
     params: () => {
       return {
@@ -28,7 +32,7 @@ export class InputFor<
         p.params.domain.loadInputComponent?.() ??
         (p.params.domain.inputComponent
           ? Promise.resolve(p.params.domain.inputComponent)
-          : Promise.resolve(InputText))
+          : Promise.resolve(InputText as any))
       );
     },
   });

@@ -1,8 +1,8 @@
-@if(inputComponent.hasValue()){
-<ng-container
-  *ngComponentOutlet="
-    inputComponent.value();
-    inputs: { control: control(), fieldEntry: fieldEntry() }
-  "
-/>
+@if (inputComponent.hasValue() && control()) {
+  <ng-container
+    *ngComponentOutlet="
+      inputComponent.value();
+      inputs: { control: control(), fieldEntry: fieldEntry(), ...inputProps() }
+    "
+  />
 }

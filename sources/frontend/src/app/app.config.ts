@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
       useValue: {
         useUtc: true,
-        firstDayOfWeek: 0,
+        firstDayOfWeek: 1,
         defaultOutputCalendar: 'gregory',
       },
     },
