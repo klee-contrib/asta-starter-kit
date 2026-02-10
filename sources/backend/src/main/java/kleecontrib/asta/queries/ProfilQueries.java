@@ -22,6 +22,4 @@ public interface ProfilQueries {
      * @return Profils matchant les critères.
      */
     Collection<ProfilItem> getProfils();
-
-
 }

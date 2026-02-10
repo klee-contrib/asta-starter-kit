@@ -9,14 +9,7 @@ import { InputErrors } from '../input-errors/input-errors';
 
 @Component({
   selector: 'app-input-text',
-  imports: [
-    ReactiveFormsModule,
-    MatInput,
-    MatFormFieldModule,
-    MatInputModule,
-    InputErrors,
-    MatError,
-  ],
+  imports: [ReactiveFormsModule, MatInput, MatFormFieldModule, MatInputModule, InputErrors],
   templateUrl: './input-text.html',
 })
 export class InputText<

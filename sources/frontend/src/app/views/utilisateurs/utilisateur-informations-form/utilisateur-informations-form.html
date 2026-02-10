@@ -1,0 +1,37 @@
+<form class="utilisateur-informations-form" ngForm [formGroup]="utilisateurForm()">
+  <app-field-for
+    [control]="utilisateurForm().controls.nom"
+    [fieldEntry]="UtilisateurWriteEntity.nom"
+    [isEdit]="isEdit()"
+  />
+  <app-field-for
+    [control]="utilisateurForm().controls.prenom"
+    [fieldEntry]="UtilisateurWriteEntity.prenom"
+    [isEdit]="isEdit()"
+  />
+  <app-field-for
+    [control]="utilisateurForm().controls.email"
+    [fieldEntry]="UtilisateurWriteEntity.email"
+    [isEdit]="isEdit()"
+  />
+  <app-field-for
+    [control]="utilisateurForm().controls.dateNaissance"
+    [fieldEntry]="UtilisateurWriteEntity.dateNaissance"
+    [isEdit]="isEdit()"
+  />
+  <app-field-for
+    [control]="utilisateurForm().controls.adresse"
+    [fieldEntry]="UtilisateurWriteEntity.adresse"
+    [isEdit]="isEdit()"
+  />
+  <app-field-for
+    [control]="utilisateurForm().controls.actif"
+    [fieldEntry]="UtilisateurWriteEntity.actif"
+    [isEdit]="isEdit()"
+  />
+  <app-field-for
+    [control]="utilisateurForm().controls.profilId"
+    [fieldEntry]="UtilisateurWriteEntity.profilId"
+    [isEdit]="isEdit()"
+  />
+</form>

@@ -1,0 +1,21 @@
+.utilisateur-informations {
+  background-color: white;
+  border-radius: 0.7rem;
+  padding-top: 0.1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.utilisateur-informations-title {
+  display: flex;
+  align-items: center;
+}
+
+.utilisateur-informations-title-text {
+  margin-left: 0.5rem;
+}
+
+.utilisateur-informations-content {
+  margin-top: 1rem;
+}

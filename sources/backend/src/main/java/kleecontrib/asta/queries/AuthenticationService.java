@@ -1,7 +1,5 @@
 package kleecontrib.asta.queries;
 
-import java.util.Collection;
-
 import kleecontrib.asta.dtos.securite.auth.AuthProperties;
 
 /**

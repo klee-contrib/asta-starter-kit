@@ -1,0 +1,6 @@
+@if(utilisateur.hasValue()){
+<app-utilisateur-informations
+  [utilisateur]="utilisateur.value()"
+  (saved)="saved($event)"
+></app-utilisateur-informations>
+}

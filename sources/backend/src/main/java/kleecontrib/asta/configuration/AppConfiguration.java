@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Import;
         WebConfiguration.class,
         QueriesConfiguration.class,
         CommandsConfiguration.class,
-        MutationsConfiguration.class
+        MutationsConfiguration.class,
+        ServicesConfiguration.class
 })
 public class AppConfiguration {
 }

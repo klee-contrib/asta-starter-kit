@@ -5,15 +5,15 @@
 </h2>
 <div class="utilisateurs">
   @for (utilisateur of utilisateurs(); track $index) {
-  <div class="utilisateur-item">
-    <div class="utilisateur-item-icon">
-      <mat-icon aria-hidden="true" aria-label="Icon User" fontIcon="person"></mat-icon>
-    </div>
-    <div class="utilisateur-item-infos">
-      <div class="utilisateur-item-infos-nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</div>
-      <div class="utilisateur-item-infos-email">{{ utilisateur.email }}</div>
-      <div class="utilisateur-item-infos-type">{{ utilisateur.typeUtilisateurCode }}</div>
-    </div>
-  </div>
+    <a class="utilisateur-item" [routerLink]="['/utilisateurs', utilisateur.id]">
+      <div class="utilisateur-item-icon">
+        <mat-icon aria-hidden="true" aria-label="Icon User" fontIcon="person"></mat-icon>
+      </div>
+      <div class="utilisateur-item-infos">
+        <div class="utilisateur-item-infos-nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</div>
+        <div class="utilisateur-item-infos-email">{{ utilisateur.email }}</div>
+        <div class="utilisateur-item-infos-type">{{ utilisateur.typeUtilisateurCode }}</div>
+      </div>
+    </a>
   }
 </div>

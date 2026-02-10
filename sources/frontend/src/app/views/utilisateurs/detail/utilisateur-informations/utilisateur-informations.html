@@ -1,0 +1,48 @@
+<section class="utilisateur-informations">
+  <h2 class="utilisateur-informations-title">
+    <mat-icon aria-hidden="true" aria-label="Icon user" fontIcon="person"></mat-icon>
+    <span class="utilisateur-informations-title-text"> Informations </span>
+    @if (!isEdit()) {
+      <button matButton (click)="edit()">
+        <mat-icon>edit</mat-icon>
+        Modifier
+      </button>
+    } @else {
+      <button matButton (click)="save()">
+        <mat-icon>save</mat-icon>
+        Sauvegarder
+      </button>
+      <button matButton (click)="cancel()">
+        <mat-icon>cancel</mat-icon>
+        Annuler
+      </button>
+    }
+  </h2>
+  <mat-divider></mat-divider>
+  <div class="utilisateur-informations-content">
+    <app-utilisateur-informations-form
+      [utilisateurForm]="utilisateurForm()"
+      [isEdit]="isEdit()"
+    ></app-utilisateur-informations-form>
+    @if (!isEdit()) {
+      <div class="utilisateur-informations-type">
+        <app-display-field
+          [label]="UtilisateurReadEntity.typeUtilisateurCode.label"
+          [value]="utilisateur().typeUtilisateurCode | reference: 'typeUtilisateur'"
+        />
+      </div>
+      <div class="utilisateur-informations-date-creation">
+        <app-display-field
+          [label]="UtilisateurReadEntity.dateCreation.label"
+          value="{{ utilisateur().dateCreation | date }}"
+        />
+      </div>
+      <div class="utilisateur-informations-date-modification">
+        <app-display-field
+          [label]="UtilisateurReadEntity.dateModification.label"
+          value="{{ utilisateur().dateModification | date }}"
+        />
+      </div>
+    }
+  </div>
+</section>

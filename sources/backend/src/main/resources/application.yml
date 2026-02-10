@@ -42,6 +42,8 @@ auth:
   issuer: http://localhost:8090/realms/asta
   clientId: asta
   requireHttps: false
+file-storage:
+  upload-dir: uploads
 server:
   servlet:
     contextPath: /asta
