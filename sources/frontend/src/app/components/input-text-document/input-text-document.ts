@@ -5,17 +5,17 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { FieldEntry } from '@focus4/entities';
 import { output, ZodString } from 'zod';
 import { AbstractInput } from '../abstract-input';
-import { InputErrors } from '../input-errors/input-errors';
+import { MatErrorOverride } from '../input-errors/mat-error-override';
 
 @Component({
   selector: 'app-input-document',
-  imports: [ReactiveFormsModule, MatInput, MatFormFieldModule, MatInputModule, InputErrors],
+  imports: [ReactiveFormsModule, MatInput, MatFormFieldModule, MatInputModule, MatErrorOverride],
   templateUrl: './input-text-document.html',
   styleUrl: './input-text-document.css',
 })
 export class InputTextDocument<
   D extends Domain<ZodString> = Domain<ZodString>,
-  T extends output<D['schema']> = output<D['schema']>
+  T extends output<D['schema']> = output<D['schema']>,
 > extends AbstractInput<D, T> {
   readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
