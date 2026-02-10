@@ -9,11 +9,10 @@ import { AbstractInput } from '../abstract-input';
   selector: 'app-input-boolean',
   imports: [MatSlideToggle, FormsModule, ReactiveFormsModule],
   templateUrl: './input-boolean.html',
-  styleUrl: './input-boolean.css',
 })
 export class InputBoolean<
   D extends Domain = any,
-  T extends output<D['schema']> = output<D['schema']>
+  T extends output<D['schema']> = output<D['schema']>,
 > extends AbstractInput<D, T> {
   readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();

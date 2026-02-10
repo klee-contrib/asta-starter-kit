@@ -9,5 +9,7 @@
     (keypress)="keypress($event)"
     (paste)="paste($event)"
   />
+  <mat-error>
+    <app-input-errors [control]="control()" />
+  </mat-error>
 </mat-form-field>
-<app-input-errors [control]="control()" />

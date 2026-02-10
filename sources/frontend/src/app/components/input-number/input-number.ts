@@ -1,6 +1,6 @@
 import { Component, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { FieldEntry } from '@focus4/entities';
 import { output, ZodNumber } from 'zod';
@@ -9,13 +9,19 @@ import { InputErrors } from '../input-errors/input-errors';
 
 @Component({
   selector: 'app-input-number',
-  imports: [ReactiveFormsModule, MatInput, MatFormFieldModule, MatInputModule, InputErrors],
+  imports: [
+    ReactiveFormsModule,
+    MatInput,
+    MatFormFieldModule,
+    MatInputModule,
+    InputErrors,
+    MatError,
+  ],
   templateUrl: './input-number.html',
-  styleUrl: './input-number.css',
 })
 export class InputNumber<
   D extends Domain<ZodNumber> = Domain<ZodNumber>,
-  T extends output<D['schema']> = output<D['schema']>
+  T extends output<D['schema']> = output<D['schema']>,
 > extends AbstractInput<D, T> {
   readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
