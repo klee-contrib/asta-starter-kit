@@ -12,8 +12,8 @@ import { InputFor } from '../input-for/input-for';
   templateUrl: './field-for.html',
 })
 export class FieldFor<
-  InputProps,
-  IC extends InputSignalsOf<InputProps>,
+  InputProps = {},
+  IC extends InputSignalsOf<InputProps> = InputSignalsOf<InputProps>,
   D extends Domain<ZodTypeSingle, IC> = Domain<ZodTypeSingle>,
   T extends output<D['schema']> = output<D['schema']>,
 > {

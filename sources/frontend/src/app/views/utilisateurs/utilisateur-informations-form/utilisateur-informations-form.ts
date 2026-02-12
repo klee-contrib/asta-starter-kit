@@ -23,7 +23,7 @@ export class UtilisateurInformationsForm {
   utilisateurForm = input.required<EntityToForm<UtilisateurWriteEntityType>>();
   UtilisateurWriteEntity = UtilisateurWriteEntity;
   UtilisateurReadEntity = UtilisateurReadEntity;
-  dateNaissanceInputProps = {
+  dateNaissanceInputProps: { maxDate?: DateTime } = {
     maxDate: DateTime.now(),
   };
 }

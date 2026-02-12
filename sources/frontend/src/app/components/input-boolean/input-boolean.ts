@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FieldEntry } from '@focus4/entities';
-import { output } from 'zod';
+import { output, ZodBoolean } from 'zod';
 import { AbstractInput } from '../abstract-input';
 
 @Component({
@@ -11,7 +11,7 @@ import { AbstractInput } from '../abstract-input';
   templateUrl: './input-boolean.html',
 })
 export class InputBoolean<
-  D extends Domain = any,
+  D extends Domain<ZodBoolean> = Domain<ZodBoolean>,
   T extends output<D['schema']> = output<D['schema']>,
 > extends AbstractInput<D, T> {
   readonly control = input.required<FormControl<T | undefined>>();

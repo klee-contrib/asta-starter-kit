@@ -8,7 +8,6 @@ import { UtilisateurRead } from '../../../../../model/securite/utilisateur/utili
   selector: 'app-utilisateur-detail',
   imports: [UtilisateurInformations],
   templateUrl: './utilisateur-detail.html',
-  styleUrl: './utilisateur-detail.css',
 })
 export class UtilisateurDetail {
   protected utilisateurService = inject(UtilisateurService);

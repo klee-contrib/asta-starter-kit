@@ -16,6 +16,8 @@ export type InputPropsOf<T> = {
   [P in keyof T]-?: T[P] extends InputSignal<infer U> ? U : never;
 };
 
-export type InputSignalsOf<T> = {
-  [K in keyof T]?: InputSignal<T[K]>;
-};
+export type InputSignalsOf<T> = T extends object
+  ? {
+      [K in keyof T]: InputSignal<T[K]>;
+    }
+  : any;

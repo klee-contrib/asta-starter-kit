@@ -3,8 +3,8 @@ import { Component, computed, input, resource } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FieldEntry, ZodTypeSingle } from '@focus4/entities';
 import { output } from 'zod/v4/mini';
+import { InputSignalsOf } from '../abstract-input';
 import { InputText } from '../input-text/input-text';
-import { InputPropsOf, InputSignalsOf } from '../abstract-input';
 
 @Component({
   selector: 'app-input-for',
@@ -12,8 +12,8 @@ import { InputPropsOf, InputSignalsOf } from '../abstract-input';
   templateUrl: './input-for.html',
 })
 export class InputFor<
-  InputProps,
-  IC extends InputSignalsOf<InputProps>,
+  InputProps = {},
+  IC extends InputSignalsOf<InputProps> = InputSignalsOf<InputProps>,
   D extends Domain<ZodTypeSingle, IC> = Domain<ZodTypeSingle>,
   T extends output<D['schema']> = output<D['schema']>,
 > {
