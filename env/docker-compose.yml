@@ -25,15 +25,14 @@ services:
     environment:
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=asta
-      - DB_VENDOR=postgres
+      - KC_DB=postgres
       - DB_ADDR=user-db
+      - KC_DB_URL=jdbc:postgresql://user-db:5432/asta
       - DB_PORT=5432
-      - DB_DATABASE=asta
-      - DB_SCHEMA=asta
-      - DB_USER=asta
-      - DB_PASSWORD=asta
-      - HOSTNAME=localhost
+      - KC_DB_USERNAME=asta
+      - KC_DB_PASSWORD=asta
+      - KC_HOSTNAME=localhost
       - IMPORT_REALM=true
-    command: start-dev --import-realm
+    command: start-dev --verbose
     volumes:
       - ./auth/:/opt/keycloak/data/import
