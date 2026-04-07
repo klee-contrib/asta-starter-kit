@@ -56,10 +56,10 @@ class:
       primaryKey: true
       comment: Profil.
   values:
-    DroitProfil1: { DroitCode: "CREATE", ProfilId: "1" }
-    DroitProfil2: { DroitCode: "READ", ProfilId: "2" }
-    DroitProfil3: { DroitCode: "UPDATE", ProfilId: "3" }
-    DroitProfil4: { DroitCode: "DELETE", ProfilId: "4" }
+    DroitProfil1: { Droit: "CREATE", Profil: "1" }
+    DroitProfil2: { Droit: "READ", Profil: "2" }
+    DroitProfil3: { Droit: "UPDATE", Profil: "3" }
+    DroitProfil4: { Droit: "DELETE", Profil: "4" }
 ---
 class:
   name: ProfilItemRead

@@ -218,14 +218,4 @@ public class UtilisateurWrite implements Serializable {
 	public void setTypeUtilisateurCode(TypeUtilisateurCode typeUtilisateurCode) {
 		this.typeUtilisateurCode = typeUtilisateurCode;
 	}
-
-	/**
-	 * Mappe 'UtilisateurWrite' vers 'UtilisateurCommand'.
-	 * @param target Instance pré-existante de 'UtilisateurCommand'. Une nouvelle instance sera créée si non spécifié.
-	 *
-	 * @return Une instance de 'UtilisateurCommand'.
-	 */
-	public UtilisateurCommand toUtilisateurCommand(UtilisateurCommand target) {
-		return SecuriteUtilisateurDTOMappers.toUtilisateurCommand(this, target);
-	}
 }

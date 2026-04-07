@@ -43,13 +43,13 @@ public class TypeDroit {
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TDR_CODE", nullable = false, length = 10, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 10, name = "TDR_CODE", nullable = false)
 	private TypeDroitCode code;
 
 	/**
 	 * Libellé du type de droit.
 	 */
-	@Column(name = "TDR_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "TDR_LIBELLE", nullable = false)
 	private String libelle;
 
 	/**

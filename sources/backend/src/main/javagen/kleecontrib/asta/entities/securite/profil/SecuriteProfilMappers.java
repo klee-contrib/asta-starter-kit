@@ -74,7 +74,7 @@ public class SecuriteProfilMappers {
 	 * @return Nouvelle instance de 'Profil' mappée depuis 'profil'.
 	 */
 	public static Profil toProfil(Profil source) {
-			return toProfil(source, new Profil());
+		return toProfil(source, new Profil());
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class SecuriteProfilMappers {
 	 * @return Nouvelle instance de 'ProfilCommand' mappée depuis 'profil'.
 	 */
 	public static Profil toProfil(ProfilCommand source) {
-			return toProfil(source, new Profil());
+		return toProfil(source, new Profil());
 	}
 
 	/**

@@ -2,17 +2,17 @@
 # ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
 #
 
-version: 3.8.7
+version: 4.0.0-rc.4
 modules:
   jpa:
-    version: 3.5.5
-    hash: 107716a5c626ef7b5e07ca681530368a
+    version: 4.0.0-rc.6
+    hash: 896a35817b345233075a8164af8322ab
   javascript:
-    version: 3.6.1
-    hash: 821902636c343def4026124769a2e22b
+    version: 4.0.0-rc.1
+    hash: d0d37a359dbb9b495d9ca4cd109d623e
   sql:
-    version: 3.6.1
-    hash: 4fb7d2cdbfca0dd3dc5fba1af696d82a
+    version: 4.0.0-rc.0
+    hash: 6dd3b416f7747ccaaf05a34dd127a95b
 generatedFiles:
   - ../env/db/init/02_create_tables.sql
   - ../env/db/init/03_create_fk.sql

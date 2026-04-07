@@ -46,23 +46,6 @@ public class ProfilItem implements Serializable {
 	private Long nombreUtilisateurs;
 
 	/**
-	 * No arg constructor.
-	 */
-	public ProfilItem() {
-		// No arg constructor
-	}
-
-	/**
-	 * Crée une nouvelle instance de 'ProfilItem'.
-	 * @param profilItemRead Instance de 'ProfilItemRead'.
-	 *
-	 * @return Une nouvelle instance de 'ProfilItem'.
-	 */
-	public ProfilItem(ProfilItemRead profilItemRead) {
-		SecuriteProfilDTOMappers.mapProfilItem(profilItemRead, this);
-	}
-
-	/**
 	 * Getter for id.
 	 *
 	 * @return value of {@link #id id}.

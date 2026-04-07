@@ -33,27 +33,27 @@ public class Profil {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PRO_ID", nullable = false, columnDefinition = "int8")
+	@Column(columnDefinition = "int8", name = "PRO_ID", nullable = false)
 	private Long id;
 
 	/**
 	 * Libellé du profil.
 	 */
-	@Column(name = "PRO_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "PRO_LIBELLE", nullable = false)
 	private String libelle;
 
 	/**
 	 * Date de création de l'utilisateur.
 	 */
 	@CreatedDate
-	@Column(name = "PRO_DATE_CREATION", nullable = false, columnDefinition = "date")
+	@Column(columnDefinition = "date", name = "PRO_DATE_CREATION", nullable = false)
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
 	@LastModifiedDate
-	@Column(name = "PRO_DATE_MODIFICATION", columnDefinition = "date")
+	@Column(columnDefinition = "date", name = "PRO_DATE_MODIFICATION")
 	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**
@@ -122,15 +122,5 @@ public class Profil {
 	 */
 	public void setDateModification(LocalDateTime dateModification) {
 		this.dateModification = dateModification;
-	}
-
-	/**
-	 * Mappe 'Profil' vers 'Profil'.
-	 * @param target Instance pré-existante de 'Profil'. Une nouvelle instance sera créée si non spécifié.
-	 *
-	 * @return Une instance de 'Profil'.
-	 */
-	public Profil toProfil(Profil target) {
-		return SecuriteProfilMappers.toProfil(this, target);
 	}
 }

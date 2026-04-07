@@ -28,10 +28,20 @@ public interface ProfilItemRead {
 	Long getNombreUtilisateurs();
 
 	/**
-	 * Hydrate values of instance.
+	 * Id technique.
 	 * @param id value to set.
+	 */
+	void setId(Long id);
+
+	/**
+	 * Libellé du profil.
 	 * @param libelle value to set.
+	 */
+	void setLibelle(String libelle);
+
+	/**
+	 * Nombre d'utilisateurs affectés au profil.
 	 * @param nombreUtilisateurs value to set.
 	 */
-	void hydrate(Long id, String libelle, Long nombreUtilisateurs);
+	void setNombreUtilisateurs(Long nombreUtilisateurs);
 }

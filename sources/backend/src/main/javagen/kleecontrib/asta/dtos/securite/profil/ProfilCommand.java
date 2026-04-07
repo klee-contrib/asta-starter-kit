@@ -12,8 +12,6 @@ import jakarta.annotation.Generated;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import kleecontrib.asta.entities.securite.profil.Profil;
-import kleecontrib.asta.entities.securite.profil.SecuriteProfilMappers;
 import kleecontrib.asta.enums.securite.DroitCode;
 
 /**
@@ -76,15 +74,5 @@ public class ProfilCommand implements Serializable {
 	 */
 	public void setDroitCodes(Collection<DroitCode> droitCodes) {
 		this.droitCodes = droitCodes;
-	}
-
-	/**
-	 * Mappe 'ProfilCommand' vers 'Profil'.
-	 * @param target Instance pré-existante de 'Profil'. Une nouvelle instance sera créée si non spécifié.
-	 *
-	 * @return Une instance de 'Profil'.
-	 */
-	public Profil toProfil(Profil target) {
-		return SecuriteProfilMappers.toProfil(this, target);
 	}
 }

@@ -13,8 +13,6 @@ import jakarta.annotation.Generated;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import kleecontrib.asta.entities.securite.utilisateur.SecuriteUtilisateurMappers;
-import kleecontrib.asta.entities.securite.utilisateur.Utilisateur;
 import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 
 /**
@@ -105,23 +103,6 @@ public class UtilisateurRead implements Serializable {
 	 * Alias of {@link kleecontrib.asta.entities.securite.utilisateur.Utilisateur#getDateModification() Utilisateur#getDateModification()}
 	 */
 	private LocalDateTime dateModification;
-
-	/**
-	 * No arg constructor.
-	 */
-	public UtilisateurRead() {
-		// No arg constructor
-	}
-
-	/**
-	 * Crée une nouvelle instance de 'UtilisateurRead'.
-	 * @param utilisateur Instance de 'Utilisateur'.
-	 *
-	 * @return Une nouvelle instance de 'UtilisateurRead'.
-	 */
-	public UtilisateurRead(Utilisateur utilisateur) {
-		SecuriteUtilisateurMappers.mapUtilisateurRead(utilisateur, this);
-	}
 
 	/**
 	 * Getter for id.

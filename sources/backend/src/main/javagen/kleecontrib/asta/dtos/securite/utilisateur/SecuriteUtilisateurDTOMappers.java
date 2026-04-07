@@ -20,7 +20,7 @@ public class SecuriteUtilisateurDTOMappers {
 	 * @return Nouvelle instance de 'UtilisateurWrite' mappée depuis 'utilisateurCommand'.
 	 */
 	public static UtilisateurCommand toUtilisateurCommand(UtilisateurWrite source) {
-			return toUtilisateurCommand(source, new UtilisateurCommand());
+		return toUtilisateurCommand(source, new UtilisateurCommand());
 	}
 
 	/**

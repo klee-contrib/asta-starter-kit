@@ -52,7 +52,7 @@ public class SecuriteProfilDTOMappers {
 	 * @return Nouvelle instance de 'ProfilWrite' mappée depuis 'profilCommand'.
 	 */
 	public static ProfilCommand toProfilCommand(ProfilWrite source) {
-			return toProfilCommand(source, new ProfilCommand());
+		return toProfilCommand(source, new ProfilCommand());
 	}
 
 	/**

@@ -19,7 +19,7 @@ class:
           - Nom
           - Prenom
           - Email
-          - TypeUtilisateurCode
+          - TypeUtilisateur
   mappers:
     from:
       - params:

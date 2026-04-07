@@ -49,13 +49,13 @@ public class Droit {
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "DRO_CODE", nullable = false, length = 10, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 10, name = "DRO_CODE", nullable = false)
 	private DroitCode code;
 
 	/**
 	 * Libellé du droit.
 	 */
-	@Column(name = "DRO_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "DRO_LIBELLE", nullable = false)
 	private String libelle;
 
 	/**

@@ -36,20 +36,20 @@ public class TypeUtilisateur {
 	public static final TypeUtilisateur CLIENT = new TypeUtilisateur(TypeUtilisateurCode.CLIENT);
 
 	@Transient
-	public static final TypeUtilisateur GEST = new TypeUtilisateur(TypeUtilisateurCode.GEST);
+	public static final TypeUtilisateur GESTIONNAIRE = new TypeUtilisateur(TypeUtilisateurCode.GEST);
 
 	/**
 	 * Code du type d'utilisateur.
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TUT_CODE", nullable = false, length = 10, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 10, name = "TUT_CODE", nullable = false)
 	private TypeUtilisateurCode code;
 
 	/**
 	 * Libellé du type d'utilisateur.
 	 */
-	@Column(name = "TUT_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "TUT_LIBELLE", nullable = false)
 	private String libelle;
 
 	/**

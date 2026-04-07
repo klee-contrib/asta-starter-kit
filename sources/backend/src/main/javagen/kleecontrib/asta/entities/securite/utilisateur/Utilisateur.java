@@ -42,43 +42,43 @@ public class Utilisateur {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "UTI_ID", nullable = false, columnDefinition = "int8")
+	@Column(columnDefinition = "int8", name = "UTI_ID", nullable = false)
 	private Long id;
 
 	/**
 	 * Nom de l'utilisateur.
 	 */
-	@Column(name = "UTI_NOM", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "UTI_NOM", nullable = false)
 	private String nom;
 
 	/**
 	 * Nom de l'utilisateur.
 	 */
-	@Column(name = "UTI_PRENOM", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "UTI_PRENOM", nullable = false)
 	private String prenom;
 
 	/**
 	 * Email de l'utilisateur.
 	 */
-	@Column(name = "UTI_EMAIL", nullable = false, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", name = "UTI_EMAIL", nullable = false)
 	private String email;
 
 	/**
 	 * Age de l'utilisateur.
 	 */
-	@Column(name = "UTI_DATE_NAISSANCE", columnDefinition = "date")
+	@Column(columnDefinition = "date", name = "UTI_DATE_NAISSANCE")
 	private LocalDate dateNaissance;
 
 	/**
 	 * Adresse de l'utilisateur.
 	 */
-	@Column(name = "UTI_ADRESSE", length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "UTI_ADRESSE")
 	private String adresse;
 
 	/**
 	 * Si l'utilisateur est actif.
 	 */
-	@Column(name = "UTI_ACTIF", nullable = false, columnDefinition = "boolean")
+	@Column(columnDefinition = "boolean", name = "UTI_ACTIF", nullable = false)
 	private Boolean actif = true;
 
 	/**
@@ -98,21 +98,21 @@ public class Utilisateur {
 	/**
 	 * Nom du fichier de la photo de l'utilisateur, s'il en a une.
 	 */
-	@Column(name = "UTI_NOM_FICHIER_PHOTO", length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "UTI_NOM_FICHIER_PHOTO")
 	private String nomFichierPhoto;
 
 	/**
 	 * Date de création de l'utilisateur.
 	 */
 	@CreatedDate
-	@Column(name = "UTI_DATE_CREATION", nullable = false, columnDefinition = "date")
+	@Column(columnDefinition = "date", name = "UTI_DATE_CREATION", nullable = false)
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
 	@LastModifiedDate
-	@Column(name = "UTI_DATE_MODIFICATION", columnDefinition = "date")
+	@Column(columnDefinition = "date", name = "UTI_DATE_MODIFICATION")
 	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**

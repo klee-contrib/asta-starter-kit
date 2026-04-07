@@ -12,8 +12,6 @@ import jakarta.annotation.Generated;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import kleecontrib.asta.entities.securite.utilisateur.SecuriteUtilisateurMappers;
-import kleecontrib.asta.entities.securite.utilisateur.Utilisateur;
 import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 
 /**
@@ -219,15 +217,5 @@ public class UtilisateurCommand implements Serializable {
 	 */
 	public void setTypeUtilisateurCode(TypeUtilisateurCode typeUtilisateurCode) {
 		this.typeUtilisateurCode = typeUtilisateurCode;
-	}
-
-	/**
-	 * Mappe 'UtilisateurCommand' vers 'Utilisateur'.
-	 * @param target Instance pré-existante de 'Utilisateur'. Une nouvelle instance sera créée si non spécifié.
-	 *
-	 * @return Une instance de 'Utilisateur'.
-	 */
-	public Utilisateur toUtilisateur(Utilisateur target) {
-		return SecuriteUtilisateurMappers.toUtilisateur(this, target);
 	}
 }

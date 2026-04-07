@@ -11,6 +11,7 @@ class:
   trigram: TUT
   reference: true
   comment: Type d'utilisateur
+  readonly: true
 
   properties:
     - name: Code
@@ -34,7 +35,7 @@ class:
   trigram: TDR
   reference: true
   comment: Type de droit
-
+  readonly: true
   properties:
     - name: Code
       label: Type de droit
@@ -57,6 +58,7 @@ class:
   trigram: DRO
   reference: true
   orderProperty: Code
+  readonly: true
   comment: Droits de l'application
 
   properties:
@@ -77,7 +79,7 @@ class:
       comment: Type de profil pouvant faire l'action
 
   values:
-    Create: { Code: CREATE, Libelle: Création, TypeDroitCode: WRITE }
-    Read: { Code: READ, Libelle: Lecture, TypeDroitCode: READ }
-    Update: { Code: UPDATE, Libelle: Mise à jour, TypeDroitCode: WRITE }
-    Delete: { Code: DELETE, Libelle: Suppression, TypeDroitCode: ADMIN }
+    Create: { Code: CREATE, Libelle: Création, TypeDroit: WRITE }
+    Read: { Code: READ, Libelle: Lecture, TypeDroit: READ }
+    Update: { Code: UPDATE, Libelle: Mise à jour, TypeDroit: WRITE }
+    Delete: { Code: DELETE, Libelle: Suppression, TypeDroit: ADMIN }

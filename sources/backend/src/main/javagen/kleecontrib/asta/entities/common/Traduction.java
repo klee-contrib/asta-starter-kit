@@ -37,7 +37,7 @@ public class Traduction {
 	/**
 	 * Valeur.
 	 */
-	@Column(name = "TRD_LABEL", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(columnDefinition = "varchar", length = 100, name = "TRD_LABEL", nullable = false)
 	private String label;
 
 	/**
@@ -93,10 +93,10 @@ public class Traduction {
 
 	public static class TraductionId {
 
-		@Column(name = "TRD_RESOURCE_KEY", nullable = false, length = 100, columnDefinition = "varchar")
+		@Column(columnDefinition = "varchar", length = 100, name = "TRD_RESOURCE_KEY", nullable = false)
 		private String resourceKey;
 
-		@Column(name = "TRD_LOCALE", nullable = false, length = 100, columnDefinition = "varchar")
+		@Column(columnDefinition = "varchar", length = 100, name = "TRD_LOCALE", nullable = false)
 		private String locale;
 
 		/**

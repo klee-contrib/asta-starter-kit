@@ -23,6 +23,13 @@
       "type": "string",
       "description": "Chemin du dossier racine qui contient tous les fichiers tmd du modèle, qui seront chargés par le générateur (à l'exception du fichier de domaines qui est chargé à part). Si non renseigné, le dossier contenant le fichier de config sera utilisé."
     },
+    "modelFilePaths": {
+      "type": "array",
+      "description": "Si renseigné, seuls les fichiers de modèle matchant les patterns (globs) listés (relativement au `modelRoot`) seront chargés par TopModel.",
+      "items": {
+        "type": "string"
+      }
+    },
     "lockFileName": {
       "type": "string",
       "description": "Nom du fichier de lock",
@@ -32,15 +39,15 @@
       "type": "boolean",
       "description": "Utilise le nom au pluriel des classes pour générer leur noms de table SQL."
     },
+    "defaultAssociationUseClass": {
+      "type": "boolean",
+      "description": "Détermine la valeur par défaut de `useClass` sur les propriétés d'association du modèle.",
+      "default": "false"
+    },
     "useLegacyRoleNames": {
       "type": "boolean",
       "description": "Transforme les noms de rôles d'associations en upper case (au lieu de constant case) pour déterminer le nom SQL des propriétés",
       "default": "false"
-    },
-    "useLegacyAssociationCompositionMappers": {
-      "type": "boolean",
-      "description": "Permet de mapper les compositions OneToMany et ManyToMany à des compositions avec un kind non null. Sans garantie de résultat...",
-      "default": false
     },
     "i18n": {
       "type": "object",
@@ -185,13 +192,15 @@
               "type": "string",
               "enum": [
                 "JavaDtoGen",
+                "JavaEnumClassPropGen",
                 "JavaEnumDtoGen",
+                "JavaEnumEnumGen",
+                "JavaUniqValPropGen",
                 "JdbcEntityGen",
                 "JpaDaoGen",
                 "JpaEntityGen",
                 "JpaEnumEntityGen",
-                "JpaEnumGen",
-                "JpaEnumValuesGen",
+                "JpaMetaModelGen",
                 "JpaInterfaceGen",
                 "SpringDataFlowGen",
                 "FeignClientApiGen",
@@ -220,6 +229,16 @@
           "ignoreDefaultValues": {
             "type": "boolean",
             "description": "Désactive la génération des valeurs par défaut des propriétés dans les classes et endpoints générés avec cette configuration."
+          },
+          "uniqueValueGeneration": {
+            "type": "string",
+            "description": "Mode de génération des valeurs de propriétés avec clé d'unicité : `none`, `const-only`, `enum-only`, `enum-or-const`. Par défaut : `enum-or-const`.",
+            "enum": [
+              "none",
+              "const-only",
+              "enum-only",
+              "enum-or-const"
+            ]
           },
           "rootModule": {
             "type": "string",
@@ -250,16 +269,6 @@
             "type": "string",
             "description": "Localisation des enums du modèle, relative au répertoire de génération.",
             "default": "javagen:{app:path}/enums/{module:path}"
-          },
-          "enumsValuesPath": {
-            "type": "string",
-            "description": "Localisation des enums de valeur du modèle, relative au répertoire de génération. Prend la valeur de enumsPath si non défini",
-            "default": "javagen:{app:path}/enums/{module:path}"
-          },
-          "enumsAsEnums": {
-            "type": "boolean",
-            "description": "Transforme les classes contenant des values en enum",
-            "default": "false"
           },
           "metaModel": {
             "type": "boolean",
@@ -348,7 +357,74 @@
           },
           "mappersInClass": {
             "type": "boolean",
-            "description": "Indique s'il faut ajouter les mappers en tant méthode ou constructeur dans les classes qui les déclarent"
+            "description": "Indique s'il faut ajouter les mappers en tant méthode ou constructeur dans les classes qui les déclarent",
+            "default": "false"
+          },
+          "mapperTagsOverrides": {
+            "type": "array",
+            "description": "Si un mapper contient au moins une classe de ces tags, alors il sera généré avec les tags de cette classe (au lieu du comportement par défaut qui priorise les tags de la classe persistée puis de celle qui définit le mapper).",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cascadeTypes": {
+            "type": "object",
+            "description": "Types de cascade à ajouter aux associations générées.",
+            "default": {
+              "oneToOne": [
+                "all"
+              ],
+              "oneToMany": [
+                "all"
+              ]
+            },
+            "properties": {
+              "oneToOne": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "all",
+                    "persist",
+                    "merge",
+                    "remove",
+                    "refresh",
+                    "detach",
+                    "lock"
+                  ]
+                }
+              },
+              "oneToMany": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "all",
+                    "persist",
+                    "merge",
+                    "remove",
+                    "refresh",
+                    "detach",
+                    "lock"
+                  ]
+                }
+              },
+              "manyToOne": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "all",
+                    "persist",
+                    "merge",
+                    "remove",
+                    "refresh",
+                    "detach",
+                    "lock"
+                  ]
+                }
+              }
+            }
           },
           "dataFlowsPath": {
             "type": "string",
@@ -381,12 +457,12 @@
           },
           "associationAdders": {
             "type": "boolean",
-            "description": "Option pour générer des méthodes d'ajouts pour les associations oneToMany et manyToMany. Ces méthodes permettent de synchroniser les objets ajoutés",
+            "description": "Option pour générer des méthodes d'ajouts pour les associations multiples. Ces méthodes permettent de synchroniser les objets ajoutés",
             "default": "false"
           },
           "associationRemovers": {
             "type": "boolean",
-            "description": "Option pour générer des méthodes de suppression pour les associations oneToMany et manyToMany. Ces méthodes permettent de synchroniser les objets supprimés",
+            "description": "Option pour générer des méthodes de suppression pour les associations multiples. Ces méthodes permettent de synchroniser les objets supprimés",
             "default": "false"
           },
           "generatedHint": {

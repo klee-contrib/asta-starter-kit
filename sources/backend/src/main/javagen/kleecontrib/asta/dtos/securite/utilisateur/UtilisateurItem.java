@@ -11,8 +11,6 @@ import jakarta.annotation.Generated;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import kleecontrib.asta.entities.securite.utilisateur.SecuriteUtilisateurMappers;
-import kleecontrib.asta.entities.securite.utilisateur.Utilisateur;
 import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 
 /**
@@ -63,23 +61,6 @@ public class UtilisateurItem implements Serializable {
 	 */
 	@NotNull
 	private TypeUtilisateurCode typeUtilisateurCode = TypeUtilisateurCode.GEST;
-
-	/**
-	 * No arg constructor.
-	 */
-	public UtilisateurItem() {
-		// No arg constructor
-	}
-
-	/**
-	 * Crée une nouvelle instance de 'UtilisateurItem'.
-	 * @param utilisateur Instance de 'Utilisateur'.
-	 *
-	 * @return Une nouvelle instance de 'UtilisateurItem'.
-	 */
-	public UtilisateurItem(Utilisateur utilisateur) {
-		SecuriteUtilisateurMappers.mapUtilisateurItem(utilisateur, this);
-	}
 
 	/**
 	 * Getter for id.

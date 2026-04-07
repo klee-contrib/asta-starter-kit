@@ -114,7 +114,7 @@ public class SecuriteUtilisateurMappers {
 	 * @return Nouvelle instance de 'UtilisateurCommand' mappée depuis 'utilisateur'.
 	 */
 	public static Utilisateur toUtilisateur(UtilisateurCommand source) {
-			return toUtilisateur(source, new Utilisateur());
+		return toUtilisateur(source, new Utilisateur());
 	}
 
 	/**

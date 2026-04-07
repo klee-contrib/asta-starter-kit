@@ -75,14 +75,4 @@ public class ProfilWrite implements Serializable {
 	public void setDroitCodes(Collection<DroitCode> droitCodes) {
 		this.droitCodes = droitCodes;
 	}
-
-	/**
-	 * Mappe 'ProfilWrite' vers 'ProfilCommand'.
-	 * @param target Instance pré-existante de 'ProfilCommand'. Une nouvelle instance sera créée si non spécifié.
-	 *
-	 * @return Une instance de 'ProfilCommand'.
-	 */
-	public ProfilCommand toProfilCommand(ProfilCommand target) {
-		return SecuriteProfilDTOMappers.toProfilCommand(this, target);
-	}
 }

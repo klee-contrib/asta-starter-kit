@@ -6,7 +6,7 @@ export type DroitCode = "CREATE" | "DELETE" | "READ" | "UPDATE";
 export interface Droit {
     code: DroitCode;
     libelle: string;
-    typeDroitCode: TypeDroitCode;
+    typeDroit: TypeDroit;
 }
 export const droit = {type: {} as Droit, valueKey: "code", labelKey: "libelle"} as const;
 
