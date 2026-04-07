@@ -33,6 +33,8 @@ services:
       - KC_DB_PASSWORD=asta
       - KC_HOSTNAME=localhost
       - IMPORT_REALM=true
-    command: start-dev --verbose
+    command: start-dev --import-realm
     volumes:
       - ./auth/:/opt/keycloak/data/import
+    depends_on:
+      - user-db
