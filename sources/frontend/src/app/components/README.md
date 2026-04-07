@@ -286,7 +286,55 @@ Le composant `display-for` fonctionne de manière similaire à `input-for` mais 
 - Charge dynamiquement le composant d'affichage depuis `domain.loadDisplayComponent()` ou `domain.displayComponent`
 - Utilise `DisplayField` par défaut qui affiche la valeur avec formatage basique (booléens → "Oui"/"Non", undefined → "-")
 
-## 9. Types utilitaires
+## 9. Composant `select-for` pour les listes déroulantes
+
+Variante de `field-for` pour les champs de sélection avec des listes de référence ou d'entités.
+
+**Props supplémentaires :**
+- `data` : Liste des options
+- `ref` : Configuration `{ type, valueKey, labelKey }` pour mapper valeur/libellé
+
+### Avec des listes de référence (générées automatiquement)
+
+```typescript
+// Référence générée (model/references.ts)
+export const typeUtilisateur = {
+  type: {} as TypeUtilisateur,
+  valueKey: "code",
+  labelKey: "libelle"
+} as const;
+
+// Configuration dans le composant
+typeUtilisateurOptions = computed(() => ({
+  ref: typeUtilisateur,
+  data: this.referenceService.get('typeUtilisateur').value(),
+}));
+```
+
+```html
+<app-select-for
+  [control]="form().controls.typeUtilisateurCode"
+  [fieldEntry]="Entity.typeUtilisateurCode"
+  [isEdit]="isEdit()"
+  [data]="typeUtilisateurOptions().data"
+  [ref]="typeUtilisateurOptions().ref"
+/>
+```
+
+### Avec des listes d'entités (chargées dynamiquement)
+
+```typescript
+profils = resource({
+  loader: () => lastValueFrom(this.profilService.getProfils()),
+});
+
+profilsOptions = computed(() => ({
+  ref: { type: {} as ProfilItem, valueKey: 'id', labelKey: 'libelle' } as const,
+  data: this.profils.value() ?? [],
+}));
+```
+
+## 10. Types utilitaires
 
 ### `InputSignalsOf<T>` et `InputPropsOf<T>`
 
@@ -320,6 +368,11 @@ field-for (bascule édition/affichage)
   │       └─ input-errors (affiche les erreurs Zod)
   └─ display-for (charge le bon display selon domain)
       └─ display-field / display-text / ...
+
+select-for (bascule édition/affichage + données)
+  ├─ input-select (ou composant custom)
+  │   └─ mat-select + input-errors
+  └─ display-for (affiche le libellé)
 ```
 
 Cette architecture permet :
