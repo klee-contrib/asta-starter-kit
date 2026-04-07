@@ -30,16 +30,18 @@
     [fieldEntry]="UtilisateurWriteEntity.actif"
     [isEdit]="isEdit()"
   />
-  <app-field-for
-    [control]="utilisateurForm().controls.profilId"
-    [fieldEntry]="UtilisateurWriteEntity.profilId"
-    [isEdit]="isEdit()"
-  />
   <app-select-for
     [control]="utilisateurForm().controls.typeUtilisateurCode"
     [fieldEntry]="UtilisateurWriteEntity.typeUtilisateurCode"
     [isEdit]="isEdit()"
     [data]="typeUtilisateurFieldOptions().data"
     [ref]="typeUtilisateurFieldOptions().ref"
+  />
+  <app-select-for
+    [control]="utilisateurForm().controls.profilId"
+    [fieldEntry]="UtilisateurWriteEntity.profilId"
+    [isEdit]="isEdit()"
+    [data]="profilsFieldOptions().data"
+    [ref]="profilsFieldOptions().ref"
   />
 </form>

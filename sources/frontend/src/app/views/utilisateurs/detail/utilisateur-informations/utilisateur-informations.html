@@ -25,12 +25,6 @@
       [isEdit]="isEdit()"
     ></app-utilisateur-informations-form>
     @if (!isEdit()) {
-      <div class="utilisateur-informations-type">
-        <app-display-field
-          [label]="UtilisateurReadEntity.typeUtilisateurCode.label"
-          [value]="utilisateur().typeUtilisateurCode | reference: 'typeUtilisateur'"
-        />
-      </div>
       <div class="utilisateur-informations-date-creation">
         <app-display-field
           [label]="UtilisateurReadEntity.dateCreation.label"

@@ -13,19 +13,10 @@ import { UtilisateurService } from '../../../../../services/securite/utilisateur
 import { DisplayField } from '../../../../components/display-field/display-field';
 import { ReferenceLoaderService } from '../../../../services/reference/references.service';
 import { UtilisateurInformationsForm } from '../../utilisateur-informations-form/utilisateur-informations-form';
-import { ReferencePipe } from '../../../../services/reference/reference.pipe';
 
 @Component({
   selector: 'app-utilisateur-informations',
-  imports: [
-    DatePipe,
-    MatIcon,
-    MatDivider,
-    DisplayField,
-    MatButton,
-    UtilisateurInformationsForm,
-    ReferencePipe,
-  ],
+  imports: [DatePipe, MatIcon, MatDivider, DisplayField, MatButton, UtilisateurInformationsForm],
   templateUrl: './utilisateur-informations.html',
   styleUrl: './utilisateur-informations.css',
 })

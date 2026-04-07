@@ -1,8 +1,17 @@
-@if (inputComponent.hasValue() && control()) {
-  <ng-container
-    *ngComponentOutlet="
-      inputComponent.value();
-      inputs: { control: control(), fieldEntry: fieldEntry(), ...inputProps(), data: data(), ref: ref()}
-    "
+@if (isEdit()) {
+  @if (inputComponent.hasValue() && control()) {
+    <ng-container
+      *ngComponentOutlet="
+          inputComponent.value();
+          inputs: { control: control(), fieldEntry: fieldEntry(), ...inputProps(), data: data(), ref: ref()}
+        "
+    />
+  }
+} @else {
+  <app-display-for
+    [control]="control()"
+    [fieldEntry]="fieldEntry()"
+    [data]="data()"
+    [ref]="ref()"
   />
 }

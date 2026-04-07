@@ -5,10 +5,11 @@ import { output } from 'zod/v4/mini';
 import { InputSignalsOf } from '../abstract-input';
 import { InputSelect } from '../input-select/input-select.component';
 import { NgComponentOutlet } from '@angular/common';
+import { DisplayFor } from '../display-for/display-for';
 
 @Component({
   selector: 'app-select-for',
-  imports: [NgComponentOutlet],
+  imports: [NgComponentOutlet, DisplayFor],
   templateUrl: './select-for.html',
   styleUrl: './select-for.css',
 })
