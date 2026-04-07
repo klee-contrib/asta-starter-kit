@@ -1,0 +1,26 @@
+<mat-form-field class="form-field">
+  <mat-label>{{ label() }}</mat-label>
+
+  <mat-select
+    [formControl]="control()"
+    (selectionChange)="onSelection($event)"
+    class="input-select"
+  >
+    <!-- Needed to display default value with translation -->
+    @if (control().value) {
+      <mat-select-trigger>
+        {{ keyToLabel(control().value) }}
+      </mat-select-trigger>
+    }
+
+    @for (option of data(); track option) {
+      <mat-option [value]="optionToKey(option)">
+        {{ optionToLabel(option) }}
+      </mat-option>
+    }
+  </mat-select>
+
+  <mat-error>
+    <app-input-errors [control]="control()" />
+  </mat-error>
+</mat-form-field>

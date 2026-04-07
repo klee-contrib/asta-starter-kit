@@ -7,7 +7,7 @@ export const DO_BOOLEEN = domain({
     import('./src/app/components/input-boolean/input-boolean').then((m) => m.InputBoolean),
 });
 export const DO_CODE = domain({
-  schema: z.string().max(3),
+  schema: z.string().max(10),
 });
 export const DO_ENTIER = domain({
   schema: z.number(),

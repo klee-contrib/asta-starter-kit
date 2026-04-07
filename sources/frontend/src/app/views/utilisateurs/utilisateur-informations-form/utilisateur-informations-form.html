@@ -35,4 +35,11 @@
     [fieldEntry]="UtilisateurWriteEntity.profilId"
     [isEdit]="isEdit()"
   />
+  <app-select-for
+    [control]="utilisateurForm().controls.typeUtilisateurCode"
+    [fieldEntry]="UtilisateurWriteEntity.typeUtilisateurCode"
+    [isEdit]="isEdit()"
+    [data]="typeUtilisateurFieldOptions().data"
+    [ref]="typeUtilisateurFieldOptions().ref"
+  />
 </form>

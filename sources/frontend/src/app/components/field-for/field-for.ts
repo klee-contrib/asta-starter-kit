@@ -16,6 +16,7 @@ export class FieldFor<
   IC extends InputSignalsOf<InputProps> = InputSignalsOf<InputProps>,
   D extends Domain<ZodTypeSingle, IC> = Domain<ZodTypeSingle>,
   T extends output<D['schema']> = output<D['schema']>,
+  O = any,
 > {
   readonly inputProps = input<InputProps>();
   readonly control = input.required<FormControl<T | undefined>>();
