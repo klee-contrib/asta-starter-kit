@@ -12,10 +12,12 @@ public enum TypeUtilisateurCode {
 	 * Administrateur.
 	 */
 	ADMIN,
+
 	/**
 	 * Client.
 	 */
 	CLIENT,
+
 	/**
 	 * Gestionnaire.
 	 */

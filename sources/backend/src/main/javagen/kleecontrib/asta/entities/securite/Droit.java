@@ -4,6 +4,8 @@
 
 package kleecontrib.asta.entities.securite;
 
+import java.util.List;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Immutable;
@@ -33,29 +35,34 @@ import kleecontrib.asta.enums.securite.DroitCode;
 public class Droit {
 
 	@Transient
-	public static final Droit CREATE = new Droit(DroitCode.CREATE);
+	public static final Droit CREATE = new Droit(DroitCode.CREATE, "Création", TypeDroit.WRITE);
 
 	@Transient
-	public static final Droit DELETE = new Droit(DroitCode.DELETE);
+	public static final Droit DELETE = new Droit(DroitCode.DELETE, "Suppression", TypeDroit.ADMIN);
 
 	@Transient
-	public static final Droit READ = new Droit(DroitCode.READ);
+	public static final Droit READ = new Droit(DroitCode.READ, "Lecture", TypeDroit.READ);
 
 	@Transient
-	public static final Droit UPDATE = new Droit(DroitCode.UPDATE);
+	public static final Droit UPDATE = new Droit(DroitCode.UPDATE, "Mise à jour", TypeDroit.WRITE);
+
+	/**
+	 * Liste de toutes les valeurs de l'énumération Droit.
+	 */
+	public static final List<Droit> VALUES = List.of(CREATE, DELETE, READ, UPDATE);
 
 	/**
 	 * Code du droit.
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(columnDefinition = "varchar", length = 10, name = "DRO_CODE", nullable = false)
+	@Column(name = "DRO_CODE", nullable = false, length = 10, columnDefinition = "varchar")
 	private DroitCode code;
 
 	/**
 	 * Libellé du droit.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "DRO_LIBELLE", nullable = false)
+	@Column(name = "DRO_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**
@@ -73,29 +80,15 @@ public class Droit {
 	}
 
 	/**
-	 * Enum constructor.
-	 * @param code Code dont on veut obtenir l'instance.
+	 * All args constructor for 'Droit'.
+	 * @param code Code du droit.
+	 * @param libelle Libellé du droit.
+	 * @param typeDroit Type de profil pouvant faire l'action.
 	 */
-	public Droit(DroitCode code) {
+	private Droit(DroitCode code, String libelle, TypeDroit typeDroit) {
 		this.code = code;
-		switch(code) {
-			case CREATE:
-				this.libelle = "Création";
-				this.typeDroit = TypeDroit.WRITE;
-				break;
-			case DELETE:
-				this.libelle = "Suppression";
-				this.typeDroit = TypeDroit.ADMIN;
-				break;
-			case READ:
-				this.libelle = "Lecture";
-				this.typeDroit = TypeDroit.READ;
-				break;
-			case UPDATE:
-				this.libelle = "Mise à jour";
-				this.typeDroit = TypeDroit.WRITE;
-				break;
-		}
+		this.libelle = libelle;
+		this.typeDroit = typeDroit;
 	}
 
 	/**
@@ -123,5 +116,20 @@ public class Droit {
 	 */
 	public TypeDroit getTypeDroit() {
 		return this.typeDroit;
+	}
+
+	/**
+	 * Retourne la valeur de l'énumération pour la clé spécifiée.
+	 * @param code La clé de l'énumération pour laquelle obtenir la valeur.
+	 *
+	 * @return La valeur de l'énumération correspondant à la clé 'Code'.
+	 */
+	public static Droit getValue(DroitCode code) {
+		return switch (code) {
+			case CREATE -> CREATE;
+			case DELETE -> DELETE;
+			case READ -> READ;
+			case UPDATE -> UPDATE;
+		};
 	}
 }

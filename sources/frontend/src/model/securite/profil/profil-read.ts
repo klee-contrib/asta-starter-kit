@@ -5,7 +5,7 @@
 import {DO_CODE_LISTE, DO_DATE_HEURE, DO_ID, DO_LIBELLE} from "@domains";
 import {e, entity, EntityToType} from "@focus4/entities";
 
-import {DroitCode} from "../references";
+import {DroitCode} from "../enums";
 import {UtilisateurItemEntity} from "../utilisateur/utilisateur-item";
 
 export type ProfilRead = EntityToType<ProfilReadEntityType>;

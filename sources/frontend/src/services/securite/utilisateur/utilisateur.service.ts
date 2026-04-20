@@ -6,7 +6,7 @@
 import { HttpClient, HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { TypeUtilisateurCode } from "../../../model/securite/references";
+import { TypeUtilisateurCode } from "../../../model/securite/enums";
 import { UtilisateurItem } from "../../../model/securite/utilisateur/utilisateur-item";
 import { UtilisateurRead } from "../../../model/securite/utilisateur/utilisateur-read";
 import { UtilisateurWrite } from "../../../model/securite/utilisateur/utilisateur-write";

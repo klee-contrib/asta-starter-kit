@@ -45,8 +45,8 @@ public interface UtilisateurController {
 	 * @param utiId Id de l'utilisateur.
 	 */
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PutMapping(consumes = { "multipart/form-data" }, path = "api/utilisateurs/{utiId}/photo")
-	void addUtilisateurPhoto(@PathVariable("utiId") Long utiId, @RequestPart(required = true, value = "photo") MultipartFile photo);
+	@PutMapping(path = "api/utilisateurs/{utiId}/photo", consumes = { "multipart/form-data" })
+	void addUtilisateurPhoto(@PathVariable("utiId") Long utiId, @RequestPart(value = "photo", required = true) MultipartFile photo);
 
 	/**
 	 * Supprime un utilisateur.
@@ -95,7 +95,7 @@ public interface UtilisateurController {
 	 * @return Utilisateurs matchant les critères.
 	 */
 	@GetMapping(path = "api/utilisateurs")
-	Collection<UtilisateurItem> searchUtilisateur(@RequestParam(required = false, value = "nom") String nom, @RequestParam(required = false, value = "prenom") String prenom, @RequestParam(required = false, value = "email") String email, @RequestParam(required = false, value = "dateNaissance") LocalDate dateNaissance, @RequestParam(required = false, value = "actif") Boolean actif, @RequestParam(required = false, value = "profilId") Long profilId, @RequestParam(required = false, value = "typeUtilisateurCode") TypeUtilisateurCode typeUtilisateurCode);
+	Collection<UtilisateurItem> searchUtilisateur(@RequestParam(value = "nom", required = false) String nom, @RequestParam(value = "prenom", required = false) String prenom, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "dateNaissance", required = false) LocalDate dateNaissance, @RequestParam(value = "actif", required = false) Boolean actif, @RequestParam(value = "profilId", required = false) Long profilId, @RequestParam(value = "typeUtilisateurCode", required = false) TypeUtilisateurCode typeUtilisateurCode);
 
 	/**
 	 * Sauvegarde un utilisateur.

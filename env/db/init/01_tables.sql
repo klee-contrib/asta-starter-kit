@@ -4,7 +4,7 @@
 
 -- ===========================================================================================
 --   Application Name	:	KleeContrib.Asta 
---   Script Name		:	02_create_tables.sql
+--   Script Name		:	01_tables.sql
 --   Description		:	Script de création des tables.
 -- ===========================================================================================
 

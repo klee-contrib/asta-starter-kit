@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "angular-cli": {
+      "type": "stdio",
+      "sandboxEnabled": false,
+      "command": "npx",
+      "args": ["@angular/cli@21.2.7", "mcp"],
+      "cwd": "${workspaceFolder}/sources/frontend",
+      "env": {}
+    }
+  },
+  "inputs": []
+}

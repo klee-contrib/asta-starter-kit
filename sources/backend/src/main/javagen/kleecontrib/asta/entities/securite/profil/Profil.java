@@ -33,27 +33,27 @@ public class Profil {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition = "int8", name = "PRO_ID", nullable = false)
+	@Column(name = "PRO_ID", nullable = false, columnDefinition = "int8")
 	private Long id;
 
 	/**
 	 * Libellé du profil.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "PRO_LIBELLE", nullable = false)
+	@Column(name = "PRO_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**
 	 * Date de création de l'utilisateur.
 	 */
 	@CreatedDate
-	@Column(columnDefinition = "date", name = "PRO_DATE_CREATION", nullable = false)
+	@Column(name = "PRO_DATE_CREATION", nullable = false, columnDefinition = "date")
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
 	@LastModifiedDate
-	@Column(columnDefinition = "date", name = "PRO_DATE_MODIFICATION")
+	@Column(name = "PRO_DATE_MODIFICATION", columnDefinition = "date")
 	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**

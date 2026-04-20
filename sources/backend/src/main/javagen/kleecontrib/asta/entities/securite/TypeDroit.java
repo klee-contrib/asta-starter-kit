@@ -4,6 +4,8 @@
 
 package kleecontrib.asta.entities.securite;
 
+import java.util.List;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Immutable;
@@ -30,26 +32,31 @@ import kleecontrib.asta.enums.securite.TypeDroitCode;
 public class TypeDroit {
 
 	@Transient
-	public static final TypeDroit ADMIN = new TypeDroit(TypeDroitCode.ADMIN);
+	public static final TypeDroit ADMIN = new TypeDroit(TypeDroitCode.ADMIN, "Administration");
 
 	@Transient
-	public static final TypeDroit READ = new TypeDroit(TypeDroitCode.READ);
+	public static final TypeDroit READ = new TypeDroit(TypeDroitCode.READ, "Lecture");
 
 	@Transient
-	public static final TypeDroit WRITE = new TypeDroit(TypeDroitCode.WRITE);
+	public static final TypeDroit WRITE = new TypeDroit(TypeDroitCode.WRITE, "Ecriture");
+
+	/**
+	 * Liste de toutes les valeurs de l'énumération TypeDroit.
+	 */
+	public static final List<TypeDroit> VALUES = List.of(ADMIN, WRITE, READ);
 
 	/**
 	 * Code du type de droit.
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(columnDefinition = "varchar", length = 10, name = "TDR_CODE", nullable = false)
+	@Column(name = "TDR_CODE", nullable = false, length = 10, columnDefinition = "varchar")
 	private TypeDroitCode code;
 
 	/**
 	 * Libellé du type de droit.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "TDR_LIBELLE", nullable = false)
+	@Column(name = "TDR_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**
@@ -60,22 +67,13 @@ public class TypeDroit {
 	}
 
 	/**
-	 * Enum constructor.
-	 * @param code Code dont on veut obtenir l'instance.
+	 * All args constructor for 'TypeDroit'.
+	 * @param code Code du type de droit.
+	 * @param libelle Libellé du type de droit.
 	 */
-	public TypeDroit(TypeDroitCode code) {
+	private TypeDroit(TypeDroitCode code, String libelle) {
 		this.code = code;
-		switch(code) {
-			case ADMIN:
-				this.libelle = "Administration";
-				break;
-			case READ:
-				this.libelle = "Lecture";
-				break;
-			case WRITE:
-				this.libelle = "Ecriture";
-				break;
-		}
+		this.libelle = libelle;
 	}
 
 	/**
@@ -94,5 +92,19 @@ public class TypeDroit {
 	 */
 	public String getLibelle() {
 		return this.libelle;
+	}
+
+	/**
+	 * Retourne la valeur de l'énumération pour la clé spécifiée.
+	 * @param code La clé de l'énumération pour laquelle obtenir la valeur.
+	 *
+	 * @return La valeur de l'énumération correspondant à la clé 'Code'.
+	 */
+	public static TypeDroit getValue(TypeDroitCode code) {
+		return switch (code) {
+			case ADMIN -> ADMIN;
+			case READ -> READ;
+			case WRITE -> WRITE;
+		};
 	}
 }

@@ -4,6 +4,8 @@
 
 package kleecontrib.asta.entities.securite;
 
+import java.util.List;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Immutable;
@@ -30,26 +32,31 @@ import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 public class TypeUtilisateur {
 
 	@Transient
-	public static final TypeUtilisateur ADMIN = new TypeUtilisateur(TypeUtilisateurCode.ADMIN);
+	public static final TypeUtilisateur ADMIN = new TypeUtilisateur(TypeUtilisateurCode.ADMIN, "Administrateur");
 
 	@Transient
-	public static final TypeUtilisateur CLIENT = new TypeUtilisateur(TypeUtilisateurCode.CLIENT);
+	public static final TypeUtilisateur CLIENT = new TypeUtilisateur(TypeUtilisateurCode.CLIENT, "Client");
 
 	@Transient
-	public static final TypeUtilisateur GESTIONNAIRE = new TypeUtilisateur(TypeUtilisateurCode.GEST);
+	public static final TypeUtilisateur GESTIONNAIRE = new TypeUtilisateur(TypeUtilisateurCode.GEST, "Gestionnaire");
+
+	/**
+	 * Liste de toutes les valeurs de l'énumération TypeUtilisateur.
+	 */
+	public static final List<TypeUtilisateur> VALUES = List.of(ADMIN, CLIENT, GESTIONNAIRE);
 
 	/**
 	 * Code du type d'utilisateur.
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(columnDefinition = "varchar", length = 10, name = "TUT_CODE", nullable = false)
+	@Column(name = "TUT_CODE", nullable = false, length = 10, columnDefinition = "varchar")
 	private TypeUtilisateurCode code;
 
 	/**
 	 * Libellé du type d'utilisateur.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "TUT_LIBELLE", nullable = false)
+	@Column(name = "TUT_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**
@@ -60,22 +67,13 @@ public class TypeUtilisateur {
 	}
 
 	/**
-	 * Enum constructor.
-	 * @param code Code dont on veut obtenir l'instance.
+	 * All args constructor for 'TypeUtilisateur'.
+	 * @param code Code du type d'utilisateur.
+	 * @param libelle Libellé du type d'utilisateur.
 	 */
-	public TypeUtilisateur(TypeUtilisateurCode code) {
+	private TypeUtilisateur(TypeUtilisateurCode code, String libelle) {
 		this.code = code;
-		switch(code) {
-			case ADMIN:
-				this.libelle = "Administrateur";
-				break;
-			case CLIENT:
-				this.libelle = "Client";
-				break;
-			case GEST:
-				this.libelle = "Gestionnaire";
-				break;
-		}
+		this.libelle = libelle;
 	}
 
 	/**
@@ -94,5 +92,19 @@ public class TypeUtilisateur {
 	 */
 	public String getLibelle() {
 		return this.libelle;
+	}
+
+	/**
+	 * Retourne la valeur de l'énumération pour la clé spécifiée.
+	 * @param code La clé de l'énumération pour laquelle obtenir la valeur.
+	 *
+	 * @return La valeur de l'énumération correspondant à la clé 'Code'.
+	 */
+	public static TypeUtilisateur getValue(TypeUtilisateurCode code) {
+		return switch (code) {
+			case ADMIN -> ADMIN;
+			case CLIENT -> CLIENT;
+			case GEST -> GESTIONNAIRE;
+		};
 	}
 }

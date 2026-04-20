@@ -19,7 +19,7 @@ services:
       - POSTGRES_USER=asta
       - POSTGRES_DB=asta
   auth:
-    image: keycloak/keycloak:latest
+    image: keycloak/keycloak:26.6.0
     ports:
       - 8090:8080
     environment:

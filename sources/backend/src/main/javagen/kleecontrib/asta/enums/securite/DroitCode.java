@@ -12,14 +12,17 @@ public enum DroitCode {
 	 * Création.
 	 */
 	CREATE,
+
 	/**
 	 * Suppression.
 	 */
 	DELETE,
+
 	/**
 	 * Lecture.
 	 */
 	READ,
+
 	/**
 	 * Mise à jour.
 	 */

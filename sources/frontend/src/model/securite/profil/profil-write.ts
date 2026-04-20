@@ -5,7 +5,7 @@
 import {DO_CODE_LISTE, DO_LIBELLE} from "@domains";
 import {e, entity, EntityToType} from "@focus4/entities";
 
-import {DroitCode} from "../references";
+import {DroitCode} from "../enums";
 
 export type ProfilWrite = EntityToType<ProfilWriteEntityType>;
 export type ProfilWriteEntityType = typeof ProfilWriteEntity;

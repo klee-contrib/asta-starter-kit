@@ -2,22 +2,21 @@
 # ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
 #
 
-version: 4.0.0-rc.4
+version: 4.2.3
 modules:
   jpa:
-    version: 4.0.0-rc.6
-    hash: 896a35817b345233075a8164af8322ab
+    version: 4.2.3
+    hash: 127591cfd0cf09f63b56860d836ba7b3
   javascript:
-    version: 4.0.0-rc.1
-    hash: d0d37a359dbb9b495d9ca4cd109d623e
+    version: 4.2.2
+    hash: b68d1c5f74a603161e2cd1ce3fbbb624
   sql:
-    version: 4.0.0-rc.0
-    hash: 6dd3b416f7747ccaaf05a34dd127a95b
+    version: 4.1.3
+    hash: 40c4b8bd1e52ff4af754f8eb37a12682
 generatedFiles:
-  - ../env/db/init/02_create_tables.sql
-  - ../env/db/init/03_create_fk.sql
-  - ../env/db/init/04_create_uk.sql
-  - ../env/db/init/05_init_data.sql
+  - ../env/db/init/01_tables.sql
+  - ../env/db/init/02_indexes_and_keys.sql
+  - ../env/db/init/03_values.sql
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/common/TraductionDAO.java
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/DroitProfilDAO.java
   - ../sources/backend/src/main/java/kleecontrib/asta/daos/securite/profil/ProfilDAO.java
@@ -58,10 +57,10 @@ generatedFiles:
   - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/TypeDroitCode.java
   - ../sources/backend/src/main/javagen/kleecontrib/asta/enums/securite/TypeUtilisateurCode.java
   - ../sources/frontend/src/model/securite/auth/auth-properties.ts
+  - ../sources/frontend/src/model/securite/enums.ts
   - ../sources/frontend/src/model/securite/profil/profil-item.ts
   - ../sources/frontend/src/model/securite/profil/profil-read.ts
   - ../sources/frontend/src/model/securite/profil/profil-write.ts
-  - ../sources/frontend/src/model/securite/references.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-item.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-read.ts
   - ../sources/frontend/src/model/securite/utilisateur/utilisateur-write.ts

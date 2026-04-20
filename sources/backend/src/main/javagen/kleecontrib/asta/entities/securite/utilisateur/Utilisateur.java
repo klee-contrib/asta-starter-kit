@@ -34,7 +34,12 @@ import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
-@Table(name = "UTILISATEURS", uniqueConstraints = {@UniqueConstraint(columnNames = {"UTI_EMAIL"})})
+@Table(
+	name = "UTILISATEURS",
+	uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"UTI_EMAIL"})
+	}
+)
 public class Utilisateur {
 
 	/**
@@ -42,43 +47,43 @@ public class Utilisateur {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition = "int8", name = "UTI_ID", nullable = false)
+	@Column(name = "UTI_ID", nullable = false, columnDefinition = "int8")
 	private Long id;
 
 	/**
 	 * Nom de l'utilisateur.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "UTI_NOM", nullable = false)
+	@Column(name = "UTI_NOM", nullable = false, length = 100, columnDefinition = "varchar")
 	private String nom;
 
 	/**
 	 * Nom de l'utilisateur.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "UTI_PRENOM", nullable = false)
+	@Column(name = "UTI_PRENOM", nullable = false, length = 100, columnDefinition = "varchar")
 	private String prenom;
 
 	/**
 	 * Email de l'utilisateur.
 	 */
-	@Column(columnDefinition = "varchar", name = "UTI_EMAIL", nullable = false)
+	@Column(name = "UTI_EMAIL", nullable = false, columnDefinition = "varchar")
 	private String email;
 
 	/**
 	 * Age de l'utilisateur.
 	 */
-	@Column(columnDefinition = "date", name = "UTI_DATE_NAISSANCE")
+	@Column(name = "UTI_DATE_NAISSANCE", columnDefinition = "date")
 	private LocalDate dateNaissance;
 
 	/**
 	 * Adresse de l'utilisateur.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "UTI_ADRESSE")
+	@Column(name = "UTI_ADRESSE", length = 100, columnDefinition = "varchar")
 	private String adresse;
 
 	/**
 	 * Si l'utilisateur est actif.
 	 */
-	@Column(columnDefinition = "boolean", name = "UTI_ACTIF", nullable = false)
+	@Column(name = "UTI_ACTIF", nullable = false, columnDefinition = "boolean")
 	private Boolean actif = true;
 
 	/**
@@ -93,26 +98,26 @@ public class Utilisateur {
 	 */
 	@JoinColumn(name = "TUT_CODE", referencedColumnName = "TUT_CODE")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = TypeUtilisateur.class)
-	private TypeUtilisateur typeUtilisateur = new TypeUtilisateur(TypeUtilisateurCode.GEST);
+	private TypeUtilisateur typeUtilisateur = TypeUtilisateur.GESTIONNAIRE;
 
 	/**
 	 * Nom du fichier de la photo de l'utilisateur, s'il en a une.
 	 */
-	@Column(columnDefinition = "varchar", length = 100, name = "UTI_NOM_FICHIER_PHOTO")
+	@Column(name = "UTI_NOM_FICHIER_PHOTO", length = 100, columnDefinition = "varchar")
 	private String nomFichierPhoto;
 
 	/**
 	 * Date de création de l'utilisateur.
 	 */
 	@CreatedDate
-	@Column(columnDefinition = "date", name = "UTI_DATE_CREATION", nullable = false)
+	@Column(name = "UTI_DATE_CREATION", nullable = false, columnDefinition = "date")
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
 	@LastModifiedDate
-	@Column(columnDefinition = "date", name = "UTI_DATE_MODIFICATION")
+	@Column(name = "UTI_DATE_MODIFICATION", columnDefinition = "date")
 	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**

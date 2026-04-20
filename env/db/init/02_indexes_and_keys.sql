@@ -4,8 +4,8 @@
 
 -- ===========================================================================================
 --   Application Name	:	KleeContrib.Asta 
---   Script Name		:	03_create_fk.sql
---   Description		:	Script de création des indexes et des clef étrangères.
+--   Script Name		:	02_indexes_and_keys.sql
+--   Description		:	Script de création des indexes et des clés étrangères et uniques.
 -- ===========================================================================================
 
 /**
@@ -77,3 +77,8 @@ create index IDX_UTI_TUT_CODE_FK on UTILISATEURS (
 alter table UTILISATEURS
 	add constraint FK_UTILISATEURS_TUT_CODE foreign key (TUT_CODE)
 		references TYPE_UTILISATEURS (TUT_CODE);
+
+/**
+  * Création de l'index UK_UTILISATEURS_UTI_EMAIL sur UTILISATEURS.
+ **/
+alter table UTILISATEURS add constraint UK_UTILISATEURS_UTI_EMAIL unique (UTI_EMAIL);
