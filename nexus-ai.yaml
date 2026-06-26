@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=./nexus-ai.schema.json
+
+defaults:
+queue_type: project
+max_parallel_tasks: 1
+# agent:
+#   mode: static
+#   idle_ttl_s: 900
+#   opencode_agent: orchestrator
+#   model: litellm/Dedicated/Qwen/Qwen3.6-27B
+kleeflow:
+  tenant_id: 6930ec1d-5437-4bf3-926f-01dfeee980c9
+  project_id: 68708800-bea3-4ce9-8dfa-43b90982f794
+events:
+  gitlab.note.created:
+    workflow: mon-workflow

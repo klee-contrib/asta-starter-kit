@@ -1,0 +1,6 @@
+# Catalogue MCP du projet (OPTIONNEL).
+# Declare ici des serveurs MCP REUTILISABLES, references par `use: <nom>` dans agents.yml.
+# Garde `servers: {}` si tu n'as pas de catalogue (NE supprime pas la cle servers :
+# un fichier vide ferait echouer le chargement). Les agents peuvent toujours declarer
+# du MCP INLINE directement dans agents.yml.
+servers: {}
