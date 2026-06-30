@@ -12,5 +12,9 @@ kleeflow:
   tenant_id: 6930ec1d-5437-4bf3-926f-01dfeee980c9
   project_id: 68708800-bea3-4ce9-8dfa-43b90982f794
 events:
-  gitlab.note.created:
+  github.issues.edited:
+    workflow: mon-workflow
+  github.issues.opened:
+    workflow: mon-workflow
+  github.issues.reopened:
     workflow: mon-workflow

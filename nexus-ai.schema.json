@@ -1,0 +1,361 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "nexus-ai-config",
+  "title": "nexus-ai project configuration",
+  "description": "Configuration du projet nexus-ai chargée depuis GitLab par le Gravity Engine.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "defaults": {
+      "description": "Marqueur de bloc héritable (ignoré par le parser, valeur null ou vide acceptée).",
+      "type": ["null", "object"]
+    },
+    "project_id": {
+      "description": "Identifiant du projet. Défaut : \"default\".",
+      "type": "string"
+    },
+    "max_parallel_tasks": {
+      "description": "Nombre maximum de tâches traitées en parallèle. Doit être un entier strictement positif.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "queue_type": {
+      "description": "Type de file de dispatch utilisé pour les tâches de ce projet.\n\n- `global` (défaut) : file séquentielle partagée par tous les projets. Une seule tâche s'exécute à la fois, tous projets confondus.\n- `project` : file parallèle inter-projets. Plusieurs projets distincts peuvent s'exécuter simultanément ; deux tâches du même projet restent séquentielles.",
+      "type": "string",
+      "enum": ["global", "project"],
+      "default": "global"
+    },
+    "agent": {
+      "description": "Configuration de l'agent Nexus. Les champs peuvent aussi être déclarés à plat à la racine (mode, idle_ttl_s, opencode_agent, model).",
+      "$ref": "#/$defs/agentSettings"
+    },
+    "mode": {
+      "description": "Raccourci pour agent.mode.",
+      "type": "string",
+      "default": "static"
+    },
+    "idle_ttl_s": {
+      "description": "Raccourci pour agent.idle_ttl_s : durée d'inactivité (secondes) avant extinction de l'agent.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "opencode_agent": {
+      "description": "Raccourci pour agent.opencode_agent : nom de l'agent opencode.",
+      "type": "string",
+      "default": "orchestrator"
+    },
+    "model": {
+      "description": "Raccourci pour agent.model : identifiant du modèle LLM, ex. litellm/Dedicated/Qwen/Qwen3.6-27B.",
+      "type": "string"
+    },
+    "system_prompt": {
+      "description": "Raccourci pour events.default.system_prompt.",
+      "type": "string"
+    },
+    "extra_instructions": {
+      "description": "Raccourci pour events.default.extra_instructions.",
+      "type": "string"
+    },
+    "kleeflow": {
+      "description": "Liaison du projet vers KleeFlow. Lorsqu'un événement définit `workflow`, la tâche est déléguée à un run de workflow KleeFlow (POST /api/tenants/{tenant_id}/projects/{project_id}/runs) au lieu du flux prompt/opencode. Les deux identifiants sont des UUID KleeFlow, distincts du project_id GitLab de la tâche.",
+      "$ref": "#/$defs/kleeflowBinding"
+    },
+    "events": {
+      "description": "Handlers par type d'événement ou par expression cron planifiée.\n\n- Clé événement (ex: \"gitlab.pipeline.failed\", \"github.pull_request.opened\", \"default\") → eventHandler : instructions transmises à l'agent lors du traitement de cet événement réactif. Les clés GitHub suivent la convention `github.<X-GitHub-Event>.<action>` (ex: \"github.issues.opened\").\n- Clé cron à 5 champs entre guillemets (ex: \"0 8 * * 1\") → eventHandler : tâche planifiée ; `agent` et `branch` sont alors obligatoires.\n\nTous les événements héritent des champs de `events.default` si non définis.",
+      "type": "object",
+      "patternProperties": {
+        "^(\\S+ ){4}\\S+$": {
+          "description": "Tâche planifiée déclenchée par l'expression cron. `agent` et `branch` sont obligatoires. Valeur : un handler ou une liste de handlers.",
+          "oneOf": [
+            { "$ref": "#/$defs/eventHandler" },
+            {
+              "type": "array",
+              "items": { "$ref": "#/$defs/eventHandler" },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/eventHandler"
+      },
+      "properties": {
+        "default": {
+          "description": "Handler de base hérité par tous les événements sans entrée dédiée.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.note.created": {
+          "description": "Nouveau commentaire sur une issue GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.note.merge_request.created": {
+          "description": "Nouveau commentaire sur une merge request GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.merge_request.open": {
+          "description": "Merge request ouverte sur GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.merge_request.update": {
+          "description": "Merge request mise à jour (nouveaux commits).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.merge_request.reopen": {
+          "description": "Merge request rouverte sur GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.push": {
+          "description": "Push sur une branche GitLab (tout push non-tag).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.push.branch_created": {
+          "description": "Création d'une nouvelle branche (before = SHA nul).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.push.branch_deleted": {
+          "description": "Suppression d'une branche (after = SHA nul).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.tag_push": {
+          "description": "Push de tag GitLab (tout événement tag).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.tag_push.created": {
+          "description": "Création d'un tag (before = SHA nul).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.tag_push.deleted": {
+          "description": "Suppression d'un tag (after = SHA nul).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.issue.open": {
+          "description": "Issue ouverte sur GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.issue.close": {
+          "description": "Issue fermée sur GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.issue.reopen": {
+          "description": "Issue rouverte sur GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.issue.update": {
+          "description": "Issue mise à jour (titre, description, labels, assignés, etc.).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.job": {
+          "description": "Tout changement d'état d'un job CI/CD GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.job.failed": {
+          "description": "Job CI/CD en échec (build_status = failed).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.job.success": {
+          "description": "Job CI/CD réussi (build_status = success).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.pipeline": {
+          "description": "Tout changement d'état d'un pipeline GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.pipeline.running": {
+          "description": "Pipeline démarré (status = running).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.pipeline.success": {
+          "description": "Pipeline terminé avec succès (status = success).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "gitlab.pipeline.failed": {
+          "description": "Pipeline en échec (status = failed).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.push": {
+          "description": "Push sur une branche ou un tag GitHub (X-GitHub-Event: push). Pas de sous-type d'action.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request.opened": {
+          "description": "Pull request ouverte (pull_request, action = opened). ≈ Merge Request GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request.synchronize": {
+          "description": "Pull request mise à jour avec de nouveaux commits (pull_request, action = synchronize).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request.reopened": {
+          "description": "Pull request rouverte (pull_request, action = reopened).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request.closed": {
+          "description": "Pull request fermée ou fusionnée (pull_request, action = closed ; pull_request.merged distingue la fusion).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request_review.submitted": {
+          "description": "Revue de pull request soumise (pull_request_review, action = submitted).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request_review.edited": {
+          "description": "Revue de pull request modifiée (pull_request_review, action = edited).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request_review.dismissed": {
+          "description": "Revue de pull request rejetée (pull_request_review, action = dismissed).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.issue_comment.created": {
+          "description": "Commentaire créé sur une issue ou une pull request (issue_comment, action = created). Cible de détection des commandes /nexus.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.issue_comment.edited": {
+          "description": "Commentaire modifié sur une issue ou une pull request (issue_comment, action = edited).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request_review_comment.created": {
+          "description": "Commentaire de revue ligne par ligne créé (pull_request_review_comment, action = created).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.pull_request_review_comment.edited": {
+          "description": "Commentaire de revue ligne par ligne modifié (pull_request_review_comment, action = edited).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.issues.opened": {
+          "description": "Issue ouverte (issues, action = opened).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.issues.edited": {
+          "description": "Issue modifiée (issues, action = edited).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.issues.closed": {
+          "description": "Issue fermée (issues, action = closed).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.issues.reopened": {
+          "description": "Issue rouverte (issues, action = reopened).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.workflow_run.completed": {
+          "description": "Run GitHub Actions terminé (workflow_run, action = completed ; workflow_run.conclusion = success/failure…). ≈ Pipeline GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.workflow_run.requested": {
+          "description": "Run GitHub Actions demandé (workflow_run, action = requested).",
+          "$ref": "#/$defs/eventHandler"
+        },
+        "github.check_run.completed": {
+          "description": "Check run terminé (check_run, action = completed ; check_run.conclusion porte le résultat). ≈ Job GitLab.",
+          "$ref": "#/$defs/eventHandler"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "kleeflowBinding": {
+      "title": "KleeFlowBinding",
+      "description": "Identifiants KleeFlow (UUID) du tenant et du projet cibles. Les deux champs sont requis pour activer la délégation KleeFlow ; un bloc incomplet est ignoré.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tenant_id", "project_id"],
+      "properties": {
+        "tenant_id": {
+          "description": "Identifiant (UUID) du tenant KleeFlow.",
+          "type": "string",
+          "minLength": 1
+        },
+        "project_id": {
+          "description": "Identifiant (UUID) du projet KleeFlow au sein du tenant.",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "agentSettings": {
+      "title": "AgentSettings",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "description": "Mode de fonctionnement de l'agent.",
+          "type": "string",
+          "default": "static"
+        },
+        "idle_ttl_s": {
+          "description": "Durée d'inactivité en secondes avant extinction de l'agent. null = pas d'extinction automatique.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "opencode_agent": {
+          "description": "Nom de l'agent opencode utilisé pour le traitement des tâches.",
+          "type": "string",
+          "default": "orchestrator"
+        },
+        "model": {
+          "description": "Identifiant du modèle LLM, ex. litellm/Dedicated/Qwen/Qwen3.6-27B.",
+          "type": "string"
+        }
+      }
+    },
+    "eventHandler": {
+      "title": "EventHandler",
+      "description": "Handler commun pour les événements réactifs (gitlab.*) et les tâches planifiées (cron). Pour les clés cron, `agent` et `branch` sont obligatoires.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "system_prompt": {
+          "description": "Prompt système envoyé à l'agent. Hérite de events.default.system_prompt si absent.",
+          "type": "string"
+        },
+        "extra_instructions": {
+          "description": "Instructions supplémentaires ajoutées au contexte de l'agent. Hérite de events.default.extra_instructions si absent.",
+          "type": "string"
+        },
+        "model": {
+          "description": "Surcharge du modèle LLM pour cet événement. Hérite de agent.model si absent.",
+          "type": "string"
+        },
+        "mode": {
+          "description": "Surcharge du mode agent pour cet événement.",
+          "type": "string"
+        },
+        "opencode_agent": {
+          "description": "Surcharge de l'agent opencode pour cet événement.",
+          "type": "string"
+        },
+        "idle_ttl_s": {
+          "description": "Surcharge du TTL d'inactivité (secondes) pour cet événement.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "workflow": {
+          "description": "Nom du workflow KleeFlow (catalogue) à exécuter pour cet événement. Si défini ET que le bloc racine `kleeflow` est présent, la tâche est déléguée à un run KleeFlow au lieu du flux prompt/opencode. Hérite de events.default.workflow si absent.",
+          "type": "string",
+          "minLength": 1
+        },
+        "workflow_ref": {
+          "description": "Branche/tag/SHA git passé au run KleeFlow (override de la ref du projet). Pertinent uniquement lorsque `workflow` est défini.",
+          "type": "string",
+          "minLength": 1
+        },
+        "agent": {
+          "description": "Nom de l'agent exécuteur. Obligatoire pour les tâches cron.",
+          "type": "string",
+          "minLength": 1
+        },
+        "branch": {
+          "description": "Branche Git cible. Obligatoire pour les tâches cron.",
+          "type": "string",
+          "minLength": 1
+        },
+        "priority": {
+          "description": "Priorité GPS de la tâche planifiée. Pertinent pour les tâches cron. Défaut : SILVER.",
+          "type": "string",
+          "enum": ["GOLD", "SILVER", "BRONZE"],
+          "default": "SILVER"
+        }
+      }
+    }
+  }
+}
