@@ -1,8 +1,9 @@
 name: angular-upgrade
 description: >-
-  Mise à jour périodique du projet Angular client (dépôt/workspace courant) vers la version
-  supérieure la plus proche. Les tags, releases et documentation sont lus exclusivement depuis le
-  dépôt officiel angular/angular, jamais depuis le dépôt du projet à mettre à jour.
+  Mise à jour périodique du projet Angular client (dépôt/workspace courant) vers la dernière version
+  stable du major courant (montées patch et minor autorisées, jamais de saut majeur). Les tags,
+  releases et documentation sont lus exclusivement depuis le dépôt officiel angular/angular, jamais
+  depuis le dépôt du projet à mettre à jour.
 inputs:
   event:
     description: >-
@@ -37,19 +38,23 @@ steps:
 
       Versions disponibles sur le DÉPÔT OFFICIEL Angular : {{ steps.fetch_tags.result }}
 
-      Choisis la version stable supérieure la plus proche pour le projet client : patch ou minor
-      UNIQUEMENT, jamais de saut de version majeure.
+      Choisis comme version cible la DERNIÈRE version stable disponible DANS LE MAJOR COURANT du
+      projet (la minor la plus haute du major courant, et son dernier patch) : les montées patch ET
+      minor sont autorisées, jamais de saut de version majeure. Si le projet est déjà sur la dernière
+      minor du major, cible simplement le dernier patch de cette minor.
 
       Retourne : version actuelle, version cible, type de saut (patch/minor/major), justification, et
       commandes ng update exactes (@angular/core@X @angular/cli@X et packages associés) à exécuter
       dans le projet client.
   - id: read_release_notes
-    title: Lire les notes de version
+    title: Analyser les notes de version et planifier
     agent: angular-researcher
     mode: read-only
     receives:
       - pick_version
     prompt: >-
+      Projet client : « sources/frontend ».
+
       Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
       Lis les release notes, CHANGELOG et update guide UNIQUEMENT sur «
@@ -58,64 +63,52 @@ steps:
 
       Ne pas confondre avec l'historique Git du dépôt projet.
 
-      Résume : breaking changes, migrations automatiques Angular, dépréciations, prérequis
-      Node.js/npm, actions manuelles requises.
-  - id: plan_migration
-    title: Planifier la migration
-    agent: planner
-    mode: read-only
-    receives:
-      - read_release_notes
-    prompt: >-
-      Projet client : « sources/frontend ».
+      1. ANALYSE (faits amont) : breaking changes, migrations automatiques Angular, dépréciations,
+      prérequis Node.js/npm, actions manuelles requises.
 
-      Versions (actuelle et cible) : {{ steps.pick_version.result }}
-
-      Release notes (dépôt officiel Angular) : {{ steps.read_release_notes.result }}
-
-      Élabore un plan ordonné pour LE DÉPÔT DU PROJET CLIENT : sauvegarde/commit préalable,
-      prérequis, séquence ng update, migrations, vérifications intermédiaires, rollback si échec
-  - id: run_ng_update
-    title: Exécuter ng update
+      2. PLAN D'EXÉCUTION (dépôt du projet client) : élabore un plan ordonné — sauvegarde/commit
+      préalable, prérequis, séquence ng update (regroupée en une seule commande pour tous les packages
+      Angular concernés), migrations, vérifications intermédiaires, rollback si échec. Vérifie la
+      disponibilité npm des versions ciblées et ajuste-les si nécessaire (ex. Material/CDK parfois en
+      retard sur le core), en justifiant tout écart.
+  - id: migrate
+    title: Exécuter ng update et migrer le code
     agent: angular-specialist
     mode: edit
     receives:
-      - plan_migration
+      - read_release_notes
     prompt: >-
-      Cible : PROJET CLIENT uniquement (« sources/frontend »).
+      Cible : PROJET CLIENT uniquement (« sources/frontend »). Projet connu et unique : ne PAS
+      lister les projets (pas de list_projects), ne PAS lancer de « ng update » nu de découverte —
+      les versions et packages exacts sont déjà fournis ci-dessous.
 
-      Plan de migration : {{ steps.plan_migration.result }}
+      Plan de migration : {{ steps.read_release_notes.result }}
 
       Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
-      Exécute ng update dans le dépôt du projet avec les flags non-interactifs appropriés (--force
-      si nécessaire et justifié)
+      1. EXÉCUTE ng update en UN SEUL appel regroupant TOUS les packages Angular concernés
+      (@angular/core, @angular/cli, et le cas échéant @angular/material, @angular/cdk,
+      @angular/material-luxon-adapter…) avec leurs versions cibles respectives dans la même commande.
+      Cela lance les migrations automatiques (schematics) et évite l'arbre git sali entre deux
+      updates et l'échec/retry avec --allow-dirty. N'utilise --force ou --allow-dirty que si
+      réellement nécessaire, en le justifiant.
 
-      Documente chaque commande exécutée, les sorties, warnings et erreurs éventuelles.
-  - id: migrate_code
-    title: Migrer le code existant
-    agent: builder
-    mode: edit
-    receives:
-      - run_ng_update
-    prompt: >-
-      Contexte : fichiers du PROJET CLIENT (« sources/frontend »).
+      2. APPLIQUE ensuite les migrations manuelles restantes sur le code du projet, non couvertes par
+      les schematics : breaking changes, APIs dépréciées, imports, templates, configuration
+      (angular.json, tsconfig, eslint), dépendances peer incompatibles.
 
-      Résultat ng update : {{ steps.run_ng_update.result }}
+      NE PAS builder ni lancer les tests ici : build, tests et lint sont couverts par l'étape
+      « run_tests ». Une seule vérification « ng version » suffit pour confirmer les versions
+      installées.
 
-      Release notes officielles : {{ steps.read_release_notes.result }}
-
-      Plan : {{ steps.plan_migration.result }}
-
-      Applique les migrations restantes sur le code du projet : breaking changes, APIs dépréciées,
-      imports, templates, configuration (angular.json, tsconfig, eslint), dépendances peer
-      incompatibles.
+      Documente chaque commande exécutée, les sorties, warnings et erreurs éventuelles, ainsi que les
+      migrations manuelles appliquées.
   - id: run_tests
     title: Vérifier build et tests
     agent: tester
     mode: edit
     receives:
-      - migrate_code
+      - migrate
     prompt: >-
       Projet client : « sources/frontend ».
 
@@ -134,7 +127,7 @@ steps:
         Le build passe, les tests passent, @angular/core est à la version cible, les migrations sont
         appliquées et le diff ne contient pas de régression critique.
       onExhausted:
-        goto: migrate_code
+        goto: migrate
         maxLoops: 1
         then: fail
   - id: create_pull_request
@@ -148,11 +141,9 @@ steps:
 
       Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
-      Plan de migration : {{ steps.plan_migration.result }}
+      Plan de migration : {{ steps.read_release_notes.result }}
 
-      Résultat ng update : {{ steps.run_ng_update.result }}
-
-      Migrations code appliquées : {{ steps.migrate_code.result }}
+      ng update et migrations appliquées : {{ steps.migrate.result }}
 
       Vérifications (build/tests) : {{ steps.run_tests.result }}
 
