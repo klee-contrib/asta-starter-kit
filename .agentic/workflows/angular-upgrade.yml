@@ -1,0 +1,188 @@
+name: angular-upgrade
+description: >-
+  Mise à jour périodique du projet Angular client (dépôt/workspace courant) vers la version
+  supérieure la plus proche. Les tags, releases et documentation sont lus exclusivement depuis le
+  dépôt officiel Angular (entrée angular_repo), jamais depuis le dépôt du projet à mettre à jour.
+inputs:
+  project_path:
+    description: >-
+      Chemin relatif vers le projet Angular DANS LE DÉPÔT DU PROJET (workspace courant). Vide =
+      détection automatique. Ne pas confondre avec angular_repo.
+  angular_repo:
+    default: angular/angular
+    description: >-
+      Dépôt GitHub OFFICIEL Angular (source des tags, releases et notes de version). Lecture seule ;
+      distinct du dépôt du projet client à mettre à jour.
+  allow_major:
+    default: 'false'
+    description: Autoriser un saut de version majeure sur le projet client (true/false)
+steps:
+  - id: locate_project
+    title: Localiser le projet Angular
+    agent: explorer
+    mode: read-only
+    prompt: >-
+      Localise le projet Angular dans CE dépôt uniquement : package.json contenant @angular/core,
+      angular.json ou project.json, version courante installée.
+
+      Retourne : chemin relatif dans le projet client, version courante (@angular/core et
+      @angular/cli), type de workspace (simple/monorepo), gestionnaire de paquets (npm/yarn/pnpm).
+  - id: fetch_tags
+    title: Récupérer les tags Angular
+    agent: angular-researcher
+    mode: read-only
+    receives:
+      - locate_project
+    prompt: >-
+      Source UNIQUE : dépôt officiel Angular « https://github.com/angular/angular» sur GitHub (PAS
+      le dépôt du projet client).
+
+      Récupère les tags et releases stables. Liste les versions semver publiées, triées par ordre
+      croissant.
+
+      Retourne : liste des versions, dernière version stable, tags LTS éventuels. Aucune lecture du
+      workspace projet.
+  - id: pick_version
+    title: Choisir la version cible
+    agent: planner
+    mode: read-only
+    receives:
+      - fetch_tags
+    prompt: >-
+      Version actuelle du PROJET CLIENT : {{ steps.locate_project.result }}
+
+      Versions disponibles sur le DÉPÔT OFFICIEL Angular : {{ steps.fetch_tags.result }}
+
+      Paramètre allow_major={{ inputs.allow_major }}.
+
+      Choisis la version supérieure la plus proche pour le projet client (patch ou minor ; majeure
+      uniquement si allow_major=true).
+
+      Retourne : version cible, type de saut (patch/minor/major), justification, et commandes ng
+      update exactes (@angular/core@X @angular/cli@X et packages associés) à exécuter dans le projet
+      client.
+  - id: read_release_notes
+    title: Lire les notes de version
+    agent: angular-researcher
+    mode: read-only
+    receives:
+      - pick_version
+    prompt: >-
+      Projet client (version actuelle) : {{ steps.locate_project.result }}
+
+      Version cible : {{ steps.pick_version.result }}
+
+      Lis les release notes, CHANGELOG et update guide UNIQUEMENT sur «
+      https://github.com/angular/angular/ » et la documentation Angular officielle, entre ces deux
+      versions.
+
+      Ne pas confondre avec l'historique Git du dépôt projet.
+
+      Résume : breaking changes, migrations automatiques Angular, dépréciations, prérequis
+      Node.js/npm, actions manuelles requises.
+  - id: plan_migration
+    title: Planifier la migration
+    agent: planner
+    mode: read-only
+    receives:
+      - read_release_notes
+    prompt: >-
+      Projet client : {{ steps.locate_project.result }}
+
+      Version cible : {{ steps.pick_version.result }}
+
+      Release notes (dépôt officiel Angular) : {{ steps.read_release_notes.result }}
+
+      Élabore un plan ordonné pour LE DÉPÔT DU PROJET CLIENT : sauvegarde/commit préalable,
+      prérequis, séquence ng update, migrations, vérifications intermédiaires, rollback si échec
+  - id: run_ng_update
+    title: Exécuter ng update
+    agent: angular-specialist
+    mode: edit
+    receives:
+      - plan_migration
+    prompt: >-
+      Cible : PROJET CLIENT uniquement ({{ steps.locate_project.result }}).
+
+      Plan de migration : {{ steps.plan_migration.result }}
+
+      Version cible : {{ steps.pick_version.result }}
+
+      Exécute ng update dans le dépôt du projet avec les flags non-interactifs appropriés (--force
+      si nécessaire et justifié)
+
+      Documente chaque commande exécutée, les sorties, warnings et erreurs éventuelles.
+  - id: migrate_code
+    title: Migrer le code existant
+    agent: builder
+    mode: edit
+    receives:
+      - run_ng_update
+    prompt: >-
+      Contexte : fichiers du PROJET CLIENT ({{ steps.locate_project.result }}).
+
+      Résultat ng update : {{ steps.run_ng_update.result }}
+
+      Release notes officielles : {{ steps.read_release_notes.result }}
+
+      Plan : {{ steps.plan_migration.result }}
+
+      Applique les migrations restantes sur le code du projet : breaking changes, APIs dépréciées,
+      imports, templates, configuration (angular.json, tsconfig, eslint), dépendances peer
+      incompatibles.
+  - id: run_tests
+    title: Vérifier build et tests
+    agent: tester
+    mode: edit
+    receives:
+      - migrate_code
+    prompt: >-
+      Projet client : {{ steps.locate_project.result }}
+
+      Version cible attendue : {{ steps.pick_version.result }}
+
+      Dans le dépôt DU PROJET : lance ng build (prod si disponible), tests unitaires (--watch=false
+      ou équivalent CI), et lint si configuré.
+
+      Vérifie que @angular/core correspond à la version cible dans le package.json du projet client.
+      Signale toute régression.
+    review:
+      agent: judge
+      maxRepeats: 2
+      onRedo: resume
+      criteria: >-
+        Le build passe, les tests passent, @angular/core est à la version cible, les migrations sont
+        appliquées et le diff ne contient pas de régression critique.
+      onExhausted:
+        goto: migrate_code
+        maxLoops: 1
+        then: fail
+  - id: create_pull_request
+    title: Créer la pull request GitHub
+    agent: github-publisher
+    mode: edit
+    receives:
+      - run_tests
+    prompt: >-
+      Projet client : {{ steps.locate_project.result }}
+
+      Version cible : {{ steps.pick_version.result }}
+
+      Plan de migration : {{ steps.plan_migration.result }}
+
+      Résultat ng update : {{ steps.run_ng_update.result }}
+
+      Migrations code appliquées : {{ steps.migrate_code.result }}
+
+      Vérifications (build/tests) : {{ steps.run_tests.result }}
+
+      Crée une pull request GitHub sur le dépôt DU PROJET CLIENT uniquement : 1. Branche nommée de
+      façon explicite (ex. chore/angular-upgrade-<version-cible>). 2. Commit de tous les changements
+      de la migration avec un message clair. 3. Push de la branche vers le remote GitHub du projet.
+      4. Ouverture d'une pull request vers la branche par défaut avec :
+         - titre : « chore: mise à jour Angular vers <version-cible> »
+         - description structurée : version source → cible, résumé des breaking changes
+           ({{ steps.read_release_notes.result }}), commandes ng update exécutées,
+           migrations manuelles, résultats des tests, points d'attention pour la revue.
+
+      Retourne : URL de la PR, nom de branche, liste des commits inclus.

@@ -1,47 +1,29 @@
 # Mode d'emploi du projet (pour les agents)
 
-Ce fichier est injecte dans CHAQUE prompt (producteur + juge) de chaque workflow.
+`asta-starter-kit` est une application fullstack :
 
-**Documentation agent** : [docs/AGENTS.md](docs/AGENTS.md)  
-**Index documentation** : [docs/README.md](docs/README.md)
+- **Frontend** : Angular 21, gestionnaire de paquets npm (`npm@11`), dans `sources/frontend`.
+- **Backend** : Spring Boot 4 / Java 25 / Maven, dans `sources/backend`.
+- **Modele** : gere avec TopModel dans `model/` (contrats generes cote back et front).
+- **Infra locale** : PostgreSQL + Keycloak via `env/docker-compose.yml` ; infra AWS via Terraform.
 
 ## Demarrer l'environnement
 
-```bash
-task up    # Docker (php, db, node, selenium…)
-task app   # composer, assets, BDD
-```
-
-URLs : `http://{module}.ges3x.local:8080` (ex. `gescom.ges3x.local:8080`).
+Base de donnees + Keycloak : `docker compose up -d` dans `env/`.
+(Utilisateur applicatif Keycloak : `asta` / mot de passe `asta`, realm `asta`.)
 
 ## Build
 
-Pas de build Maven/npm hors Docker. Les watchers front tournent dans les conteneurs `node`, `sass`, `typescript`.
-
-```bash
-task warmup   # recharger les caches Symfony (tous modules)
-```
+- Frontend : `cd sources/frontend && npm ci && npm run build`.
+- Backend : `cd sources/backend && mvn -q clean install`.
 
 ## Tests
 
-Les tests doivent etre VERTS avant commit :
-
-```bash
-task quality-fix && task quality
-task tests-unit          # si logique touchee
-task tests-migrations    # si entites / schema touches
-task tests-functional    # si controllers / routes touches
-```
-
-Test cible : `task test-phpunit -- tests/Unit/Gescom/...`  
-Behat : `MODULE=gescom task test-behat -- features/gescom/...`
+- Frontend : `cd sources/frontend && npm test` (Vitest ; en CI, mode non-watch).
+  `npm run build` DOIT compiler sans erreur.
+- Backend : `cd sources/backend && mvn test` DOIT etre VERT.
 
 ## Regles
 
-- **MODULE** : un seul module actif — toujours l'identifier avant modification (`config/modules/`, `src/Ges{module}/`).
-- **Entites** : toujours dans `src/Gescore/Entity/{Module}/`, jamais dans `src/Ges{module}/`.
-- **Migrations** : obligatoirement testees (`tests/Migrations/` + dumps before/after). Voir [docs/05-development/migrations.md](docs/05-development/migrations.md).
-- **Qualite** : ECS + PHPStan (`task quality`) avant commit.
-- **Pas de dependance inter-modules** : un `Gescom\*` n'importe pas un service `Gesmar\*` directement.
-
-Detail : [docs/AGENTS.md](docs/AGENTS.md)
+- Branches : `chore/<sujet>` ou `feat/<sujet>` ; commits conventionnels, AUCUNE attribution IA.
+- Ne pas regenerer le modele TopModel sans necessite, et ne pas casser les contrats generes.

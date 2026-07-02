@@ -1,12 +1,11 @@
 # Configuration plateforme agentique du projet.
-# Complete les TODO (repo, image), puis commite le dossier .agentic/ dans ton repo.
-name: ges3x-ai   # TODO: slug du projet
+name: asta-starter-kit
 
-# TODO: le depot que la plateforme clone dans le conteneur isole de chaque run.
+# Depot que la plateforme clone dans le conteneur isole de chaque run.
 repo:
-  url: https://git.kleegroup.io/kci/bu-j/ges3x-ai.git
-  ref: master
-  provider: gitlab   # github | gitlab
+  url: https://github.com/klee-contrib/asta-starter-kit.git
+  ref: main
+  provider: github   # github | gitlab
 
 # Image de run du projet - DEUX modes, l'un OU l'autre :
 # A) build au runtime depuis un Dockerfile du repo (ci-dessous, .agentic/Dockerfile)
@@ -14,11 +13,8 @@ image:
   dockerfile: .agentic/Dockerfile
 # B) image deja construite par TON CI et poussee sur un registre (zero build au run) :
 # image:
-#   ref: harbor.dev.klee.lan.net/mon-projet/runner:1.0.0
+#   ref: harbor.dev.klee.lan.net/asta-starter-kit/runner:1.0.0
 
-sandbox:
-  docker: true
-  
 # (Optionnel) docker-in-docker pour testcontainers / docker compose dans le run.
 # Necessite AGENTIC_ALLOW_DIND=1 cote worker.
 # sandbox:
