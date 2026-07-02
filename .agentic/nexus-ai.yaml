@@ -7,3 +7,5 @@ kleeflow:
 events:
   "30 10 * * 5": # Tous les vendredis à 10h30
     - workflow: angular-upgrade
+  github.pull_request.opened: # PR ouverte : relecture auto + fusion si tout est vert
+    workflow: mr-review

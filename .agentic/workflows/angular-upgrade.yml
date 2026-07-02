@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=./workflow.schema.json
 name: angular-upgrade
 description: >-
   Mise à jour périodique du projet Angular client (dépôt/workspace courant) vers la dernière version

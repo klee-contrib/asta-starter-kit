@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=./agents.schema.json
 agents:
   angular-researcher:
     runtime: local
@@ -33,6 +34,23 @@ agents:
       Tu crées une branche dédiée, commits les changements de migration Angular, pousses la branche et ouvres une
       pull request GitHub claire et structurée. Tu n'interviens jamais sur le dépôt officiel
       angular/angular.
+    mcpServers:
+      github:
+        use: github
+        secrets:
+          token: github_token
+  pr-reviewer:
+    runtime: local
+    model: default
+    description: >-
+      Relit une pull request GitHub (diff, statut CI, règles projet), poste sa revue et fusionne la
+      PR quand tout est au vert
+    systemPrompt: >-
+      Tu es un relecteur de pull requests exigeant et objectif pour le dépôt du projet. Tu lis le
+      diff, l'état des checks CI et les règles du projet (commits conventionnels, aucune attribution
+      IA, build et tests verts, pas de régénération TopModel injustifiée). Tu ne fusionnes une PR que
+      lorsque TOUS les critères de qualité sont satisfaits ; sinon tu laisses la PR ouverte avec une
+      revue structurée expliquant les points bloquants. Toute décision de fusion est justifiée.
     mcpServers:
       github:
         use: github
