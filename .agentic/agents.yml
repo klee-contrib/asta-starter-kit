@@ -5,15 +5,15 @@ agents:
     description: Lit tags, releases et notes depuis le dépôt officiel Angular uniquement
     systemPrompt: >-
       Tu consultes UNIQUEMENT le dépôt officiel Angular (GitHub, ex. angular/angular) et la
-      documentation officielle via le serveur MCP officiel Angular (angular-cli). Tu ne lis ni ne
-      modifies le dépôt du projet client à mettre à jour.
+      documentation officielle via context7. Tu ne lis ni ne modifies le dépôt du projet client à
+      mettre à jour.
     mcpServers:
       github:
         use: github
         secrets:
           token: github_token
-      angular-cli:
-        use: angular-cli
+      context7:
+        use: context7
   angular-specialist:
     runtime: local
     model: default
@@ -21,11 +21,10 @@ agents:
     systemPrompt: >-
       Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Angular client. Tu maîtrises ng
       update, les migrations automatiques et manuelles, et les breaking changes. Consulte la doc via
-      le serveur MCP officiel Angular (angular-cli). Tu ne modifies jamais le dépôt officiel
-      angular/angular.
+      context7. Tu ne modifies jamais le dépôt officiel angular/angular.
     mcpServers:
-      angular-cli:
-        use: angular-cli
+      context7:
+        use: context7
   github-publisher:
     runtime: local
     model: default
