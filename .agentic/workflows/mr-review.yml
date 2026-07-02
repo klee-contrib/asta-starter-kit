@@ -2,9 +2,9 @@
 name: mr-review
 description: >-
   Relit automatiquement une pull request GitHub du dépôt projet (déclenchée à son ouverture). Vérifie
-  build et tests sur la stack impactée, contrôle l'état de la CI et la qualité du diff, puis FUSIONNE
-  la PR si tout est au vert. Sinon, laisse la PR ouverte avec une revue structurée des points
-  bloquants.
+  build et tests sur la stack impactée, contrôle l'état de la CI et la qualité du diff, puis poste une
+  revue structurée (approbation ou changements requis). La fusion reste une décision humaine : le
+  workflow ne fusionne jamais.
 inputs:
   event:
     description: >-
@@ -78,8 +78,8 @@ steps:
 
       Retourne un verdict explicite : « APPROUVÉ » ou « CHANGEMENTS_REQUIS », avec la liste des points
       BLOQUANTS (chacun rattaché à un fichier/ligne) et des points non bloquants (suggestions).
-  - id: merge_or_report
-    title: Fusionner ou reporter
+  - id: post_review
+    title: Poster la revue
     agent: pr-reviewer
     mode: edit
     receives:
@@ -93,23 +93,22 @@ steps:
 
       Revue du code : {{ steps.review.result }}
 
-      Décision de fusion — applique une politique STRICTE. Fusionne la PR via le MCP github SEULEMENT
-      si TOUS ces critères sont simultanément vrais :
+      Poste la revue sur la PR via le MCP github. NE FUSIONNE JAMAIS la PR et ne supprime aucune
+      branche : la décision de fusion appartient à un humain.
+
+      Détermine l'état global à partir de TROIS critères :
       1. Build et tests locaux VERTS (étape verify).
       2. CI/checks GitHub au vert pour le SHA de tête (aucune conclusion failure, aucun check
          obligatoire en échec ou manquant).
       3. Revue = « APPROUVÉ » sans AUCUN point bloquant.
 
-      SI tous les critères sont remplis :
-      - Fusionne la PR (méthode squash de préférence), en conservant un message de commit conventionnel
-        dérivé du titre de la PR (sans aucune attribution IA).
-      - Supprime la branche source si le dépôt le permet.
-      - Poste un bref commentaire d'approbation résumant les vérifications passées.
+      SI les trois critères sont remplis :
+      - Poste une review « APPROVE » résumant les vérifications passées et indiquant que la PR est
+        prête à être fusionnée par un mainteneur.
 
       SINON (au moins un critère non satisfait) :
-      - NE FUSIONNE PAS, laisse la PR ouverte.
-      - Poste une review « CHANGEMENTS_REQUIS » structurée listant précisément chaque point bloquant
+      - Poste une review « REQUEST_CHANGES » structurée listant précisément chaque point bloquant
         (build/tests rouges, CI rouge, ou remarques de revue) et ce qui est attendu pour débloquer.
 
-      Retourne : décision finale (FUSIONNÉE / LAISSÉE OUVERTE), le détail des critères (satisfait /
-      non satisfait), l'URL de la PR et, si fusionnée, le SHA du commit de fusion.
+      Retourne : verdict posté (APPROVE / REQUEST_CHANGES), le détail des critères (satisfait / non
+      satisfait) et l'URL de la PR.

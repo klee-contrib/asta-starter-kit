@@ -131,8 +131,8 @@ steps:
         goto: migrate
         maxLoops: 1
         then: fail
-  - id: create_pull_request
-    title: Créer la pull request GitHub
+  - id: commit_main
+    title: Committer la montée de version sur main
     agent: github-publisher
     mode: edit
     receives:
@@ -148,13 +148,14 @@ steps:
 
       Vérifications (build/tests) : {{ steps.run_tests.result }}
 
-      Crée une pull request GitHub sur le dépôt DU PROJET CLIENT uniquement : 1. Branche nommée de
-      façon explicite (ex. chore/angular-upgrade-<version-cible>). 2. Commit de tous les changements
-      de la migration avec un message clair. 3. Push de la branche vers le remote GitHub du projet.
-      4. Ouverture d'une pull request vers la branche par défaut avec :
-         - titre : « chore: mise à jour Angular vers <version-cible> »
-         - description structurée : version source → cible, résumé des breaking changes
-           ({{ steps.read_release_notes.result }}), commandes ng update exécutées,
-           migrations manuelles, résultats des tests, points d'attention pour la revue.
+      Commite la montée de version directement sur la branche par défaut « main » du dépôt DU PROJET
+      CLIENT (PAS de branche dédiée, PAS de pull request) :
+      1. Assure-toi d'être sur « main » et à jour (git checkout main && git pull).
+      2. Commit de TOUS les changements de la migration en un seul commit conventionnel clair, message
+         « chore: mise à jour Angular vers <version-cible> » (AUCUNE attribution IA).
+      3. Push directement sur « main » vers le remote GitHub du projet.
 
-      Retourne : URL de la PR, nom de branche, liste des commits inclus.
+      Ne procède au commit/push QUE si l'étape run_tests confirme build et tests VERTS. En cas
+      d'échec des vérifications, n'écris rien sur main et signale-le.
+
+      Retourne : SHA du commit poussé, branche (main), résumé des fichiers modifiés.
