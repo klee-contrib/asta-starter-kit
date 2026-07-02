@@ -64,7 +64,7 @@ class:
 class:
   name: ProfilItemRead
   comment: Détail d'un profil en liste.
-  abstract: true
+  type: interface
   properties:
     - alias:
         class: Profil

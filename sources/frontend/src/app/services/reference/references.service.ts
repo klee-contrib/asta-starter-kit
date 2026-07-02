@@ -1,6 +1,6 @@
 import { inject, Injectable, resource } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { droit, typeDroit, typeUtilisateur } from '../../../model/securite/references';
+import { droit, typeDroit, typeUtilisateur } from '../../../model/securite/enums';
 import { ReferenceDefinition, ReferenceStore } from './types';
 import { ReferenceService } from '../../../services/common/reference.service';
 

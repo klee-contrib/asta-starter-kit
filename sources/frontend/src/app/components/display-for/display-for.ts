@@ -28,7 +28,7 @@ export class DisplayFor<
   });
   readonly data = input<O[]>([]); // List, reference list
   readonly ref = input<{
-    type: O;
+    type?: O;
     valueKey: keyof O;
     labelKey: keyof O;
   }>();

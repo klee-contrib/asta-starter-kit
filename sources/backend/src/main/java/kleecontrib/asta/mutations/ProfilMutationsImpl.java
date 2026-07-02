@@ -43,7 +43,7 @@ public class ProfilMutationsImpl implements ProfilMutations {
     private void saveDroitProfils(final Profil profilDb, final Collection<DroitCode> droitCodes) {
         var droitProfils = droitCodes.stream().map(droitCode -> {
             var droitProfil = new DroitProfil();
-            droitProfil.setDroit(new Droit(droitCode));
+            droitProfil.setDroit(Droit.getValue(droitCode));
             droitProfil.setProfil(profilDb);
             return droitProfil;
         }).toList();

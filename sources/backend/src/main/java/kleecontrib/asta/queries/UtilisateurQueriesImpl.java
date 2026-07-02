@@ -65,7 +65,7 @@ public class UtilisateurQueriesImpl implements UtilisateurQueries {
         }
 
         if (typeUtilisateurCode != null) {
-            utilisateurProbe.setTypeUtilisateur(new TypeUtilisateur(typeUtilisateurCode));
+            utilisateurProbe.setTypeUtilisateur(TypeUtilisateur.getValue(typeUtilisateurCode));
         }
         utilisateurProbe.setDateCreation(null);
         utilisateurProbe.setDateModification(null);

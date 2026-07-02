@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { EntityToForm } from 'ngx-focus-entities';
 import { lastValueFrom } from 'rxjs';
 import { ProfilItem } from '../../../../model/securite/profil/profil-item';
-import { typeUtilisateur } from '../../../../model/securite/references';
+import { typeUtilisateur, typeUtilisateurList } from '../../../../model/securite/enums';
 import { UtilisateurReadEntity } from '../../../../model/securite/utilisateur/utilisateur-read';
 import {
   UtilisateurWriteEntity,
@@ -43,7 +43,7 @@ export class UtilisateurInformationsForm {
   typeUtilisateurFieldOptions = computed(() => {
     return {
       ref: typeUtilisateur,
-      data: this.referenceService.get('typeUtilisateur').value(),
+      data: typeUtilisateur.list,
     };
   });
   protected profils = resource({

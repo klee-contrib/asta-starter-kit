@@ -26,7 +26,7 @@ export class SelectFor<
   readonly isEdit = input.required<boolean>();
   readonly data = input<O[]>([]); // List, reference list
   readonly ref = input.required<{
-    type: O;
+    type?: O;
     valueKey: keyof O;
     labelKey: keyof O;
   }>();
