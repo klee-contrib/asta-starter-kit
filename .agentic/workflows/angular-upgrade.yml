@@ -2,20 +2,14 @@ name: angular-upgrade
 description: >-
   Mise à jour périodique du projet Angular client (dépôt/workspace courant) vers la version
   supérieure la plus proche. Les tags, releases et documentation sont lus exclusivement depuis le
-  dépôt officiel Angular (entrée angular_repo), jamais depuis le dépôt du projet à mettre à jour.
+  dépôt officiel angular/angular, jamais depuis le dépôt du projet à mettre à jour.
 inputs:
-  project_path:
+  event:
     description: >-
-      Chemin relatif vers le projet Angular DANS LE DÉPÔT DU PROJET (workspace courant). Vide =
-      détection automatique. Ne pas confondre avec angular_repo.
-  angular_repo:
-    default: angular/angular
-    description: >-
-      Dépôt GitHub OFFICIEL Angular (source des tags, releases et notes de version). Lecture seule ;
-      distinct du dépôt du projet client à mettre à jour.
-  allow_major:
-    default: 'false'
-    description: Autoriser un saut de version majeure sur le projet client (true/false)
+      Payload brute de l'évènement déclencheur (webhook / cron). Ce workflow étant déclenché par
+      planification, la payload ne contient rien d'exploitable : le projet Angular est détecté
+      automatiquement, la source des versions est le dépôt officiel angular/angular, et la politique
+      de version est fixe (patch/minor uniquement, jamais de saut majeur).
 steps:
   - id: locate_project
     title: Localiser le projet Angular
@@ -53,10 +47,8 @@ steps:
 
       Versions disponibles sur le DÉPÔT OFFICIEL Angular : {{ steps.fetch_tags.result }}
 
-      Paramètre allow_major={{ inputs.allow_major }}.
-
-      Choisis la version supérieure la plus proche pour le projet client (patch ou minor ; majeure
-      uniquement si allow_major=true).
+      Choisis la version stable supérieure la plus proche pour le projet client : patch ou minor
+      UNIQUEMENT, jamais de saut de version majeure.
 
       Retourne : version cible, type de saut (patch/minor/major), justification, et commandes ng
       update exactes (@angular/core@X @angular/cli@X et packages associés) à exécuter dans le projet
