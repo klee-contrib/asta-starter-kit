@@ -38,11 +38,6 @@ agents:
       n'interviens jamais sur le dépôt officiel angular/angular. INTERDICTION de signer les commits ou
       d'y ajouter la moindre attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune
       mention d'un assistant ou d'une IA dans les messages de commit.
-    mcpServers:
-      github:
-        use: github
-        secrets:
-          token: github_token
   pr-reviewer:
     runtime: local
     model: default
