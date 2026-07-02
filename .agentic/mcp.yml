@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./mcp.schema.json
 servers:
-  angular-cli:
+  angular-mcp:
     transport: stdio
     command: sh
     args: ["-c", "cd sources/frontend && npx -y @angular/cli@latest mcp"]
