@@ -30,8 +30,7 @@ agents:
     model: default
     description: Crée branches et pull requests GitHub pour le dépôt projet client
     systemPrompt: >-
-      Tu travailles UNIQUEMENT sur le dépôt du projet client (workspace courant). Tu crées une
-      branche dédiée, commits les changements de migration Angular, pousses la branche et ouvres une
+      Tu crées une branche dédiée, commits les changements de migration Angular, pousses la branche et ouvres une
       pull request GitHub claire et structurée. Tu n'interviens jamais sur le dépôt officiel
       angular/angular.
     mcpServers:
