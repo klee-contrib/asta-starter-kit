@@ -7,26 +7,14 @@ inputs:
   event:
     description: >-
       Payload brute de l'évènement déclencheur (webhook / cron). Ce workflow étant déclenché par
-      planification, la payload ne contient rien d'exploitable : le projet Angular est détecté
-      automatiquement, la source des versions est le dépôt officiel angular/angular, et la politique
-      de version est fixe (patch/minor uniquement, jamais de saut majeur).
+      planification, la payload ne contient rien d'exploitable : le projet Angular est connu et
+      unique (« sources/frontend »), la source des versions est le dépôt officiel angular/angular,
+      et la politique de version est fixe (patch/minor uniquement, jamais de saut majeur).
 steps:
-  - id: locate_project
-    title: Localiser le projet Angular
-    agent: explorer
-    mode: read-only
-    prompt: >-
-      Localise le projet Angular dans CE dépôt uniquement : package.json contenant @angular/core,
-      angular.json ou project.json, version courante installée.
-
-      Retourne : chemin relatif dans le projet client, version courante (@angular/core et
-      @angular/cli), type de workspace (simple/monorepo), gestionnaire de paquets (npm/yarn/pnpm).
   - id: fetch_tags
     title: Récupérer les tags Angular
     agent: angular-researcher
     mode: read-only
-    receives:
-      - locate_project
     prompt: >-
       Source UNIQUE : dépôt officiel Angular « https://github.com/angular/angular» sur GitHub (PAS
       le dépôt du projet client).
@@ -43,16 +31,18 @@ steps:
     receives:
       - fetch_tags
     prompt: >-
-      Version actuelle du PROJET CLIENT : {{ steps.locate_project.result }}
+      Le projet Angular est connu et unique : « sources/frontend » (workspace simple, npm). Lis
+      directement « sources/frontend/package.json » pour relever la version courante de
+      @angular/core et @angular/cli.
 
       Versions disponibles sur le DÉPÔT OFFICIEL Angular : {{ steps.fetch_tags.result }}
 
       Choisis la version stable supérieure la plus proche pour le projet client : patch ou minor
       UNIQUEMENT, jamais de saut de version majeure.
 
-      Retourne : version cible, type de saut (patch/minor/major), justification, et commandes ng
-      update exactes (@angular/core@X @angular/cli@X et packages associés) à exécuter dans le projet
-      client.
+      Retourne : version actuelle, version cible, type de saut (patch/minor/major), justification, et
+      commandes ng update exactes (@angular/core@X @angular/cli@X et packages associés) à exécuter
+      dans le projet client.
   - id: read_release_notes
     title: Lire les notes de version
     agent: angular-researcher
@@ -60,9 +50,7 @@ steps:
     receives:
       - pick_version
     prompt: >-
-      Projet client (version actuelle) : {{ steps.locate_project.result }}
-
-      Version cible : {{ steps.pick_version.result }}
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
       Lis les release notes, CHANGELOG et update guide UNIQUEMENT sur «
       https://github.com/angular/angular/ » et la documentation Angular officielle, entre ces deux
@@ -79,9 +67,9 @@ steps:
     receives:
       - read_release_notes
     prompt: >-
-      Projet client : {{ steps.locate_project.result }}
+      Projet client : « sources/frontend ».
 
-      Version cible : {{ steps.pick_version.result }}
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
       Release notes (dépôt officiel Angular) : {{ steps.read_release_notes.result }}
 
@@ -94,11 +82,11 @@ steps:
     receives:
       - plan_migration
     prompt: >-
-      Cible : PROJET CLIENT uniquement ({{ steps.locate_project.result }}).
+      Cible : PROJET CLIENT uniquement (« sources/frontend »).
 
       Plan de migration : {{ steps.plan_migration.result }}
 
-      Version cible : {{ steps.pick_version.result }}
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
       Exécute ng update dans le dépôt du projet avec les flags non-interactifs appropriés (--force
       si nécessaire et justifié)
@@ -111,7 +99,7 @@ steps:
     receives:
       - run_ng_update
     prompt: >-
-      Contexte : fichiers du PROJET CLIENT ({{ steps.locate_project.result }}).
+      Contexte : fichiers du PROJET CLIENT (« sources/frontend »).
 
       Résultat ng update : {{ steps.run_ng_update.result }}
 
@@ -129,9 +117,9 @@ steps:
     receives:
       - migrate_code
     prompt: >-
-      Projet client : {{ steps.locate_project.result }}
+      Projet client : « sources/frontend ».
 
-      Version cible attendue : {{ steps.pick_version.result }}
+      Versions (actuelle et cible attendue) : {{ steps.pick_version.result }}
 
       Dans le dépôt DU PROJET : lance ng build (prod si disponible), tests unitaires (--watch=false
       ou équivalent CI), et lint si configuré.
@@ -156,9 +144,9 @@ steps:
     receives:
       - run_tests
     prompt: >-
-      Projet client : {{ steps.locate_project.result }}
+      Projet client : « sources/frontend ».
 
-      Version cible : {{ steps.pick_version.result }}
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
 
       Plan de migration : {{ steps.plan_migration.result }}
 
