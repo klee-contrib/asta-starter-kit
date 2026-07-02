@@ -1,11 +1,7 @@
-# Catalogue MCP du projet.
-# Declare ici des serveurs MCP REUTILISABLES, references par `use: <nom>` dans agents.yml.
-# Les agents peuvent toujours declarer du MCP INLINE directement dans agents.yml.
+# yaml-language-server: $schema=./mcp.schema.json
 servers:
-  # Serveur MCP officiel Angular (Angular CLI). Fournit doc officielle, bonnes pratiques
-  # et outils de modernisation. Demarre en stdio via npx dans le projet front.
   angular-cli:
-    type: stdio
-    command: npx
-    args: ["@angular/cli@latest", "mcp"]
-    cwd: sources/frontend
+    transport: stdio
+    command: sh
+    args: ["-c", "cd sources/frontend && npx -y @angular/cli@latest mcp"]
+    note: Serveur MCP officiel Angular (doc, bonnes pratiques, outils de modernisation).

@@ -1,0 +1,123 @@
+{
+    "type": "object",
+    "properties": {
+        "servers": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "transport": {
+                        "type": "string",
+                        "enum": [
+                            "stdio",
+                            "http",
+                            "sse"
+                        ],
+                        "description": "Type de connexion : « stdio » (processus local via command/args) ou « http »/« sse » (serveur distant via url)."
+                    },
+                    "command": {
+                        "type": "string",
+                        "description": "stdio : exécutable à lancer (ex. « npx »). N'y mettez pas de placeholders ${...} — placez-les dans args/env."
+                    },
+                    "args": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "stdio : arguments de la commande. Chaque élément accepte ${with.<clé>} / ${secret.<clé>}."
+                    },
+                    "env": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "stdio : variables d'environnement du processus. C'est ici qu'on relie un secret au nom attendu par l'outil (ex. « API_KEY: \"${secret.token}\" »)."
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "http|sse : URL du serveur distant. Si policy.allowedHosts est défini, l'URL doit être en https et l'hôte autorisé."
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "http|sse : en-têtes HTTP. Les valeurs acceptent ${with.<clé>} / ${secret.<clé>}."
+                    },
+                    "secretHeaders": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "http|sse : en-têtes porteurs de secrets (${secret.<clé>}) ; fusionnés avec « headers » à la matérialisation (séparés par clarté)."
+                    },
+                    "inputs": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "description": "Type indicatif de la valeur (purement descriptif — non validé)."
+                                },
+                                "required": {
+                                    "type": "boolean",
+                                    "description": "Si vrai, la référence doit fournir cette valeur via « with » (ou un « default »)."
+                                },
+                                "default": {
+                                    "type": "string",
+                                    "description": "Valeur de repli si la référence ne fournit pas « with.<clé> »."
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "description": "Réglages NON secrets attendus de l'auteur (remplis par « with » côté référence) ; référencés par ${with.<clé>}."
+                    },
+                    "requiredSecrets": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Clés de secrets que la référence DOIT mapper via « secrets ». Référencées par ${secret.<clé>} (lien par convention — à garder synchronisé)."
+                    },
+                    "policy": {
+                        "type": "object",
+                        "properties": {
+                            "allowedHosts": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "description": "http|sse : hôtes autorisés (https obligatoire ; « *.exemple.com » supporté). Vérifié à la résolution, après substitution de ${with}."
+                            },
+                            "allowedPackages": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "description": "stdio : un des args doit correspondre EXACTEMENT à une entrée (aucune normalisation de version)."
+                            }
+                        },
+                        "additionalProperties": false,
+                        "description": "Garde-fous de l'entrée : hôtes distants joignables (http|sse) ou paquets autorisés (stdio)."
+                    },
+                    "note": {
+                        "type": "string",
+                        "description": "Description libre (affichée dans le catalogue/Builder ; jamais transmise à l'agent)."
+                    }
+                },
+                "required": [
+                    "transport"
+                ],
+                "additionalProperties": false
+            },
+            "description": "Serveurs MCP du catalogue, indexés par nom. Ce nom est ce que l'on cible via « use: <nom> »."
+        }
+    },
+    "required": [
+        "servers"
+    ],
+    "additionalProperties": false,
+    "description": "Fichier .agentic/mcp.yml — catalogue des serveurs MCP du projet (fusionné avec les défauts de la plateforme, le projet l'emportant par nom).",
+    "$schema": "http://json-schema.org/draft-07/schema#"
+}
