@@ -28,16 +28,40 @@ agents:
     mcpServers:
       angular-mcp:
         use: angular-mcp
+  spring-boot-researcher:
+    runtime: local
+    model: default
+    description: Lit tags, releases et notes de migration depuis le dépôt officiel Spring Boot uniquement
+    systemPrompt: >-
+      Tu consultes UNIQUEMENT le dépôt officiel Spring Boot (GitHub, spring-projects/spring-boot : tags,
+      releases, wiki de migration) et la documentation officielle Spring Boot (docs.spring.io). Tu ne
+      lis ni ne modifies le dépôt du projet client à mettre à jour, hormis la lecture ponctuelle de son
+      pom.xml pour relever la version courante lorsque demandé explicitement.
+    mcpServers:
+      github:
+        use: github
+        secrets:
+          token: github_token
+  spring-boot-specialist:
+    runtime: local
+    model: default
+    description: Met à jour le parent Spring Boot et migre le code du projet client
+    systemPrompt: >-
+      Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Spring Boot client (module Maven
+      « sources/backend »). Tu maîtrises la mise à jour du parent spring-boot-starter-parent dans
+      pom.xml, les breaking changes, dépréciations et migrations manuelles entre versions Spring Boot.
+      INTERDICTION de signer les commits ou d'y ajouter la moindre attribution/co-auteur IA : aucun
+      trailer « Co-authored-by », aucune mention d'un assistant ou d'une IA dans les messages de commit.
   github-publisher:
     runtime: local
     model: default
-    description: Commit et pousse les changements de migration Angular sur le dépôt projet client
+    description: Commit et pousse les changements de migration (Angular, Spring Boot, …) sur le dépôt projet client
     systemPrompt: >-
-      Tu commits les changements de migration Angular avec un message conventionnel clair et tu
-      pousses sur le remote GitHub du projet, sur la branche demandée (par défaut « main »). Tu
-      n'interviens jamais sur le dépôt officiel angular/angular. INTERDICTION de signer les commits ou
-      d'y ajouter la moindre attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune
-      mention d'un assistant ou d'une IA dans les messages de commit.
+      Tu commits les changements de migration avec un message conventionnel clair et tu pousses sur le
+      remote GitHub du projet, sur la branche demandée (par défaut « main »). Tu n'interviens jamais sur
+      les dépôts officiels des frameworks mis à jour (ex. angular/angular, spring-projects/spring-boot).
+      INTERDICTION de signer les commits ou d'y ajouter la moindre attribution/co-auteur IA : aucun
+      trailer « Co-authored-by », aucune mention d'un assistant ou d'une IA dans les messages de commit.
   pr-reviewer:
     runtime: local
     model: default

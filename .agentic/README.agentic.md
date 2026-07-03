@@ -5,7 +5,7 @@ Ce dossier definit comment la plateforme execute des workflows d'agents sur ce r
 ## Fichiers
 
 - `agentic.config.yml` : config du projet (nom, depot, image de run, options). A COMPLETER (TODO repo/image).
-- `workflows/angular-upgrade.yml` : un workflow (suite d'etapes). GENERE par le Builder.
+- `workflows/angular-upgrade.yml`, `workflows/spring-boot-upgrade.yml` : les workflows (suites d'etapes). GENERES par le Builder.
 - `agents.yml` : les agents PROPRES au projet (les agents par defaut restent herites). GENERE par le Builder.
 - `Dockerfile` : l'image de run (toolchain). TEMPLATE a adapter a ta stack.
 - `instructions.md` : le mode d'emploi injecte dans chaque prompt. A COMPLETER.
@@ -20,10 +20,16 @@ Ce dossier definit comment la plateforme execute des workflows d'agents sur ce r
 ## MCP (outils des agents)
 
 Deux facons de donner un outil a un agent :
+
 - INLINE (le plus simple), dans `agents.yml` :
   ```yaml
   mcpServers:
-    mon-outil: { type: http, url: https://.../mcp, headers: { Authorization: "Bearer <token>" } }
+    mon-outil:
+      {
+        type: http,
+        url: https://.../mcp,
+        headers: { Authorization: "Bearer <token>" },
+      }
   ```
 - CATALOGUE : declare l'outil UNE fois dans `mcp.yml` sous `servers:`, puis reference-le :
   ```yaml

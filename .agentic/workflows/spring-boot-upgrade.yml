@@ -1,0 +1,160 @@
+# yaml-language-server: $schema=./workflow.schema.json
+name: spring-boot-upgrade
+description: >-
+  Mise à jour périodique du projet Spring Boot backend (dépôt/workspace courant) vers la dernière
+  version stable du major courant (montées patch et minor autorisées, jamais de saut majeur). Les
+  tags, releases et documentation sont lus exclusivement depuis le dépôt officiel
+  spring-projects/spring-boot, jamais depuis le dépôt du projet à mettre à jour.
+inputs:
+  event:
+    description: >-
+      Payload brute de l'évènement déclencheur (webhook / cron). Ce workflow étant déclenché par
+      planification, la payload ne contient rien d'exploitable : le projet Spring Boot est connu et
+      unique (« sources/backend »), la source des versions est le dépôt officiel
+      spring-projects/spring-boot, et la politique de version est fixe (patch/minor uniquement,
+      jamais de saut majeur).
+steps:
+  - id: fetch_tags
+    title: Récupérer les tags Spring Boot
+    agent: spring-boot-researcher
+    mode: read-only
+    prompt: >-
+      Source UNIQUE : dépôt officiel Spring Boot « https://github.com/spring-projects/spring-boot »
+      sur GitHub (PAS le dépôt du projet client).
+
+      Récupère les tags et releases stables. Liste les versions semver publiées, triées par ordre
+      croissant.
+
+      Retourne : liste des versions, dernière version stable, versions LTS/support éventuelles.
+      Aucune lecture du workspace projet.
+  - id: pick_version
+    title: Choisir la version cible
+    agent: planner
+    mode: read-only
+    receives:
+      - fetch_tags
+    prompt: >-
+      Le projet Spring Boot est connu et unique : « sources/backend » (module Maven). Lis
+      directement « sources/backend/pom.xml » pour relever la version courante du parent
+      org.springframework.boot:spring-boot-starter-parent (et la propriété java.version).
+
+      Versions disponibles sur le DÉPÔT OFFICIEL Spring Boot : {{ steps.fetch_tags.result }}
+
+      Choisis comme version cible la DERNIÈRE version stable disponible DANS LE MAJOR COURANT du
+      projet (la minor la plus haute du major courant, et son dernier patch) : les montées patch ET
+      minor sont autorisées, jamais de saut de version majeure. Si le projet est déjà sur la dernière
+      minor du major, cible simplement le dernier patch de cette minor.
+
+      Retourne : version actuelle, version cible, type de saut (patch/minor/major), justification, et
+      l'emplacement exact à modifier (balise <version> du <parent> dans pom.xml) pour passer à la
+      version cible.
+  - id: read_release_notes
+    title: Analyser les notes de version et planifier
+    agent: spring-boot-researcher
+    mode: read-only
+    receives:
+      - pick_version
+    prompt: >-
+      Projet client : « sources/backend ».
+
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
+
+      Lis les release notes, CHANGELOG et guides de migration (wiki « Spring Boot X.Y Release
+      Notes ») UNIQUEMENT sur « https://github.com/spring-projects/spring-boot/ » et la
+      documentation Spring Boot officielle (docs.spring.io), entre ces deux versions.
+
+      Ne pas confondre avec l'historique Git du dépôt projet.
+
+      1. ANALYSE (faits amont) : breaking changes, propriétés de configuration renommées/supprimées,
+      API dépréciées ou retirées, prérequis Java/Spring Framework, actions manuelles requises.
+
+      2. PLAN D'EXÉCUTION (dépôt du projet client) : élabore un plan ordonné — sauvegarde/commit
+      préalable, prérequis (version Java du pom.xml compatible), mise à jour de la balise <version>
+      du parent spring-boot-starter-parent dans pom.xml, migrations manuelles, vérifications
+      intermédiaires (build/tests), rollback si échec. Vérifie que la version ciblée est bien publiée
+      sur Maven Central et ajuste-la si nécessaire, en justifiant tout écart.
+  - id: migrate
+    title: Mettre à jour le parent et migrer le code
+    agent: spring-boot-specialist
+    mode: edit
+    receives:
+      - read_release_notes
+    prompt: >-
+      Cible : PROJET CLIENT uniquement (« sources/backend »). Projet connu et unique : ne PAS
+      lister les projets ni chercher d'autres modules — la version exacte est déjà fournie
+      ci-dessous.
+
+      Plan de migration : {{ steps.read_release_notes.result }}
+
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
+
+      1. MODIFIE « sources/backend/pom.xml » : remplace la balise <version> du parent
+      org.springframework.boot:spring-boot-starter-parent par la version cible. Ajuste également la
+      propriété java.version si le plan l'exige (prérequis JDK de la version cible).
+
+      2. APPLIQUE ensuite les migrations manuelles issues du plan, non couvertes par un simple
+      changement de version : breaking changes, propriétés de configuration renommées/supprimées,
+      API dépréciées/retirées, classes déplacées, dépendances tierces impactées.
+
+      NE PAS builder ni lancer les tests ici : build, tests et lint sont couverts par l'étape
+      « run_tests ». Une seule vérification suffit : confirmer que la balise <version> du parent
+      correspond bien à la version cible dans pom.xml.
+
+      Documente chaque changement effectué, les warnings et erreurs éventuelles, ainsi que les
+      migrations manuelles appliquées.
+  - id: run_tests
+    title: Vérifier build et tests
+    agent: tester
+    mode: edit
+    receives:
+      - migrate
+    prompt: >-
+      Projet client : « sources/backend ».
+
+      Versions (actuelle et cible attendue) : {{ steps.pick_version.result }}
+
+      Dans le dépôt DU PROJET : lance « mvn -q clean verify » (build + tests unitaires/intégration),
+      et le lint/analyse statique si configuré.
+
+      Vérifie que la balise <version> du parent spring-boot-starter-parent dans le pom.xml du projet
+      client correspond à la version cible. Signale toute régression.
+    review:
+      agent: judge
+      maxRepeats: 2
+      onRedo: resume
+      criteria: >-
+        Le build passe, les tests passent, le parent spring-boot-starter-parent est à la version
+        cible, les migrations manuelles sont appliquées et le diff ne contient pas de régression
+        critique.
+      onExhausted:
+        goto: migrate
+        maxLoops: 1
+        then: fail
+  - id: commit_main
+    title: Committer la montée de version sur main
+    agent: github-publisher
+    mode: edit
+    receives:
+      - run_tests
+    prompt: >-
+      Projet client : « sources/backend ».
+
+      Versions (actuelle et cible) : {{ steps.pick_version.result }}
+
+      Plan de migration : {{ steps.read_release_notes.result }}
+
+      Mise à jour du parent et migrations appliquées : {{ steps.migrate.result }}
+
+      Vérifications (build/tests) : {{ steps.run_tests.result }}
+
+      Commite la montée de version directement sur la branche par défaut « main » du dépôt DU PROJET
+      CLIENT (PAS de branche dédiée, PAS de pull request) :
+      1. Assure-toi d'être sur « main » et à jour (git checkout main && git pull).
+      2. Commit de TOUS les changements de la migration en un seul commit conventionnel clair, message
+         « chore: mise à jour Spring Boot vers <version-cible> » (AUCUNE attribution IA).
+      3. Push directement sur « main » vers le remote GitHub du projet.
+
+      Ne procède au commit/push QUE si l'étape run_tests confirme build et tests VERTS. En cas
+      d'échec des vérifications, n'écris rien sur main et signale-le.
+
+      Retourne : SHA du commit poussé, branche (main), résumé des fichiers modifiés.
