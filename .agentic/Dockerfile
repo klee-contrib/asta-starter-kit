@@ -3,15 +3,15 @@
 # Decommente/adapte la (les) toolchain(s) dont ton projet a besoin.
 FROM agentic/agent-runner:latest
 
-# --- Java 21 (Temurin) + Maven ---
-# RUN apt-get update && apt-get install -y --no-install-recommends wget gnupg \
-#     && wget -qO /etc/apt/keyrings/adoptium.asc https://packages.adoptium.net/artifactory/api/gpg/key/public \
-#     && echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb bookworm main" \
-#        > /etc/apt/sources.list.d/adoptium.list \
-#     && apt-get update && apt-get install -y --no-install-recommends temurin-21-jdk maven \
-#     && rm -rf /var/lib/apt/lists/*
-# ENV JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
-# ENV MAVEN_OPTS="-Dmaven.repo.local=/root/.m2/repository"
+# --- Java 25 (Temurin) + Maven 3 ---
+RUN apt-get update && apt-get install -y --no-install-recommends wget gnupg \
+    && wget -qO /etc/apt/keyrings/adoptium.asc https://packages.adoptium.net/artifactory/api/gpg/key/public \
+    && echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb bookworm main" \
+       > /etc/apt/sources.list.d/adoptium.list \
+    && apt-get update && apt-get install -y --no-install-recommends temurin-25-jdk maven \
+    && rm -rf /var/lib/apt/lists/*
+ENV JAVA_HOME=/usr/lib/jvm/temurin-25-jdk-amd64
+ENV MAVEN_OPTS="-Dmaven.repo.local=/root/.m2/repository"
 
 # --- Node + pnpm 9 ---
 # RUN npm install -g pnpm@9 --no-audit --no-fund
