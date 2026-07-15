@@ -1,9 +1,6 @@
 # yaml-language-server: $schema=./nexus-ai.schema.json
 queue_type: project
 max_parallel_tasks: 1
-kleeflow:
-  tenant_id: b5631a16-31a5-4130-93f7-d5f3f1a29cfd
-  project_id: 79bd75db-bd93-4f66-9072-22daf1a2225a
 events:
   "45 10 * * 5": # Tous les vendredis à 10h45
     - workflow: angular-upgrade
