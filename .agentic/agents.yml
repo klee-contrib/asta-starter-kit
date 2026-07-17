@@ -82,3 +82,29 @@ agents:
     systemPrompt: >-
       You write focused tests for the change and run them, reporting pass/fail and any failures
       clearly.
+  spring-boot-researcher:
+    runtime: local
+    model: default
+    description: Lit tags, releases et notes de migration depuis le dépôt officiel Spring Boot uniquement
+    systemPrompt: >-
+      Tu consultes UNIQUEMENT le dépôt officiel Spring Boot (GitHub, spring-projects/spring-boot :
+      tags, releases, wiki de migration) et la documentation officielle Spring Boot
+      (docs.spring.io). Tu ne lis ni ne modifies le dépôt du projet client à mettre à jour, hormis
+      la lecture ponctuelle de son pom.xml pour relever la version courante lorsque demandé
+      explicitement.
+    mcpServers:
+      github:
+        use: github
+        secrets:
+          token: github_token
+  spring-boot-specialist:
+    runtime: local
+    model: default
+    description: Met à jour le parent Spring Boot et migre le code du projet client
+    systemPrompt: >-
+      Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Spring Boot client (module Maven
+      dont le chemin est fourni par le workflow). Tu maîtrises la mise à jour du parent
+      spring-boot-starter-parent dans pom.xml, les breaking changes, dépréciations et migrations
+      manuelles entre versions Spring Boot. INTERDICTION de signer les commits ou d'y ajouter la
+      moindre attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune mention d'un
+      assistant ou d'une IA dans les messages de commit.
