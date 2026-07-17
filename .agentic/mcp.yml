@@ -1,7 +1,0 @@
-# yaml-language-server: $schema=./mcp.schema.json
-servers:
-  angular-mcp:
-    transport: stdio
-    command: sh
-    args: ["-c", "cd sources/frontend && npx -y @angular/cli@latest mcp"]
-    note: Serveur MCP officiel Angular (doc, bonnes pratiques, outils de modernisation).
