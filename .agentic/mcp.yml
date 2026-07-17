@@ -1,0 +1,3 @@
+# Project MCP catalog. Empty by default — the platform's vetted servers (incl. github)
+# are inherited from the defaults catalog and referenced by name in agents.yml.
+servers: {}

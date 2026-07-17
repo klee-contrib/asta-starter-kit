@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=./nexus-ai.schema.json
+# Ce fichier contiendra les triggers des workflows du projet :
+# chaque clé sous "events" est un cron, et "workflow" indique quel workflow il déclenche.
+queue_type: project
+max_parallel_tasks: 1
+events:
+  "0 8 * * 1": # Chaque lundi à 8h (heure de Paris)
+    workflow: mon-workflow
+    # variables:
+    #   # Valeurs envoyées en `inputs` supplémentaires au run KleeFlow (en plus du payload
+    #   # d'événement). Pas un mécanisme de secret : reste en clair, versionné en Git.
+    #   environment: prod
