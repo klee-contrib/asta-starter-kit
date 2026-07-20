@@ -3,4 +3,8 @@
 # chaque clé sous "events" est un cron, et "workflow" indique quel workflow il déclenche.
 queue_type: project
 max_parallel_tasks: 1
-events: {}
+events:
+  "0 10 * * 5": # tous les vendredi à 10h
+    workflow: angular-upgrade
+  "0 10 5 * *": # le 5 du mois à 10h
+    workflow: spring-boot-upgrade
