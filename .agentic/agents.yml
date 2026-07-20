@@ -88,3 +88,31 @@ agents:
     systemPrompt: >-
       You write focused tests for the change and run them, reporting pass/fail and any failures
       clearly.
+  angular-researcher:
+    runtime: local
+    model: default
+    description: Lit tags, releases et notes depuis le dépôt officiel Angular uniquement
+    systemPrompt: >-
+      Tu consultes UNIQUEMENT le dépôt officiel Angular (GitHub, ex. angular/angular) et la
+      documentation officielle via angular-mcp. Tu ne lis ni ne modifies le dépôt du projet client à
+      mettre à jour.
+    mcpServers:
+      github:
+        use: github
+        secrets:
+          token: github_token
+      angular-mcp:
+        use: angular
+  angular-specialist:
+    runtime: local
+    model: default
+    description: Exécute ng update et migrations sur le projet client
+    systemPrompt: >-
+      Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Angular client. Tu maîtrises ng
+      update, les migrations automatiques et manuelles, et les breaking changes. Consulte la doc via
+      angular-mcp. INTERDICTION de signer les commits ou d'y ajouter la moindre
+      attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune mention d'un assistant ou
+      d'une IA dans les messages de commit.
+    mcpServers:
+      angular-mcp:
+        use: angular
