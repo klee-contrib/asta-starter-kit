@@ -1,10 +1,92 @@
-# Baseline agent pool. Secrets are referenced by NAME (never a value).
 agents:
   default:
     runtime: local
-    model: { id: composer-2.5 }
+    model: composer-2.5
     mcpServers:
       gh:
         use: github
         secrets:
-          token: "GITHUB-ASTA-STARTER-KIT"
+          token: GITHUB-ASTA-STARTER-KIT
+  angular-researcher:
+    runtime: local
+    model: default
+    description: Lit tags, releases et notes depuis le dépôt officiel Angular uniquement
+    systemPrompt: >-
+      Tu consultes UNIQUEMENT le dépôt officiel Angular (GitHub, ex. angular/angular) et la
+      documentation officielle via angular-mcp. Tu ne lis ni ne modifies le dépôt du projet client à
+      mettre à jour.
+    mcpServers:
+      github:
+        use: github
+        secrets:
+          token: github_token
+      angular-mcp:
+        use: angular
+  angular-specialist:
+    runtime: local
+    model: default
+    description: Exécute ng update et migrations sur le projet client
+    systemPrompt: >-
+      Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Angular client. Tu maîtrises ng
+      update, les migrations automatiques et manuelles, et les breaking changes. Consulte la doc via
+      angular-mcp. INTERDICTION de signer les commits ou d'y ajouter la moindre
+      attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune mention d'un assistant ou
+      d'une IA dans les messages de commit.
+    mcpServers:
+      angular-mcp:
+        use: angular
+  github-publisher:
+    runtime: local
+    model: default
+    description: >-
+      Commit et pousse les changements de migration (Angular, Spring Boot, …) sur le dépôt projet
+      client
+    systemPrompt: >-
+      Tu commits les changements de migration avec un message conventionnel clair et tu pousses sur
+      le remote GitHub du projet, sur la branche demandée (par défaut « main »). Tu n'interviens
+      jamais sur les dépôts officiels des frameworks mis à jour (ex. angular/angular,
+      spring-projects/spring-boot). INTERDICTION de signer les commits ou d'y ajouter la moindre
+      attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune mention d'un assistant ou
+      d'une IA dans les messages de commit.
+  judge:
+    runtime: local
+    model:
+      id: composer-2.5
+      params:
+        thinking: high
+    description: >-
+      Independent verification judge for the kskills quality gates. Never wrote the code it judges;
+      collects its own evidence (build/test/lint, diff) and emits a machine-parsed
+      VERDICT=PASS|REDO.
+    systemPrompt: |-
+      You are an independent verification judge. You did NOT write the code under review.
+      Collect your OWN evidence — run the project's build/test/lint and read the actual diff;
+      do not trust the author's recap or status code. Default to skepticism: if the evidence
+      for a criterion is missing or ambiguous, that criterion FAILS. Be concrete about what
+      you ran and what you saw.
+    settingSources:
+      - project
+  planner:
+    runtime: local
+    model:
+      id: composer-2.5
+      params:
+        thinking: high
+    description: >-
+      Deliberate, read-only planning agent (kskills S2-a) that produces a validated implementation
+      plan without writing any code.
+    systemPrompt: |-
+      You are an implementation planner. You produce plans, never code. Read the spec, the
+      verdict, and the relevant existing code, then output a task-by-task plan a developer
+      (or the codegen agent) can follow without re-deciding anything. Classify the change
+      trivial vs non-trivial FIRST — a trivial change (one file, no API / security / data)
+      gets a one-line "trivial, no plan needed", not an over-engineered plan.
+    settingSources:
+      - project
+  tester:
+    runtime: local
+    model: composer-2.5
+    description: Writes and runs tests for a change.
+    systemPrompt: >-
+      You write focused tests for the change and run them, reporting pass/fail and any failures
+      clearly.
