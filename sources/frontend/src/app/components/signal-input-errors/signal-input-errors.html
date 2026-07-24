@@ -1,0 +1,7 @@
+@if (formField()) {
+  @if (formField()().errors().find(e=>e.kind==="required")) {
+    Ce champ est obligatoire
+  } @else if (formField()().errors().find(e=>e.kind==="formatError")) {
+    {{ formField()().errors().find(e=>e.kind==="formatError")?.message }}
+  }
+}

@@ -21,20 +21,20 @@
   <mat-divider></mat-divider>
   <div class="utilisateur-informations-content">
     <app-utilisateur-informations-form
-      [utilisateurForm]="utilisateurForm()"
+      [utilisateurSignalForm]="utilisateurSignalForm"
       [isEdit]="isEdit()"
     ></app-utilisateur-informations-form>
     @if (!isEdit()) {
       <div class="utilisateur-informations-date-creation">
         <app-display-field
-          [label]="UtilisateurReadEntity.dateCreation.label"
-          value="{{ utilisateur().dateCreation | date }}"
+          [fieldEntry]="UtilisateurReadEntity.dateCreation"
+          [value]="utilisateur().dateCreation"
         />
       </div>
       <div class="utilisateur-informations-date-modification">
         <app-display-field
-          [label]="UtilisateurReadEntity.dateModification.label"
-          value="{{ utilisateur().dateModification | date }}"
+          [fieldEntry]="UtilisateurReadEntity.dateCreation"
+          [value]="utilisateur().dateModification"
         />
       </div>
     }

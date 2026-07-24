@@ -1,8 +1,12 @@
 <div class="field">
   <div class="field-label">
-    {{ label() }}
+    {{ _label() }}
   </div>
   <p class="field-value">
-    {{ _value() }}
+    @if (isDate() && _value()) {
+      {{ _value() | date }}
+    } @else {
+      {{ _value() }}
+    }
   </p>
 </div>

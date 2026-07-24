@@ -1,0 +1,8 @@
+@if (inputComponent.hasValue() && formField()) {
+  <ng-container
+    *ngComponentOutlet="
+      inputComponent.value();
+      inputs: { formField: formField(), fieldEntry: fieldEntry(), ...inputProps()}
+    "
+  />
+}

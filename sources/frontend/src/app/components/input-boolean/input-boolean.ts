@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FieldEntry } from '@focus4/entities';
 import { output, ZodBoolean } from 'zod';
 import { AbstractInput } from '../abstract-input';

@@ -1,0 +1,11 @@
+@if (formField()) {
+  <mat-form-field appearance="outline">
+    <mat-label>{{ label() }}</mat-label>
+    <input matInput [matDatepicker]="picker" [formField]="formField()" [max]="maxDate()" />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error>
+      <app-signal-input-errors [formField]="formField()"></app-signal-input-errors>
+    </mat-error>
+  </mat-form-field>
+}

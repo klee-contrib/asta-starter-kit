@@ -1,0 +1,23 @@
+@if (isEdit()) {
+  @if (inputComponent.hasValue() && formField()) {
+    <ng-container
+      *ngComponentOutlet="
+        inputComponent.value();
+        inputs: {
+          formField: formField(),
+          fieldEntry: fieldEntry(),
+          ...inputProps(),
+          data: data(),
+          ref: ref(),
+        }
+      "
+    />
+  }
+} @else {
+  <app-signal-display-for
+    [formField]="formField()"
+    [fieldEntry]="fieldEntry()"
+    [data]="data()"
+    [ref]="ref()"
+  />
+}

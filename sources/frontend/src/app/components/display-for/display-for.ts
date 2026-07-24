@@ -1,9 +1,9 @@
+import { NgComponentOutlet } from '@angular/common';
 import { Component, computed, input, resource } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FieldEntry, ZodTypeSingle } from '@focus4/entities';
 import { output } from 'zod';
 import { DisplayField } from '../display-field/display-field';
-import { NgComponentOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-display-for',

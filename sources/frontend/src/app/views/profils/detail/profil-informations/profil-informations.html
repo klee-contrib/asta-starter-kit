@@ -21,7 +21,7 @@
   <mat-divider></mat-divider>
   <div class="profil-informations-content">
     <app-profil-informations-form
-      [profilForm]="profilForm()"
+      [profilSignalForm]="profilSignalForm"
       [isEdit]="isEdit()"
     ></app-profil-informations-form>
     @if (!isEdit()) {
@@ -30,14 +30,14 @@
       </div>
       <div class="profil-informations-date-creation">
         <app-display-field
-          [label]="ProfilReadEntity.dateCreation.label"
-          value="{{ profil().dateCreation | date }}"
+          [fieldEntry]="ProfilReadEntity.dateCreation"
+          [value]="profil().dateCreation"
         />
       </div>
       <div class="profil-informations-date-modification">
         <app-display-field
-          [label]="ProfilReadEntity.dateModification.label"
-          value="{{ profil().dateModification | date }}"
+          [fieldEntry]="ProfilReadEntity.dateModification"
+          [value]="profil().dateModification"
         />
       </div>
     }

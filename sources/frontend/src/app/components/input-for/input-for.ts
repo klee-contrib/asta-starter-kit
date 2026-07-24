@@ -5,7 +5,6 @@ import { FieldEntry, ZodTypeSingle } from '@focus4/entities';
 import { output } from 'zod/v4/mini';
 import { InputSignalsOf } from '../abstract-input';
 import { InputText } from '../input-text/input-text';
-import { InputSelect } from '../input-select/input-select.component';
 
 @Component({
   selector: 'app-input-for',

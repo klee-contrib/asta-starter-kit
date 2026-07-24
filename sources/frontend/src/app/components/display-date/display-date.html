@@ -1,0 +1,12 @@
+<div class="field">
+  <div class="field-label">
+    {{ _label() }}
+  </div>
+  <p class="field-value">
+    @if (_value()) {
+      {{ _value() | date }}
+    } @else {
+      -
+    }
+  </p>
+</div>

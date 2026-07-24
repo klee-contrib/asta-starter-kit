@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { FieldTree } from '@angular/forms/signals';
 import { FieldEntry, ZodTypeSingle } from '@focus4/entities';
 import { output } from 'zod/v4/mini';
 import { InputSignalsOf } from '../abstract-input';
@@ -16,10 +17,10 @@ export class FieldFor<
   IC extends InputSignalsOf<InputProps> = InputSignalsOf<InputProps>,
   D extends Domain<ZodTypeSingle, IC> = Domain<ZodTypeSingle>,
   T extends output<D['schema']> = output<D['schema']>,
-  O = any,
 > {
   readonly inputProps = input<InputProps>();
   readonly control = input.required<FormControl<T | undefined>>();
   readonly fieldEntry = input.required<FieldEntry<D, T>>();
   readonly isEdit = input.required<boolean>();
+  readonly formField = input<FieldTree<string, string, 'writable'>>();
 }

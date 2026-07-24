@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>{{ label() }}</mat-label>
+  <textarea matInput [formField]="formField()" rows="50"></textarea>
+
+  <mat-error>
+    <app-signal-input-errors [formField]="formField()"></app-signal-input-errors>
+  </mat-error>
+</mat-form-field>

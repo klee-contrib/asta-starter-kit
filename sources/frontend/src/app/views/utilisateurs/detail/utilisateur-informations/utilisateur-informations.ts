@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
+import { form } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
-import { buildForm } from 'ngx-focus-entities';
+import { buildModel, buildSchema } from 'ngx-focus-entities';
 import {
   UtilisateurRead,
   UtilisateurReadEntity,
@@ -16,41 +17,47 @@ import { UtilisateurInformationsForm } from '../../utilisateur-informations-form
 
 @Component({
   selector: 'app-utilisateur-informations',
-  imports: [DatePipe, MatIcon, MatDivider, DisplayField, MatButton, UtilisateurInformationsForm],
+  imports: [MatIcon, MatDivider, DisplayField, MatButton, UtilisateurInformationsForm],
   templateUrl: './utilisateur-informations.html',
   styleUrl: './utilisateur-informations.css',
 })
 export class UtilisateurInformations {
   utilisateur = input.required<UtilisateurRead>();
-
+  utilisateurStore = signal(buildModel(UtilisateurWriteEntity));
   referenceService = inject(ReferenceLoaderService);
 
   private readonly utilisateurService = inject(UtilisateurService);
   protected readonly UtilisateurReadEntity = UtilisateurReadEntity;
   protected readonly UtilisateurWriteEntity = UtilisateurWriteEntity;
-
+  constructor() {
+    effect(() => {
+      const ut = this.utilisateur();
+      this.utilisateurStore.set(buildModel(UtilisateurWriteEntity, ut));
+    });
+  }
   isEdit = signal<boolean>(false);
 
-  utilisateurForm = computed(() => buildForm(UtilisateurWriteEntity, this.utilisateur()));
+  utilisateurSignalForm = form(this.utilisateurStore, buildSchema(UtilisateurWriteEntity));
 
   edit() {
     this.isEdit.set(true);
   }
   saved = output<UtilisateurRead>();
   save() {
-    if (this.utilisateurForm()?.valid) {
+    const usf = this.utilisateurSignalForm();
+    if (usf.valid()) {
       this.utilisateurService
-        .updateUtilisateur(this.utilisateur().id!, this.utilisateurForm().value)
+        .updateUtilisateur(this.utilisateur().id!, usf.value() as any)
         .subscribe((value) => {
           this.isEdit.set(false);
           this.saved.emit(value);
         });
     } else {
-      console.error("Le formulaire n'est pas valide", this.utilisateurForm());
+      console.error("Le formulaire n'est pas valide", usf.errorSummary());
     }
   }
   cancel() {
     this.isEdit.set(false);
-    this.utilisateurForm().reset(this.utilisateur());
+    this.utilisateurSignalForm().reset(this.utilisateur() as any);
   }
 }

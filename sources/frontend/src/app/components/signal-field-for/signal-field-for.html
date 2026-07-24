@@ -1,0 +1,9 @@
+@if (isEdit()) {
+  <app-signal-input-for
+    [formField]="formField()"
+    [fieldEntry]="fieldEntry()"
+    [inputProps]="inputProps()"
+  />
+} @else {
+  <app-signal-display-for [formField]="formField()" [fieldEntry]="fieldEntry()" />
+}

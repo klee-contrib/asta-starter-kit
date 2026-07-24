@@ -1,7 +1,7 @@
-<form class="profil-informations-form" ngForm [formGroup]="profilForm()">
-  <app-field-for
-    [control]="profilForm().controls.libelle"
+<form class="profil-informations-form" ngForm>
+  <app-signal-field-for
     [fieldEntry]="ProfilWriteEntity.libelle"
     [isEdit]="isEdit()"
+    [formField]="profilSignalForm().libelle"
   />
 </form>

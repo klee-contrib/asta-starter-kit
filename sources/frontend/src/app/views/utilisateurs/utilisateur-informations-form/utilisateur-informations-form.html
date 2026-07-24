@@ -1,44 +1,44 @@
-<form class="utilisateur-informations-form" ngForm [formGroup]="utilisateurForm()">
-  <app-field-for
-    [control]="utilisateurForm().controls.nom"
+<form class="utilisateur-informations-form" ngForm>
+  <app-signal-field-for
     [fieldEntry]="UtilisateurWriteEntity.nom"
     [isEdit]="isEdit()"
+    [formField]="utilisateurSignalForm().nom"
   />
-  <app-field-for
-    [control]="utilisateurForm().controls.prenom"
+  <app-signal-field-for
     [fieldEntry]="UtilisateurWriteEntity.prenom"
     [isEdit]="isEdit()"
+    [formField]="utilisateurSignalForm().prenom"
   />
-  <app-field-for
-    [control]="utilisateurForm().controls.email"
+  <app-signal-field-for
     [fieldEntry]="UtilisateurWriteEntity.email"
     [isEdit]="isEdit()"
+    [formField]="utilisateurSignalForm().email"
   />
-  <app-field-for
-    [control]="utilisateurForm().controls.dateNaissance"
+  <app-signal-field-for
     [fieldEntry]="UtilisateurWriteEntity.dateNaissance"
     [isEdit]="isEdit()"
+    [formField]="utilisateurSignalForm().dateNaissance"
     [inputProps]="dateNaissanceInputProps"
   />
-  <app-field-for
-    [control]="utilisateurForm().controls.adresse"
+  <app-signal-field-for
     [fieldEntry]="UtilisateurWriteEntity.adresse"
     [isEdit]="isEdit()"
+    [formField]="utilisateurSignalForm().adresse"
   />
-  <app-field-for
-    [control]="utilisateurForm().controls.actif"
+  <app-signal-field-for
     [fieldEntry]="UtilisateurWriteEntity.actif"
     [isEdit]="isEdit()"
+    [formField]="utilisateurSignalForm().actif"
   />
-  <app-select-for
-    [control]="utilisateurForm().controls.typeUtilisateurCode"
+  <app-signal-select-for
+    [formField]="utilisateurSignalForm().typeUtilisateurCode"
     [fieldEntry]="UtilisateurWriteEntity.typeUtilisateurCode"
     [isEdit]="isEdit()"
     [data]="typeUtilisateurFieldOptions().data"
     [ref]="typeUtilisateurFieldOptions().ref"
   />
-  <app-select-for
-    [control]="utilisateurForm().controls.profilId"
+  <app-signal-select-for
+    [formField]="utilisateurSignalForm().profilId"
     [fieldEntry]="UtilisateurWriteEntity.profilId"
     [isEdit]="isEdit()"
     [data]="profilsFieldOptions().data"
