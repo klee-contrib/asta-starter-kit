@@ -7,6 +7,7 @@ agent:
       use: github
       secrets:
         token: GITHUB-ASTA-STARTER-KIT
+  engine: opencode
 ---
 agent:
   name: github-publisher
@@ -22,6 +23,7 @@ agent:
     spring-projects/spring-boot). INTERDICTION de signer les commits ou d'y ajouter la moindre
     attribution/co-auteur IA : aucun trailer « Co-authored-by », aucune mention d'un assistant ou
     d'une IA dans les messages de commit.
+  engine: opencode
 ---
 agent:
   name: judge
@@ -42,6 +44,7 @@ agent:
     you ran and what you saw.
   settingSources:
     - project
+  engine: opencode
 ---
 agent:
   name: planner
@@ -61,6 +64,7 @@ agent:
     gets a one-line "trivial, no plan needed", not an over-engineered plan.
   settingSources:
     - project
+  engine: opencode
 ---
 agent:
   name: spring-boot-researcher
@@ -78,6 +82,7 @@ agent:
       use: github
       secrets:
         token: github_token
+  engine: opencode
 ---
 agent:
   name: spring-boot-specialist
@@ -100,6 +105,7 @@ agent:
   systemPrompt: >-
     You write focused tests for the change and run them, reporting pass/fail and any failures
     clearly.
+  engine: opencode
 ---
 agent:
   name: angular-researcher
@@ -117,6 +123,7 @@ agent:
         token: github_token
     angular-mcp:
       use: angular
+  engine: opencode
 ---
 agent:
   name: angular-specialist
@@ -132,3 +139,4 @@ agent:
   mcpServers:
     angular-mcp:
       use: angular
+  engine: opencode
