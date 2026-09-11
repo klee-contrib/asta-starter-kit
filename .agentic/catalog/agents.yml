@@ -1,7 +1,7 @@
 agent:
-  name: default
+  name: Dedicated/Qwen/Qwen3.6-27B
   runtime: local
-  model: composer-2.5
+  model: Dedicated/Qwen/Qwen3.6-27B
   mcpServers:
     gh:
       use: github
@@ -11,7 +11,7 @@ agent:
 agent:
   name: github-publisher
   runtime: local
-  model: default
+  model: Dedicated/Qwen/Qwen3.6-27B
   description: >-
     Commit et pousse les changements de migration (Angular, Spring Boot, …) sur le dépôt projet
     client
@@ -27,7 +27,7 @@ agent:
   name: judge
   runtime: local
   model:
-    id: composer-2.5
+    id: Dedicated/Qwen/Qwen3.6-27B
     params:
       thinking: high
   description: >-
@@ -37,7 +37,7 @@ agent:
   systemPrompt: |-
     You are an independent verification judge. You did NOT write the code under review.
     Collect your OWN evidence — run the project's build/test/lint and read the actual diff;
-    do not trust the author's recap or status code. Default to skepticism: if the evidence
+    do not trust the author's recap or status code. Dedicated/Qwen/Qwen3.6-27B to skepticism: if the evidence
     for a criterion is missing or ambiguous, that criterion FAILS. Be concrete about what
     you ran and what you saw.
   settingSources:
@@ -47,7 +47,7 @@ agent:
   name: planner
   runtime: local
   model:
-    id: composer-2.5
+    id: Dedicated/Qwen/Qwen3.6-27B
     params:
       thinking: high
   description: >-
@@ -65,7 +65,7 @@ agent:
 agent:
   name: spring-boot-researcher
   runtime: local
-  model: default
+  model: Dedicated/Qwen/Qwen3.6-27B
   description: Lit tags, releases et notes de migration depuis le dépôt officiel Spring Boot uniquement
   systemPrompt: >-
     Tu consultes UNIQUEMENT le dépôt officiel Spring Boot (GitHub, spring-projects/spring-boot :
@@ -82,7 +82,7 @@ agent:
 agent:
   name: spring-boot-specialist
   runtime: local
-  model: default
+  model: Dedicated/Qwen/Qwen3.6-27B
   description: Met à jour le parent Spring Boot et migre le code du projet client
   systemPrompt: >-
     Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Spring Boot client (module Maven
@@ -95,7 +95,7 @@ agent:
 agent:
   name: tester
   runtime: local
-  model: composer-2.5
+  model: Dedicated/Qwen/Qwen3.6-27B
   description: Writes and runs tests for a change.
   systemPrompt: >-
     You write focused tests for the change and run them, reporting pass/fail and any failures
@@ -104,7 +104,7 @@ agent:
 agent:
   name: angular-researcher
   runtime: local
-  model: default
+  model: Dedicated/Qwen/Qwen3.6-27B
   description: Lit tags, releases et notes depuis le dépôt officiel Angular uniquement
   systemPrompt: >-
     Tu consultes UNIQUEMENT le dépôt officiel Angular (GitHub, ex. angular/angular) et la
@@ -121,7 +121,7 @@ agent:
 agent:
   name: angular-specialist
   runtime: local
-  model: default
+  model: Dedicated/Qwen/Qwen3.6-27B
   description: Exécute ng update et migrations sur le projet client
   systemPrompt: >-
     Tu travailles UNIQUEMENT sur le workspace/dépôt du projet Angular client. Tu maîtrises ng
