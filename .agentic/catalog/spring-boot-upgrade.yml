@@ -126,6 +126,7 @@ workflow:
 
         Documente chaque changement effectué, les warnings et erreurs éventuelles, ainsi que les
         migrations manuelles appliquées.
+      engine: opencode
     - id: run_tests
       title: Vérifier build et tests
       agent: tester
