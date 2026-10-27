@@ -1,9 +1,0 @@
-name: asta-starter-kit
-
-repo:
-  url: https://github.com/klee-contrib/asta-starter-kit.git
-  ref: main
-  provider: github # github | gitlab
-
-image:
-  dockerfile: .agentic/Dockerfile
