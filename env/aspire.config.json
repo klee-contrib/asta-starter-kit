@@ -1,0 +1,24 @@
+{
+  "appHost": {
+    "path": "apphost.mts",
+    "language": "typescript/nodejs"
+  },
+  "sdk": {
+    "version": "17.0.0"
+  },
+  "channel": "stable",
+  "profiles": {
+    "https": {
+      "applicationUrl": "https://localhost:17297;http://localhost:15022",
+      "environmentVariables": {
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21136",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22155"
+      }
+    }
+  },
+  "packages": {
+    "Aspire.Hosting.JavaScript": "17.0.0",
+    "Aspire.Hosting.Keycloak": "17.0.0-preview.1.26567.5",
+    "Aspire.Hosting.PostgreSQL": "17.0.0"
+  }
+}
