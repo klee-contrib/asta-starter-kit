@@ -118,6 +118,7 @@ domain:
   name: DO_FILE_UPLOAD
   label: Fichier
   mediaType: multipart/form-data
+  paramLocation: form-data
   java:
     type: MultipartFile
     imports:

@@ -21,30 +21,14 @@ public class SecuriteProfilMappers {
 	}
 
 	/**
-	 * Crée une nouvelle instance de la classe 'ProfilRead' en mappant les champs sources.
-	 * @param profil Instance de 'Profil' source.
-	 * @param droitCodes Code du droit.
-	 * @param utilisateurs Utilisateurs ayant ce profil.
-	 *
-	 * @return Une nouvelle instance de 'ProfilRead' sur laquelle les champs sources ont été mappés.
-	 */
-	public static ProfilRead createProfilRead(Profil profil, Collection<DroitCode> droitCodes, Collection<UtilisateurItem> utilisateurs) {
-		return mapProfilRead(profil, droitCodes, utilisateurs, new ProfilRead());
-	}
-
-	/**
 	 * Mappe les champs sources sur l'instance de la classe 'ProfilRead' passée en paramètre.
 	 * @param profil Instance de 'Profil' source.
 	 * @param droitCodes Code du droit.
 	 * @param utilisateurs Utilisateurs ayant ce profil.
-	 * @param target Instance de 'ProfilRead' cible.
 	 *
 	 * @return L'instance de 'ProfilRead' passée en paramètres sur lesquels les champs sources ont été mappés.
 	 */
-	public static ProfilRead mapProfilRead(Profil profil, Collection<DroitCode> droitCodes, Collection<UtilisateurItem> utilisateurs, ProfilRead target) {
-		if (target == null) {
-			throw new IllegalArgumentException("target cannot be null");
-		}
+	public static ProfilRead createProfilRead(Profil profil, Collection<DroitCode> droitCodes, Collection<UtilisateurItem> utilisateurs) {
 
 		if (profil == null) {
 			throw new IllegalArgumentException("profil cannot be null");
@@ -58,13 +42,14 @@ public class SecuriteProfilMappers {
 			throw new IllegalArgumentException("utilisateurs cannot be null");
 		}
 
-		target.setId(profil.getId());
-		target.setLibelle(profil.getLibelle());
-		target.setDateCreation(profil.getDateCreation());
-		target.setDateModification(profil.getDateModification());
-		target.setDroitCodes(droitCodes);
-		target.setUtilisateurs(utilisateurs);
-		return target;
+		return new ProfilRead (
+			profil.getId(),
+			profil.getLibelle(),
+			profil.getDateCreation(),
+			profil.getDateModification(),
+			droitCodes,
+			utilisateurs
+		);
 	}
 
 	/**

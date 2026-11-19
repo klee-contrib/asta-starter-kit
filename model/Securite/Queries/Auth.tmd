@@ -7,6 +7,7 @@ tags:
 class:
   name: AuthProperties
   comment: Informations relatives à l'authentification
+  readonly: true
   properties:
     - name: Authority
       comment: Nom de l'autorité

@@ -2,14 +2,15 @@
 //// ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
 ////
 
-
 import { HttpClient, HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+
 import { TypeUtilisateurCode } from "../../../model/securite/enums";
 import { UtilisateurItem } from "../../../model/securite/utilisateur/utilisateur-item";
 import { UtilisateurRead } from "../../../model/securite/utilisateur/utilisateur-read";
 import { UtilisateurWrite } from "../../../model/securite/utilisateur/utilisateur-write";
+
 @Injectable({
     providedIn: 'root'
 })
@@ -18,7 +19,7 @@ export class UtilisateurService {
     private readonly http = inject(HttpClient);
 
     /**
-     * @description Ajoute un utilisateur
+     * Ajoute un utilisateur
      * @param utilisateur Utilisateur à sauvegarder
      * @returns Utilisateur sauvegardé
      */
@@ -27,13 +28,13 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Ajoute une nouvelle photo pour un utilisateur.
+     * Ajoute une nouvelle photo pour un utilisateur.
      * @param utiId Id de l'utilisateur
      * @param photo Photo.
      */
     addUtilisateurPhoto(utiId: number, photo: File, options: {headers?: HttpHeaders | {[header: string]: string | string[]}; context?: HttpContext; params?: HttpParams | {[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>}; withCredentials?: boolean; reportProgress?: boolean; transferCache?: {includeHeaders?: string[]} | boolean} = {}): Observable<void> {
         const body = new FormData();
-        this.fillFormData(
+        fillFormData(
             {
                 photo
             },
@@ -43,7 +44,7 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Supprime un utilisateur
+     * Supprime un utilisateur
      * @param utiId Id de l'utilisateur
      */
     deleteUtilisateur(utiId: number, options: {headers?: HttpHeaders | {[header: string]: string | string[]}; context?: HttpContext; params?: HttpParams | {[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>}; withCredentials?: boolean; reportProgress?: boolean; transferCache?: {includeHeaders?: string[]} | boolean} = {}): Observable<void> {
@@ -51,7 +52,7 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Supprime la photo d'un utilisateur
+     * Supprime la photo d'un utilisateur
      * @param utiId Id de l'utilisateur
      */
     deleteUtilisateurPhoto(utiId: number, options: {headers?: HttpHeaders | {[header: string]: string | string[]}; context?: HttpContext; params?: HttpParams | {[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>}; withCredentials?: boolean; reportProgress?: boolean; transferCache?: {includeHeaders?: string[]} | boolean} = {}): Observable<void> {
@@ -59,7 +60,7 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Charge le détail d'un utilisateur
+     * Charge le détail d'un utilisateur
      * @param utiId Id de l'utilisateur
      * @returns Le détail de l'utilisateur
      */
@@ -68,7 +69,7 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Charge la photo d'un utilisateur (si elle existe).
+     * Charge la photo d'un utilisateur (si elle existe).
      * @param utiId Id de l'utilisateur
      * @returns Photo.
      */
@@ -77,7 +78,7 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Recherche des utilisateurs
+     * Recherche des utilisateurs
      * @param nom Nom de l'utilisateur
      * @param prenom Nom de l'utilisateur
      * @param email Email de l'utilisateur
@@ -112,7 +113,7 @@ export class UtilisateurService {
     }
 
     /**
-     * @description Sauvegarde un utilisateur
+     * Sauvegarde un utilisateur
      * @param utiId Id de l'utilisateur
      * @param utilisateur Utilisateur à sauvegarder
      * @returns Utilisateur sauvegardé
@@ -120,18 +121,18 @@ export class UtilisateurService {
     updateUtilisateur(utiId: number, utilisateur: UtilisateurWrite, options: {headers?: HttpHeaders | {[header: string]: string | string[]}; context?: HttpContext; params?: HttpParams | {[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>}; withCredentials?: boolean; reportProgress?: boolean; transferCache?: {includeHeaders?: string[]} | boolean} = {}): Observable<UtilisateurRead> {
         return this.http.put<UtilisateurRead>(`/api/utilisateurs/${utiId}`, utilisateur, {observe: 'body', ...options});
     }
+}
 
-    private fillFormData(data: any, formData: FormData, prefix = "") {
-        if (Array.isArray(data)) {
-            for (const [i, item] of data.entries()) {
-                this.fillFormData(item, formData, prefix + (typeof item === "object" && !(item instanceof File) ? `[${i}]` : ""));
-            }
-        } else if (typeof data === "object" && !(data instanceof File)) {
-            for (const key in data) {
-                this.fillFormData(data[key], formData, (prefix ? `${prefix}.` : "") + key);
-            }
-        } else {
-            formData.append(prefix, data);
+function fillFormData(data: any, formData: FormData, prefix = "") {
+    if (Array.isArray(data)) {
+        for (const [i, item] of data.entries()) {
+            fillFormData(item, formData, prefix + (typeof item === "object" && !(item instanceof File) ? `[${i}]` : ""));
         }
+    } else if (typeof data === "object" && !(data instanceof File)) {
+        for (const key in data) {
+            fillFormData(data[key], formData, (prefix ? `${prefix}.` : "") + key);
+        }
+    } else {
+        formData.append(prefix, data);
     }
 }

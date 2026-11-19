@@ -60,8 +60,16 @@
           "default": "{lang}"
         },
         "defaultLang": {
-          "type": "string",
-          "description": "Langue par défaut de l'application."
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Langue par défaut de l'application. Laisser vide si votre application n'a qu'une seule langue (non nommée)."
+            },
+            {
+              "type": "null",
+              "description": "Désactive la langue par défaut et n'utilise pas les libellés définis dans le modèle dans une langue par défaut."
+            }
+          ]
         },
         "langs": {
           "type": "array",
@@ -74,12 +82,17 @@
         "translateReferences": {
           "type": "boolean",
           "description": "Si les libellés des listes de références doivent être traduits.",
-          "default": "true"
+          "default": true
         },
         "translateProperties": {
           "type": "boolean",
           "description": "Si les libellés des propriétés doivent être traduits.",
-          "default": "true"
+          "default": true
+        },
+        "allowPropertyLabelFallback": {
+          "type": "boolean",
+          "description": "Si le libellé d'une propriété n'est pas renseigné, autorise l'usage de son nom comme libellé.",
+          "default": true
         }
       }
     },
@@ -230,6 +243,19 @@
             "type": "boolean",
             "description": "Désactive la génération des valeurs par défaut des propriétés dans les classes et endpoints générés avec cette configuration."
           },
+          "useLowerCaseSqlNames": {
+            "oneOf": [
+              {
+                "type": "boolean",
+                "description": "Utilise des identifiants SQL en lowercase. Par défaut : 'true'."
+              },
+              {
+                "type": "string",
+                "description": "Utilise des identifiants SQL en lowercase. Par défaut : 'true'.",
+                "pattern": "^\\{[^\\}]+\\}$"
+              }
+            ]
+          },
           "uniqueValueGeneration": {
             "type": "string",
             "description": "Mode de génération des valeurs de propriétés avec clé d'unicité : `none`, `const-only`, `enum-only`, `enum-or-const`. Par défaut : `enum-or-const`.",
@@ -355,9 +381,9 @@
             "description": "Précise l'interface des Daos générés.",
             "default": "false"
           },
-          "mappersInClass": {
+          "useRecords": {
             "type": "boolean",
-            "description": "Indique s'il faut ajouter les mappers en tant méthode ou constructeur dans les classes qui les déclarent",
+            "description": "Indique s'il faut générer les classes non persitées qui ont 'ReadOnly' en tant que record java",
             "default": "false"
           },
           "mapperTagsOverrides": {
@@ -626,7 +652,6 @@
               "fetch",
               "angular",
               "angular_promise",
-              "nuxt",
               "legacy"
             ]
           },
@@ -644,6 +669,10 @@
           "extendedCompositions": {
             "type": "boolean",
             "description": "Génère `isRequired`, `label` (et `comment`) sur les compositions dans les entitées typées."
+          },
+          "optionalPrimaryKeys": {
+            "type": "boolean",
+            "description": "Génère les (alias de) clés primaires simples comme optionnelles dans les définitions d'entités. Il s'agit d'un paramètre de compatibilité avec l'existant, qui ne devrait plus être utilisé dans les nouveaux projets."
           },
           "entityTypesPath": {
             "type": "string",
@@ -769,6 +798,19 @@
             "type": "boolean",
             "description": "Si les libellés des propriétés doivent être traduits.",
             "default": "true"
+          },
+          "useLowerCaseSqlNames": {
+            "oneOf": [
+              {
+                "type": "boolean",
+                "description": "Utilise des identifiants SQL en lowercase. Par défaut : 'true'."
+              },
+              {
+                "type": "string",
+                "description": "Utilise des identifiants SQL en lowercase. Par défaut : 'true'.",
+                "pattern": "^\\{[^\\}]+\\}$"
+              }
+            ]
           },
           "tableTablespace": {
             "type": "string",

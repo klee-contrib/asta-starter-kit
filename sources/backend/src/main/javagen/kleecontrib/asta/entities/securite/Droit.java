@@ -29,7 +29,7 @@ import kleecontrib.asta.enums.securite.DroitCode;
  */
 @Entity
 @Immutable
-@Table(name = "DROITS")
+@Table(name = "droits")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class Droit {
@@ -56,19 +56,19 @@ public class Droit {
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "DRO_CODE", nullable = false, length = 10, columnDefinition = "varchar")
+	@Column(name = "dro_code", nullable = false, length = 10, columnDefinition = "varchar")
 	private DroitCode code;
 
 	/**
 	 * Libellé du droit.
 	 */
-	@Column(name = "DRO_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(name = "dro_libelle", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**
 	 * Type de profil pouvant faire l'action.
 	 */
-	@JoinColumn(name = "TDR_CODE", referencedColumnName = "TDR_CODE")
+	@JoinColumn(name = "tdr_code", referencedColumnName = "tdr_code")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = TypeDroit.class)
 	private TypeDroit typeDroit;
 

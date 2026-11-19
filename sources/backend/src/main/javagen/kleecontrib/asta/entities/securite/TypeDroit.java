@@ -26,7 +26,7 @@ import kleecontrib.asta.enums.securite.TypeDroitCode;
  */
 @Entity
 @Immutable
-@Table(name = "TYPE_DROITS")
+@Table(name = "type_droits")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class TypeDroit {
@@ -50,13 +50,13 @@ public class TypeDroit {
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TDR_CODE", nullable = false, length = 10, columnDefinition = "varchar")
+	@Column(name = "tdr_code", nullable = false, length = 10, columnDefinition = "varchar")
 	private TypeDroitCode code;
 
 	/**
 	 * Libellé du type de droit.
 	 */
-	@Column(name = "TDR_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(name = "tdr_libelle", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**

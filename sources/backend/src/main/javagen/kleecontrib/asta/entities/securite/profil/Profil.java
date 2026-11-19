@@ -23,7 +23,7 @@ import jakarta.persistence.Table;
  * Profil des utilisateurs.
  */
 @Entity
-@Table(name = "PROFILS")
+@Table(name = "profils")
 @EntityListeners(AuditingEntityListener.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class Profil {
@@ -33,27 +33,27 @@ public class Profil {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PRO_ID", nullable = false, columnDefinition = "int8")
+	@Column(name = "pro_id", nullable = false, columnDefinition = "int8")
 	private Long id;
 
 	/**
 	 * Libellé du profil.
 	 */
-	@Column(name = "PRO_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(name = "pro_libelle", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**
 	 * Date de création de l'utilisateur.
 	 */
 	@CreatedDate
-	@Column(name = "PRO_DATE_CREATION", nullable = false, columnDefinition = "date")
+	@Column(name = "pro_date_creation", nullable = false, columnDefinition = "date")
 	private LocalDateTime dateCreation = LocalDateTime.now();
 
 	/**
 	 * Date de modification de l'utilisateur.
 	 */
 	@LastModifiedDate
-	@Column(name = "PRO_DATE_MODIFICATION", columnDefinition = "date")
+	@Column(name = "pro_date_modification", columnDefinition = "date")
 	private LocalDateTime dateModification = LocalDateTime.now();
 
 	/**

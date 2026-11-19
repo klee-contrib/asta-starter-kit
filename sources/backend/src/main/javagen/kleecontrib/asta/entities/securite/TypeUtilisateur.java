@@ -26,7 +26,7 @@ import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
  */
 @Entity
 @Immutable
-@Table(name = "TYPE_UTILISATEURS")
+@Table(name = "type_utilisateurs")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class TypeUtilisateur {
@@ -50,13 +50,13 @@ public class TypeUtilisateur {
 	 */
 	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TUT_CODE", nullable = false, length = 10, columnDefinition = "varchar")
+	@Column(name = "tut_code", nullable = false, length = 10, columnDefinition = "varchar")
 	private TypeUtilisateurCode code;
 
 	/**
 	 * Libellé du type d'utilisateur.
 	 */
-	@Column(name = "TUT_LIBELLE", nullable = false, length = 100, columnDefinition = "varchar")
+	@Column(name = "tut_libelle", nullable = false, length = 100, columnDefinition = "varchar")
 	private String libelle;
 
 	/**

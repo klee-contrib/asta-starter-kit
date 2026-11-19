@@ -19,92 +19,51 @@ public class SecuriteUtilisateurMappers {
 	}
 
 	/**
-	 * Crée une nouvelle instance de la classe 'UtilisateurItem' en mappant les champs sources.
-	 * @param utilisateur Instance de 'Utilisateur' source.
-	 *
-	 * @return Une nouvelle instance de 'UtilisateurItem' sur laquelle les champs sources ont été mappés.
-	 */
-	public static UtilisateurItem createUtilisateurItem(Utilisateur utilisateur) {
-		return mapUtilisateurItem(utilisateur, new UtilisateurItem());
-	}
-
-	/**
 	 * Mappe les champs sources sur l'instance de la classe 'UtilisateurItem' passée en paramètre.
 	 * @param utilisateur Instance de 'Utilisateur' source.
-	 * @param target Instance de 'UtilisateurItem' cible.
 	 *
 	 * @return L'instance de 'UtilisateurItem' passée en paramètres sur lesquels les champs sources ont été mappés.
 	 */
-	public static UtilisateurItem mapUtilisateurItem(Utilisateur utilisateur, UtilisateurItem target) {
-		if (target == null) {
-			throw new IllegalArgumentException("target cannot be null");
-		}
+	public static UtilisateurItem createUtilisateurItem(Utilisateur utilisateur) {
 
 		if (utilisateur == null) {
 			throw new IllegalArgumentException("utilisateur cannot be null");
 		}
 
-		target.setId(utilisateur.getId());
-		target.setNom(utilisateur.getNom());
-		target.setPrenom(utilisateur.getPrenom());
-		target.setEmail(utilisateur.getEmail());
-		if (utilisateur.getTypeUtilisateur() != null) {
-			target.setTypeUtilisateurCode(utilisateur.getTypeUtilisateur().getCode());
-		} else {
-			target.setTypeUtilisateurCode(null);
-		}
-
-		return target;
-	}
-
-	/**
-	 * Crée une nouvelle instance de la classe 'UtilisateurRead' en mappant les champs sources.
-	 * @param utilisateur Instance de 'Utilisateur' source.
-	 *
-	 * @return Une nouvelle instance de 'UtilisateurRead' sur laquelle les champs sources ont été mappés.
-	 */
-	public static UtilisateurRead createUtilisateurRead(Utilisateur utilisateur) {
-		return mapUtilisateurRead(utilisateur, new UtilisateurRead());
+		return new UtilisateurItem (
+			utilisateur.getId(),
+			utilisateur.getNom(),
+			utilisateur.getPrenom(),
+			utilisateur.getEmail(),
+			utilisateur.getTypeUtilisateur() == null ? null : utilisateur.getTypeUtilisateur().getCode()
+		);
 	}
 
 	/**
 	 * Mappe les champs sources sur l'instance de la classe 'UtilisateurRead' passée en paramètre.
 	 * @param utilisateur Instance de 'Utilisateur' source.
-	 * @param target Instance de 'UtilisateurRead' cible.
 	 *
 	 * @return L'instance de 'UtilisateurRead' passée en paramètres sur lesquels les champs sources ont été mappés.
 	 */
-	public static UtilisateurRead mapUtilisateurRead(Utilisateur utilisateur, UtilisateurRead target) {
-		if (target == null) {
-			throw new IllegalArgumentException("target cannot be null");
-		}
+	public static UtilisateurRead createUtilisateurRead(Utilisateur utilisateur) {
 
 		if (utilisateur == null) {
 			throw new IllegalArgumentException("utilisateur cannot be null");
 		}
 
-		target.setId(utilisateur.getId());
-		target.setNom(utilisateur.getNom());
-		target.setPrenom(utilisateur.getPrenom());
-		target.setEmail(utilisateur.getEmail());
-		target.setDateNaissance(utilisateur.getDateNaissance());
-		target.setAdresse(utilisateur.getAdresse());
-		target.setActif(utilisateur.getActif());
-		if (utilisateur.getProfil() != null) {
-			target.setProfilId(utilisateur.getProfil().getId());
-		} else {
-			target.setProfilId(null);
-		}
-
-		if (utilisateur.getTypeUtilisateur() != null) {
-			target.setTypeUtilisateurCode(utilisateur.getTypeUtilisateur().getCode());
-		} else {
-			target.setTypeUtilisateurCode(null);
-		}
-
-		target.setDateCreation(utilisateur.getDateCreation());
-		target.setDateModification(utilisateur.getDateModification());
-		return target;
+		return new UtilisateurRead (
+			utilisateur.getId(),
+			utilisateur.getNom(),
+			utilisateur.getPrenom(),
+			utilisateur.getEmail(),
+			utilisateur.getDateNaissance(),
+			utilisateur.getAdresse(),
+			utilisateur.getActif(),
+			utilisateur.getProfil() == null ? null : utilisateur.getProfil().getId(),
+			utilisateur.getTypeUtilisateur() == null ? null : utilisateur.getTypeUtilisateur().getCode(),
+			utilisateur.getDateCreation(),
+			utilisateur.getDateModification()
+		);
 	}
 
 	/**

@@ -2,10 +2,10 @@
 //// ATTENTION CE FICHIER EST GENERE AUTOMATIQUEMENT !
 ////
 
-
 import { HttpClient, HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+
 @Injectable({
     providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class ReferenceService {
     private readonly http = inject(HttpClient);
 
     /**
-     * @description Récupère une liste de référence
+     * Récupère une liste de référence
      * @param referenceName Nom de la liste de référence
      * @returns Liste de référence
      */

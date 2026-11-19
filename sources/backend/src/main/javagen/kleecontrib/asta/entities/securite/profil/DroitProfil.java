@@ -21,7 +21,7 @@ import kleecontrib.asta.entities.securite.Droit;
  * N-N droits - profils.
  */
 @Entity
-@Table(name = "DROIT_PROFILS")
+@Table(name = "droit_profils")
 @IdClass(DroitProfil.DroitProfilId.class)
 @Generated("TopModel : https://github.com/klee-contrib/topmodel")
 public class DroitProfil {
@@ -74,11 +74,11 @@ public class DroitProfil {
 
 	public static class DroitProfilId {
 
-		@JoinColumn(name = "DRO_CODE", referencedColumnName = "DRO_CODE")
+		@JoinColumn(name = "dro_code", referencedColumnName = "dro_code")
 		@ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Droit.class)
 		private Droit droit;
 
-		@JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
+		@JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
 		@ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Profil.class)
 		private Profil profil;
 
@@ -135,13 +135,13 @@ public class DroitProfil {
 				return false;
 			}
 
-			return Objects.equals(this.droit.getCode(), oId.droit.getCode())
-			 && Objects.equals(this.profil.getId(), oId.profil.getId());
+			return Objects.equals(this.droit, oId.droit)
+			 && Objects.equals(this.profil, oId.profil);
 		}
 
 		@Override
 		public int hashCode() {
-			return Objects.hash(droit == null ? null : droit.getCode(), profil == null ? null : profil.getId());
+			return Objects.hash(droit == null ? null : droit, profil == null ? null : profil);
 		}
 	}
 }

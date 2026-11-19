@@ -9,76 +9,76 @@
 -- ===========================================================================================
 
 /**
-  * Création de l'index de clef étrangère pour DROIT_PROFILS.DRO_CODE
+  * Création de l'index de clef étrangère pour droit_profils.dro_code
  **/
-create index IDX_DPR_DRO_CODE_FK on DROIT_PROFILS (
-	DRO_CODE ASC
+create index idx_dpr_dro_code_fk on droit_profils (
+	dro_code ASC
 );
 
 /**
-  * Génération de la contrainte de clef étrangère pour DROIT_PROFILS.DRO_CODE
+  * Génération de la contrainte de clef étrangère pour droit_profils.dro_code
  **/
-alter table DROIT_PROFILS
-	add constraint FK_DROIT_PROFILS_DRO_CODE foreign key (DRO_CODE)
-		references DROITS (DRO_CODE);
+alter table droit_profils
+	add constraint fk_droit_profils_dro_code foreign key (dro_code)
+		references droits (dro_code);
 
 /**
-  * Création de l'index de clef étrangère pour DROIT_PROFILS.PRO_ID
+  * Création de l'index de clef étrangère pour droit_profils.pro_id
  **/
-create index IDX_DPR_PRO_ID_FK on DROIT_PROFILS (
-	PRO_ID ASC
+create index idx_dpr_pro_id_fk on droit_profils (
+	pro_id ASC
 );
 
 /**
-  * Génération de la contrainte de clef étrangère pour DROIT_PROFILS.PRO_ID
+  * Génération de la contrainte de clef étrangère pour droit_profils.pro_id
  **/
-alter table DROIT_PROFILS
-	add constraint FK_DROIT_PROFILS_PRO_ID foreign key (PRO_ID)
-		references PROFILS (PRO_ID);
+alter table droit_profils
+	add constraint fk_droit_profils_pro_id foreign key (pro_id)
+		references profils (pro_id);
 
 /**
-  * Création de l'index de clef étrangère pour DROITS.TDR_CODE
+  * Création de l'index de clef étrangère pour droits.tdr_code
  **/
-create index IDX_DRO_TDR_CODE_FK on DROITS (
-	TDR_CODE ASC
+create index idx_dro_tdr_code_fk on droits (
+	tdr_code ASC
 );
 
 /**
-  * Génération de la contrainte de clef étrangère pour DROITS.TDR_CODE
+  * Génération de la contrainte de clef étrangère pour droits.tdr_code
  **/
-alter table DROITS
-	add constraint FK_DROITS_TDR_CODE foreign key (TDR_CODE)
-		references TYPE_DROITS (TDR_CODE);
+alter table droits
+	add constraint fk_droits_tdr_code foreign key (tdr_code)
+		references type_droits (tdr_code);
 
 /**
-  * Création de l'index de clef étrangère pour UTILISATEURS.PRO_ID
+  * Création de l'index de clef étrangère pour utilisateurs.pro_id
  **/
-create index IDX_UTI_PRO_ID_FK on UTILISATEURS (
-	PRO_ID ASC
+create index idx_uti_pro_id_fk on utilisateurs (
+	pro_id ASC
 );
 
 /**
-  * Génération de la contrainte de clef étrangère pour UTILISATEURS.PRO_ID
+  * Génération de la contrainte de clef étrangère pour utilisateurs.pro_id
  **/
-alter table UTILISATEURS
-	add constraint FK_UTILISATEURS_PRO_ID foreign key (PRO_ID)
-		references PROFILS (PRO_ID);
+alter table utilisateurs
+	add constraint fk_utilisateurs_pro_id foreign key (pro_id)
+		references profils (pro_id);
 
 /**
-  * Création de l'index de clef étrangère pour UTILISATEURS.TUT_CODE
+  * Création de l'index de clef étrangère pour utilisateurs.tut_code
  **/
-create index IDX_UTI_TUT_CODE_FK on UTILISATEURS (
-	TUT_CODE ASC
+create index idx_uti_tut_code_fk on utilisateurs (
+	tut_code ASC
 );
 
 /**
-  * Génération de la contrainte de clef étrangère pour UTILISATEURS.TUT_CODE
+  * Génération de la contrainte de clef étrangère pour utilisateurs.tut_code
  **/
-alter table UTILISATEURS
-	add constraint FK_UTILISATEURS_TUT_CODE foreign key (TUT_CODE)
-		references TYPE_UTILISATEURS (TUT_CODE);
+alter table utilisateurs
+	add constraint fk_utilisateurs_tut_code foreign key (tut_code)
+		references type_utilisateurs (tut_code);
 
 /**
-  * Création de l'index UK_UTILISATEURS_UTI_EMAIL sur UTILISATEURS.
+  * Création de l'index uk_utilisateurs_uti_email sur utilisateurs.
  **/
-alter table UTILISATEURS add constraint UK_UTILISATEURS_UTI_EMAIL unique (UTI_EMAIL);
+alter table utilisateurs add constraint uk_utilisateurs_uti_email unique (uti_email);

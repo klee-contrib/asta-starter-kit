@@ -16,10 +16,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthProperties getAuthenticationProperties() {
-        var properties = new AuthProperties();
-        properties.setAuthority(authenticationProperties.issuer().toString());
-        properties.setClientId(authenticationProperties.clientId());
-        properties.setRequireHttps(authenticationProperties.requireHttps());
-        return properties;
+        return new AuthProperties(authenticationProperties.issuer().toString(), authenticationProperties.clientId(),
+                authenticationProperties.requireHttps());
     }
 }
