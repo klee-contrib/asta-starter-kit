@@ -3,15 +3,15 @@ package kleecontrib.asta.queries;
 import kleecontrib.asta.daos.securite.utilisateur.UtilisateurDAO;
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurItem;
 import kleecontrib.asta.dtos.securite.utilisateur.UtilisateurRead;
-import kleecontrib.asta.entities.securite.TypeUtilisateur;
-import kleecontrib.asta.entities.securite.profil.Profil;
+import kleecontrib.asta.entities.securite.TypeUtilisateur_;
+import kleecontrib.asta.entities.securite.profil.Profil_;
 import kleecontrib.asta.entities.securite.utilisateur.SecuriteUtilisateurMappers;
 import kleecontrib.asta.entities.securite.utilisateur.Utilisateur;
+import kleecontrib.asta.entities.securite.utilisateur.Utilisateur_;
 import kleecontrib.asta.enums.securite.TypeUtilisateurCode;
 import kleecontrib.asta.services.FileStorageService;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -41,44 +41,42 @@ public class UtilisateurQueriesImpl implements UtilisateurQueries {
             LocalDate dateNaissance,
             Boolean actif,
             Long profilId,
-            TypeUtilisateurCode typeUtilisateurCode
-    ) {
-        var utilisateurProbe = new Utilisateur();
-        if (nom != null) {
-            utilisateurProbe.setNom(nom);
-        }
-        if (prenom != null) {
-            utilisateurProbe.setPrenom(prenom);
-        }
-        if (email != null) {
-            utilisateurProbe.setEmail(email);
-        }
-        if (dateNaissance != null) {
-            utilisateurProbe.setDateNaissance(dateNaissance);
-        }
-        utilisateurProbe.setActif(actif);
+            TypeUtilisateurCode typeUtilisateurCode) {
+        // Chaque critère n'est ajouté que s'il est renseigné : aucune valeur par défaut
+        // de l'entité n'est appliquée.
+        Specification<Utilisateur> spec = Specification.unrestricted();
+        spec = spec.and(contient(Utilisateur_.NOM, nom))
+                .and(contient(Utilisateur_.PRENOM, prenom))
+                .and(contient(Utilisateur_.EMAIL, email))
+                .and(egal(Utilisateur_.DATE_NAISSANCE, dateNaissance))
+                .and(egal(Utilisateur_.ACTIF, actif));
 
         if (profilId != null) {
-            var profil = new Profil();
-            profil.setId(profilId);
-            utilisateurProbe.setProfil(profil);
+            spec = spec.and((root, query, cb) -> cb.equal(root.get(Utilisateur_.PROFIL).get(Profil_.ID), profilId));
         }
-
         if (typeUtilisateurCode != null) {
-            utilisateurProbe.setTypeUtilisateur(TypeUtilisateur.getValue(typeUtilisateurCode));
+            spec = spec.and((root, query, cb) -> cb.equal(
+                    root.get(Utilisateur_.TYPE_UTILISATEUR).get(TypeUtilisateur_.CODE), typeUtilisateurCode));
         }
-        utilisateurProbe.setDateCreation(null);
-        utilisateurProbe.setDateModification(null);
-        var matcher = ExampleMatcher.matching()
-                .withIgnoreNullValues()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                .withIgnoreCase();
 
-        var example = Example.of(utilisateurProbe, matcher);
-
-        return utilisateurDAO.findAll(example).stream()
+        return utilisateurDAO.findAll(spec).stream()
                 .map(SecuriteUtilisateurMappers::createUtilisateurItem)
                 .toList();
+    }
+
+    private static Specification<Utilisateur> contient(String attribut, String valeur) {
+        if (valeur == null || valeur.isBlank()) {
+            return Specification.unrestricted();
+        }
+        var motif = "%" + valeur.toLowerCase() + "%";
+        return (root, query, cb) -> cb.like(cb.lower(root.get(attribut)), motif);
+    }
+
+    private static Specification<Utilisateur> egal(String attribut, Object valeur) {
+        if (valeur == null) {
+            return Specification.unrestricted();
+        }
+        return (root, query, cb) -> cb.equal(root.get(attribut), valeur);
     }
 
     @Override
